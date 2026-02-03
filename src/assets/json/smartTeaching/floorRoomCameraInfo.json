@@ -1,0 +1,1191 @@
+[
+  {
+    "buildId": "141",
+    "floorId": 5,
+    "roomId": "374",
+    "cameraInfo": { "center_coord": "121.499809,31.296815", "coord_z": "27.6", "arm_distance": "4", "pitch": "21", "yaw": "235.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 5,
+    "roomId": "247",
+    "cameraInfo": { "center_coord": "121.499901,31.296839", "coord_z": "27.599987", "arm_distance": "6.841543", "pitch": "13.869629", "yaw": "248.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 5,
+    "roomId": "313",
+    "cameraInfo": { "center_coord": "121.500023,31.296875", "coord_z": "27.599987", "arm_distance": "5.494536", "pitch": "16.523132", "yaw": "252.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 5,
+    "roomId": "449",
+    "cameraInfo": { "center_coord": "121.499985,31.296961", "coord_z": "27.599987", "arm_distance": "6.357703", "pitch": "9.175598", "yaw": "76.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 5,
+    "roomId": "368",
+    "cameraInfo": { "center_coord": "121.500107,31.296997", "coord_z": "27.599987", "arm_distance": "5.266989", "pitch": "8.0", "yaw": "75.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 5,
+    "roomId": "254",
+    "cameraInfo": { "center_coord": "121.500151,31.296919", "coord_z": "27.599987", "arm_distance": "4.957544", "pitch": "18.580444", "yaw": "257.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 5,
+    "roomId": "251",
+    "cameraInfo": { "center_coord": "121.500267,31.296957", "coord_z": "27.599987", "arm_distance": "5.175583", "pitch": "8.0", "yaw": "247.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 5,
+    "roomId": "630",
+    "cameraInfo": { "center_coord": "121.500381,31.296991", "coord_z": "27.599987", "arm_distance": "4.673759", "pitch": "8.0", "yaw": "251.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 5,
+    "roomId": "418",
+    "cameraInfo": { "center_coord": "121.500305,31.297169", "coord_z": "27.599987", "arm_distance": "5.055394", "pitch": "17.992706", "yaw": "252.0" }
+  },
+
+  {
+    "buildId": "141",
+    "floorId": 4,
+    "roomId": "297",
+    "cameraInfo": { "center_coord": "121.499809,31.296818", "coord_z": "23.599886", "arm_distance": "3.38171", "pitch": "13.878021", "yaw": "255.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 4,
+    "roomId": "298",
+    "cameraInfo": { "center_coord": "121.499733,31.297029", "coord_z": "23.599886", "arm_distance": "8.654169", "pitch": "23.280701", "yaw": "68.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 4,
+    "roomId": "296",
+    "cameraInfo": { "center_coord": "121.499901,31.296839", "coord_z": "23.599886", "arm_distance": "5.855405", "pitch": "21.51947", "yaw": "252.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 4,
+    "roomId": "444",
+    "cameraInfo": { "center_coord": "121.500023,31.296875", "coord_z": "23.599886", "arm_distance": "6.384313", "pitch": "10.939026", "yaw": "253.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 4,
+    "roomId": "519",
+    "cameraInfo": { "center_coord": "121.499985,31.296961", "coord_z": "23.599886", "arm_distance": "5.453846", "pitch": "8.0", "yaw": "74.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 4,
+    "roomId": "649",
+    "cameraInfo": { "center_coord": "121.500107,31.296997", "coord_z": "23.599886", "arm_distance": "4.538204", "pitch": "8.0", "yaw": "76.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 4,
+    "roomId": "481",
+    "cameraInfo": { "center_coord": "121.500137,31.296911", "coord_z": "23.599886", "arm_distance": "7.289645", "pitch": "22.107208", "yaw": "251.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 4,
+    "roomId": "518",
+    "cameraInfo": { "center_coord": "121.500288,31.296957", "coord_z": "23.599886", "arm_distance": "4.463277", "pitch": "12.702393", "yaw": "242.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 4,
+    "roomId": "517",
+    "cameraInfo": { "center_coord": "121.500381,31.296991", "coord_z": "23.599886", "arm_distance": "4.021378", "pitch": "11.820679", "yaw": "251.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 4,
+    "roomId": "567",
+    "cameraInfo": { "center_coord": "121.500305,31.297169", "coord_z": "23.599886", "arm_distance": "4.846614", "pitch": "20.343811", "yaw": "248.0" }
+  },
+
+  {
+    "buildId": "141",
+    "floorId": 3,
+    "roomId": "329",
+    "cameraInfo": { "center_coord": "121.499733,31.297029", "coord_z": "19.599451", "arm_distance": "7.732169", "pitch": "27.983124", "yaw": "70.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 3,
+    "roomId": "247",
+    "cameraInfo": { "center_coord": "121.499901,31.296839", "coord_z": "19.599451", "arm_distance": "6.439248", "pitch": "8.0", "yaw": "252.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 3,
+    "roomId": "374",
+    "cameraInfo": { "center_coord": "121.499809,31.296828", "coord_z": "19.599451", "arm_distance": "3.325122", "pitch": "15.935303", "yaw": "264.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 3,
+    "roomId": "472",
+    "cameraInfo": { "center_coord": "121.499985,31.296961", "coord_z": "19.599451", "arm_distance": "5.736191", "pitch": "17.69873", "yaw": "71.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 3,
+    "roomId": "473",
+    "cameraInfo": { "center_coord": "121.500023,31.296875", "coord_z": "19.599451", "arm_distance": "5.874268", "pitch": "10.057373", "yaw": "249.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 3,
+    "roomId": "474",
+    "cameraInfo": { "center_coord": "121.499901, 31.296839", "coord_z": "19.599451", "arm_distance": "5.874268", "pitch": "10.057373", "yaw": "249.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 3,
+    "roomId": "533",
+    "cameraInfo": { "center_coord": "121.500137,31.296911", "coord_z": "19.599451", "arm_distance": "5.850227", "pitch": "14.751526", "yaw": "252.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 3,
+    "roomId": "292",
+    "cameraInfo": { "center_coord": "121.500107,31.296997", "coord_z": "19.599451", "arm_distance": "6.342279", "pitch": "8.0", "yaw": "68.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 3,
+    "roomId": "440",
+    "cameraInfo": { "center_coord": "121.500267,31.296957", "coord_z": "19.599451", "arm_distance": "4.321098", "pitch": "8.293884", "yaw": "249.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 3,
+    "roomId": "529",
+    "cameraInfo": { "center_coord": "121.500381,31.296991", "coord_z": "19.599451", "arm_distance": "5.093763", "pitch": "10.939026", "yaw": "253.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 3,
+    "roomId": "528",
+    "cameraInfo": { "center_coord": "121.500305,31.297169", "coord_z": "19.599451", "arm_distance": "5.056299", "pitch": "21.813293", "yaw": "258.0" }
+  },
+
+  {
+    "buildId": "141",
+    "floorId": 2,
+    "roomId": "300",
+    "cameraInfo": { "center_coord": "121.499811,31.297055", "coord_z": "15.599834", "arm_distance": "17.637218", "pitch": "26.606812", "yaw": "69.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 2,
+    "roomId": "299",
+    "cameraInfo": { "center_coord": "121.499809,31.296818", "coord_z": "15.599834", "arm_distance": "3.840351", "pitch": "15.053589", "yaw": "252.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 2,
+    "roomId": "216",
+    "cameraInfo": { "center_coord": "121.499901,31.296839", "coord_z": "15.599834", "arm_distance": "4.509177", "pitch": "14.759674", "yaw": "340.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 2,
+    "roomId": "543",
+    "cameraInfo": { "center_coord": "121.499985,31.296961", "coord_z": "15.599834", "arm_distance": "3.517366", "pitch": "10.645081", "yaw": "164.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 2,
+    "roomId": "150",
+    "cameraInfo": { "center_coord": "121.500023,31.296875", "coord_z": "15.599834", "arm_distance": "4.063085", "pitch": "14.759705", "yaw": "345.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 2,
+    "roomId": "183",
+    "cameraInfo": {
+      "center_coord": "121.500117,31.296917",
+      "coord_z": "15.599834",
+      "arm_distance": "5.557118",
+      "pitch": "20.943756",
+      "yaw": "338.0"
+    }
+  },
+  {
+    "buildId": "141",
+    "floorId": 2,
+    "roomId": "580",
+    "cameraInfo": { "center_coord": "121.500107,31.296997", "coord_z": "15.599834", "arm_distance": "3.498138", "pitch": "18.286499", "yaw": "160.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 2,
+    "roomId": "579",
+    "cameraInfo": { "center_coord": "121.500267,31.296957", "coord_z": "15.599834", "arm_distance": "3.572098", "pitch": "15.05365", "yaw": "335.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 2,
+    "roomId": "578",
+    "cameraInfo": { "center_coord": "121.500381,31.296991", "coord_z": "15.599834", "arm_distance": "4.17264", "pitch": "14.46579", "yaw": "250.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 2,
+    "roomId": "577",
+    "cameraInfo": { "center_coord": "121.500305,31.297169", "coord_z": "15.599834", "arm_distance": "5.259595", "pitch": "17.404663", "yaw": "257.0" }
+  },
+
+  {
+    "buildId": "141",
+    "floorId": 1,
+    "roomId": "576",
+    "cameraInfo": { "center_coord": "121.499733,31.297029", "coord_z": "11.599851", "arm_distance": "8.733118", "pitch": "24.750397", "yaw": "69.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 1,
+    "roomId": "342",
+    "cameraInfo": { "center_coord": "121.499848,31.296828", "coord_z": "11.599851", "arm_distance": "3.456701", "pitch": "17.698792", "yaw": "336.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 1,
+    "roomId": "2513",
+    "cameraInfo": { "center_coord": "121.499886,31.296841", "coord_z": "11.599851", "arm_distance": "4.207118", "pitch": "15.935364", "yaw": "161.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 1,
+    "roomId": "249",
+    "cameraInfo": { "center_coord": "121.500023,31.296875", "coord_z": "11.599851", "arm_distance": "6.127639", "pitch": "18.572144", "yaw": "253.0" }
+  },
+  {
+    "buildId": "141",
+    "floorId": 1,
+    "roomId": "348",
+    "cameraInfo": {
+      "center_coord": "121.499985,31.296961",
+      "coord_z": "11.599851",
+      "arm_distance": "3.914946",
+      "pitch": "8.585754",
+      "yaw": "69.0"
+    }
+  },
+  {
+    "buildId": "141",
+    "floorId": 1,
+    "roomId": "475",
+    "cameraInfo": {
+      "center_coord": "121.499801,31.296810",
+      "coord_z": "19.599451",
+      "arm_distance": "4.969675",
+      "pitch": "13.662994",
+      "yaw": "226.0"
+    }
+  },
+  {
+    "buildId": "141",
+    "floorId": 3,
+    "roomId": "2515",
+    "cameraInfo": {
+      "center_coord": "121.499747,31.297268",
+      "coord_z": "10.0",
+      "arm_distance": "32.165905",
+      "pitch": "19.975586",
+      "yaw": "341.0"
+    }
+  },
+  {
+    "buildId": "141",
+    "floorId": 4,
+    "roomId": "2514",
+    "cameraInfo": {
+      "center_coord": "121.499840,31.297033",
+      "coord_z": "23.599886",
+      "arm_distance": "3.627043",
+      "pitch": "16.94458",
+      "yaw": "341.0"
+    }
+  },
+  {
+    "buildId": "141",
+    "floorId": 1,
+    "roomId": "349",
+    "cameraInfo": {
+      "center_coord": "121.500031,31.296880",
+      "coord_z": "11.599851",
+      "arm_distance": "4.934319",
+      "pitch": "15.66449",
+      "yaw": "253.0"
+    }
+  },
+  {
+    "buildId": "141",
+    "floorId": 1,
+    "roomId": "458",
+    "cameraInfo": {
+      "center_coord": "121.500107,31.296997",
+      "coord_z": "11.599851",
+      "arm_distance": "4.986209",
+      "pitch": "13.290222",
+      "yaw": "74.0"
+    }
+  },
+  {
+    "buildId": "141",
+    "floorId": 1,
+    "roomId": "321",
+    "cameraInfo": {
+      "center_coord": "121.500137,31.296911",
+      "coord_z": "11.599851",
+      "arm_distance": "6.7402",
+      "pitch": "16.523193",
+      "yaw": "254.0"
+    }
+  },
+  {
+    "buildId": "141",
+    "floorId": 1,
+    "roomId": "457",
+    "cameraInfo": {
+      "center_coord": "121.500267,31.296957",
+      "coord_z": "11.599851",
+      "arm_distance": "6.596972",
+      "pitch": "8.881714",
+      "yaw": "249.0"
+    }
+  },
+  {
+    "buildId": "141",
+    "floorId": 1,
+    "roomId": "594",
+    "cameraInfo": {
+      "center_coord": "121.500381,31.296991",
+      "coord_z": "11.599851",
+      "arm_distance": "4.99482",
+      "pitch": "12.702454",
+      "yaw": "250.0"
+    }
+  },
+  {
+    "buildId": "141",
+    "floorId": 1,
+    "roomId": "468",
+    "cameraInfo": {
+      "center_coord": "121.500305,31.297169",
+      "coord_z": "11.599851",
+      "arm_distance": "4.71073",
+      "pitch": "22.695007",
+      "yaw": "256.0"
+    }
+  },
+
+  {
+    "buildId": "140",
+    "floorId": 4,
+    "roomId": "345",
+    "cameraInfo": {
+      "center_coord": "121.499565,31.297337",
+      "coord_z": "23.418789",
+      "arm_distance": "4.891638",
+      "pitch": "13.290283",
+      "yaw": "69.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 4,
+    "roomId": "335",
+    "cameraInfo": {
+      "center_coord": "121.499649,31.297363",
+      "coord_z": "23.418789",
+      "arm_distance": "4.630484",
+      "pitch": "13.878021",
+      "yaw": "71.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 4,
+    "roomId": "119",
+    "cameraInfo": {
+      "center_coord": "121.499591,31.297269",
+      "coord_z": "23.418789",
+      "arm_distance": "4.189571",
+      "pitch": "18.874268",
+      "yaw": "74.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 4,
+    "roomId": "434",
+    "cameraInfo": {
+      "center_coord": "121.499680,31.297295",
+      "coord_z": "23.418789",
+      "arm_distance": "4.54473",
+      "pitch": "12.408478",
+      "yaw": "71.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 4,
+    "roomId": "219",
+    "cameraInfo": {
+      "center_coord": "121.499817,31.297436",
+      "coord_z": "23.418789",
+      "arm_distance": "4.515407",
+      "pitch": "15.641418",
+      "yaw": "71.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 4,
+    "roomId": "196",
+    "cameraInfo": {
+      "center_coord": "121.499825,31.297367",
+      "coord_z": "23.418789",
+      "arm_distance": "4.245964",
+      "pitch": "21.225586",
+      "yaw": "252.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 4,
+    "roomId": "328",
+    "cameraInfo": {
+      "center_coord": "121.499886,31.297384",
+      "coord_z": "23.418789",
+      "arm_distance": "3.660893",
+      "pitch": "15.053619",
+      "yaw": "251.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 4,
+    "roomId": "148",
+    "cameraInfo": {
+      "center_coord": "121.499939,31.297401",
+      "coord_z": "23.418789",
+      "arm_distance": "4.035642",
+      "pitch": "24.752289",
+      "yaw": "250.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 4,
+    "roomId": "151",
+    "cameraInfo": {
+      "center_coord": "121.499901,31.297462",
+      "coord_z": "23.418789",
+      "arm_distance": "4.693453",
+      "pitch": "18.284241",
+      "yaw": "74.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 4,
+    "roomId": "147",
+    "cameraInfo": {
+      "center_coord": "121.499969,31.297483",
+      "coord_z": "23.418789",
+      "arm_distance": "3.667642",
+      "pitch": "23.574707",
+      "yaw": "70.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 4,
+    "roomId": "170",
+    "cameraInfo": {
+      "center_coord": "121.500076,31.297470",
+      "coord_z": "23.418789",
+      "arm_distance": "3.495843",
+      "pitch": "15.053589",
+      "yaw": "255.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 4,
+    "roomId": "211",
+    "cameraInfo": {
+      "center_coord": "121.500137,31.297487",
+      "coord_z": "23.418789",
+      "arm_distance": "3.411196",
+      "pitch": "16.229187",
+      "yaw": "251.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 4,
+    "roomId": "541",
+    "cameraInfo": {
+      "center_coord": "121.500191,31.297504",
+      "coord_z": "23.418789",
+      "arm_distance": "3.175697",
+      "pitch": "21.51947",
+      "yaw": "254.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 4,
+    "roomId": "169",
+    "cameraInfo": {
+      "center_coord": "121.500046,31.297533",
+      "coord_z": "23.418789",
+      "arm_distance": "3.746021",
+      "pitch": "24.156097",
+      "yaw": "73.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 4,
+    "roomId": "479",
+    "cameraInfo": {
+      "center_coord": "121.500108,31.297547",
+      "coord_z": "23.418789",
+      "arm_distance": "3.859461",
+      "pitch": "18.580505",
+      "yaw": "81.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 3,
+    "roomId": "647",
+    "cameraInfo": {
+      "center_coord": "121.499565,31.297337",
+      "coord_z": "19.359991",
+      "arm_distance": "5.578231",
+      "pitch": "20.637726",
+      "yaw": "72.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 3,
+    "roomId": "626",
+    "cameraInfo": {
+      "center_coord": "121.499649,31.297363",
+      "coord_z": "19.359991",
+      "arm_distance": "5.577811",
+      "pitch": "19.753906",
+      "yaw": "77.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 3,
+    "roomId": "642",
+    "cameraInfo": {
+      "center_coord": "121.499599,31.297269",
+      "coord_z": "19.359991",
+      "arm_distance": "4.092907",
+      "pitch": "20.049927",
+      "yaw": "257.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 3,
+    "roomId": "2853",
+    "cameraInfo": {
+      "center_coord": "121.499664,31.297287",
+      "coord_z": "19.359991",
+      "arm_distance": "3.61424",
+      "pitch": "18.278015",
+      "yaw": "160.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 3,
+    "roomId": "639",
+    "cameraInfo": {
+      "center_coord": "121.499733,31.297308",
+      "coord_z": "19.359991",
+      "arm_distance": "4.845885",
+      "pitch": "11.224731",
+      "yaw": "250.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 3,
+    "roomId": "209",
+    "cameraInfo": {
+      "center_coord": "121.499817,31.297436",
+      "coord_z": "19.359991",
+      "arm_distance": "4.95625",
+      "pitch": "18.278137",
+      "yaw": "70.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 3,
+    "roomId": "522",
+    "cameraInfo": {
+      "center_coord": "121.499901,31.297462",
+      "coord_z": "19.359991",
+      "arm_distance": "5.321035",
+      "pitch": "15.932556",
+      "yaw": "69.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 3,
+    "roomId": "370",
+    "cameraInfo": {
+      "center_coord": "121.499969,31.297483",
+      "coord_z": "19.359991",
+      "arm_distance": "3.975094",
+      "pitch": "18.874329",
+      "yaw": "70.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 3,
+    "roomId": "235",
+    "cameraInfo": {
+      "center_coord": "121.499840,31.297367",
+      "coord_z": "19.359991",
+      "arm_distance": "4.98189",
+      "pitch": "11.526855",
+      "yaw": "252.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 3,
+    "roomId": "205",
+    "cameraInfo": {
+      "center_coord": "121.499916,31.297388",
+      "coord_z": "19.359991",
+      "arm_distance": "3.872598",
+      "pitch": "22.392822",
+      "yaw": "157.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 3,
+    "roomId": "401",
+    "cameraInfo": {
+      "center_coord": "121.499985,31.297409",
+      "coord_z": "19.359991",
+      "arm_distance": "4.83251",
+      "pitch": "16.229248",
+      "yaw": "249.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 3,
+    "roomId": "516",
+    "cameraInfo": {
+      "center_coord": "121.500100,31.297471",
+      "coord_z": "19.359991",
+      "arm_distance": "4.783175",
+      "pitch": "13.878052",
+      "yaw": "253.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 3,
+    "roomId": "622",
+    "cameraInfo": {
+      "center_coord": "121.500160,31.297489",
+      "coord_z": "19.359991",
+      "arm_distance": "3.832626",
+      "pitch": "22.695068",
+      "yaw": "167.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 3,
+    "roomId": "588",
+    "cameraInfo": {
+      "center_coord": "121.500237,31.297510",
+      "coord_z": "19.359991",
+      "arm_distance": "4.843787",
+      "pitch": "8.881805",
+      "yaw": "249.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 3,
+    "roomId": "330",
+    "cameraInfo": {
+      "center_coord": "121.500046,31.297533",
+      "coord_z": "19.359991",
+      "arm_distance": "3.54244",
+      "pitch": "18.580444",
+      "yaw": "66.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 3,
+    "roomId": "587",
+    "cameraInfo": {
+      "center_coord": "121.500397,31.297588",
+      "coord_z": "22.09586",
+      "arm_distance": "10.189343",
+      "pitch": "8.0",
+      "yaw": "343.0"
+    }
+  },
+
+  {
+    "buildId": "140",
+    "floorId": 2,
+    "roomId": "492",
+    "cameraInfo": {
+      "center_coord": "121.499550,31.297333",
+      "coord_z": "15.618931",
+      "arm_distance": "3.795707",
+      "pitch": "21.217133",
+      "yaw": "69.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 2,
+    "roomId": "583",
+    "cameraInfo": {
+      "center_coord": "121.499603,31.297350",
+      "coord_z": "15.618931",
+      "arm_distance": "3.373211",
+      "pitch": "17.10257",
+      "yaw": "75.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 2,
+    "roomId": "182",
+    "cameraInfo": {
+      "center_coord": "121.499664,31.297367",
+      "coord_z": "15.618931",
+      "arm_distance": "3.523569",
+      "pitch": "15.935211",
+      "yaw": "81.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 2,
+    "roomId": "919",
+    "cameraInfo": {
+      "center_coord": "121.499611,31.297262",
+      "coord_z": "15.618928",
+      "arm_distance": "5.377614",
+      "pitch": "11.820679",
+      "yaw": "247.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 2,
+    "roomId": "582",
+    "cameraInfo": {
+      "center_coord": "121.499725,31.297297",
+      "coord_z": "15.618928",
+      "arm_distance": "5.71599",
+      "pitch": "9.469543",
+      "yaw": "247.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 2,
+    "roomId": "530",
+    "cameraInfo": {
+      "center_coord": "121.499863,31.297365",
+      "coord_z": "15.618931",
+      "arm_distance": "5.63298",
+      "pitch": "9.167297",
+      "yaw": "252.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 2,
+    "roomId": "133",
+    "cameraInfo": {
+      "center_coord": "121.499969,31.297400",
+      "coord_z": "15.618931",
+      "arm_distance": "6.213976",
+      "pitch": "8.0",
+      "yaw": "253.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 2,
+    "roomId": "531",
+    "cameraInfo": {
+      "center_coord": "121.499802,31.297432",
+      "coord_z": "15.618931",
+      "arm_distance": "3.996778",
+      "pitch": "14.759644",
+      "yaw": "66.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 2,
+    "roomId": "371",
+    "cameraInfo": {
+      "center_coord": "121.499856,31.297448",
+      "coord_z": "15.618931",
+      "arm_distance": "3.885511",
+      "pitch": "15.641418",
+      "yaw": "73.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 2,
+    "roomId": "526",
+    "cameraInfo": {
+      "center_coord": "121.499913,31.297468",
+      "coord_z": "15.618931",
+      "arm_distance": "3.666641",
+      "pitch": "16.523102",
+      "yaw": "70.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 2,
+    "roomId": "445",
+    "cameraInfo": {
+      "center_coord": "121.500107,31.297466",
+      "coord_z": "15.618931",
+      "arm_distance": "4.769075",
+      "pitch": "9.763306",
+      "yaw": "252.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 2,
+    "roomId": "381",
+    "cameraInfo": {
+      "center_coord": "121.500221,31.297501",
+      "coord_z": "15.618931",
+      "arm_distance": "5.561924",
+      "pitch": "12.702393",
+      "yaw": "252.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 2,
+    "roomId": "294",
+    "cameraInfo": {
+      "center_coord": "121.500046,31.297533",
+      "coord_z": "15.618931",
+      "arm_distance": "3.079842",
+      "pitch": "14.171875",
+      "yaw": "72.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 2,
+    "roomId": "391",
+    "cameraInfo": {
+      "center_coord": "121.500435,31.297552",
+      "coord_z": "15.618931",
+      "arm_distance": "7.359211",
+      "pitch": "13.2901",
+      "yaw": "255.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 2,
+    "roomId": "233",
+    "cameraInfo": {
+      "center_coord": "121.500366,31.297651",
+      "coord_z": "15.618931",
+      "arm_distance": "4.893394",
+      "pitch": "17.992676",
+      "yaw": "161.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 2,
+    "roomId": "487",
+    "cameraInfo": {
+      "center_coord": "121.500427,31.297668",
+      "coord_z": "15.618931",
+      "arm_distance": "5.549007",
+      "pitch": "15.927002",
+      "yaw": "160.0"
+    }
+  },
+
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "485",
+    "cameraInfo": {
+      "center_coord": "121.499565,31.297337",
+      "coord_z": "11.618921",
+      "arm_distance": "5.241432",
+      "pitch": "13.584106",
+      "yaw": "75.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "188",
+    "cameraInfo": {
+      "center_coord": "121.499649,31.297361",
+      "coord_z": "11.618921",
+      "arm_distance": "5.227034",
+      "pitch": "13.288147",
+      "yaw": "69.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "486",
+    "cameraInfo": {
+      "center_coord": "121.499611,31.297262",
+      "coord_z": "11.618921",
+      "arm_distance": "5.604418",
+      "pitch": "11.526794",
+      "yaw": "253.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "532",
+    "cameraInfo": {
+      "center_coord": "121.499725,31.297297",
+      "coord_z": "11.618921",
+      "arm_distance": "5.679337",
+      "pitch": "11.518402",
+      "yaw": "254.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "187",
+    "cameraInfo": {
+      "center_coord": "121.499817,31.297436",
+      "coord_z": "11.618921",
+      "arm_distance": "5.092309",
+      "pitch": "17.992615",
+      "yaw": "72.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "471",
+    "cameraInfo": {
+      "center_coord": "121.499863,31.297365",
+      "coord_z": "11.618921",
+      "arm_distance": "5.602756",
+      "pitch": "9.175537",
+      "yaw": "249.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "430",
+    "cameraInfo": {
+      "center_coord": "121.499969,31.297400",
+      "coord_z": "11.618921",
+      "arm_distance": "5.834619",
+      "pitch": "9.175598",
+      "yaw": "255.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "431",
+    "cameraInfo": {
+      "center_coord": "121.499926,31.297477",
+      "coord_z": "11.618921",
+      "arm_distance": "7.223264",
+      "pitch": "10.351196",
+      "yaw": "66.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "608",
+    "cameraInfo": {
+      "center_coord": "121.500107,31.297466",
+      "coord_z": "11.618921",
+      "arm_distance": "5.484454",
+      "pitch": "10.351257",
+      "yaw": "252.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "138",
+    "cameraInfo": {
+      "center_coord": "121.500221,31.297501",
+      "coord_z": "11.618921",
+      "arm_distance": "5.661973",
+      "pitch": "11.224579",
+      "yaw": "252.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "609",
+    "cameraInfo": {
+      "center_coord": "121.500046,31.297533",
+      "coord_z": "11.618921",
+      "arm_distance": "3.649957",
+      "pitch": "9.469543",
+      "yaw": "253.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "506",
+    "cameraInfo": {
+      "center_coord": "121.500412,31.297537",
+      "coord_z": "11.618921",
+      "arm_distance": "6.277331",
+      "pitch": "14.171906",
+      "yaw": "68.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "2850",
+    "cameraInfo": {
+      "center_coord": "121.500417,31.297667",
+      "coord_z": "11.618921",
+      "arm_distance": "4.744891",
+      "pitch": "13.565369",
+      "yaw": "254.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "314",
+    "cameraInfo": {
+      "center_coord": "121.500345,31.297639",
+      "coord_z": "11.618921",
+      "arm_distance": "6.884907",
+      "pitch": "15.385468",
+      "yaw": "75.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "625",
+    "cameraInfo": {
+      "center_coord": "121.500107,31.297550",
+      "coord_z": "11.618921",
+      "arm_distance": "3.532073",
+      "pitch": "18.910065",
+      "yaw": "111.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "568",
+    "cameraInfo": {
+      "center_coord": "121.500304,31.297629",
+      "coord_z": "15.618931",
+      "arm_distance": "5.661288",
+      "pitch": "17.99267",
+      "yaw": "161.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "2851",
+    "cameraInfo": {
+      "center_coord": "121.500299,31.297507",
+      "coord_z": "15.618931",
+      "arm_distance": "5.544105",
+      "pitch": "17.992664",
+      "yaw": "161.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "2852",
+    "cameraInfo": {
+      "center_coord": "121.500303,31.297507",
+      "coord_z": "19.359991",
+      "arm_distance": "6.291419",
+      "pitch": "16.898956",
+      "yaw": "162.0"
+    }
+  },
+  {
+    "buildId": "140",
+    "floorId": 1,
+    "roomId": "317",
+    "cameraInfo": {
+      "center_coord": "121.499605,31.297270",
+      "coord_z": "19.359991",
+      "arm_distance": "4.073317",
+      "pitch": "14.233093",
+      "yaw": "250.0"
+    }
+  }
+]

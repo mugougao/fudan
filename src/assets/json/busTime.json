@@ -1,0 +1,731 @@
+[
+  {
+    "Id": 0,
+    "mc": "邯郸-江湾",
+    "workDay": [
+      {
+        "time": "7:00",
+        "direction": "right"
+      },
+      {
+        "time": "7:10",
+        "direction": "left"
+      },
+      {
+        "time": "7:20",
+        "direction": "left"
+      },
+      {
+        "time": "7:30",
+        "direction": "both"
+      },
+      {
+        "time": "7:40",
+        "direction": "both"
+      },
+      {
+        "time": "7:50",
+        "direction": "left"
+      },
+      {
+        "time": "8:00",
+        "direction": "both"
+      },
+      {
+        "time": "8:15",
+        "direction": "both"
+      },
+      {
+        "time": "8:30",
+        "direction": "both"
+      },
+      {
+        "time": "8:45",
+        "direction": "left"
+      },
+      {
+        "time": "9:00",
+        "direction": "both"
+      },
+      {
+        "time": "9:15",
+        "direction": "left"
+      },
+      {
+        "time": "9:30",
+        "direction": "both"
+      },
+      {
+        "time": "10:00",
+        "direction": "both"
+      },
+      {
+        "time": "10:20",
+        "direction": "right"
+      },
+      {
+        "time": "10:30",
+        "direction": "left"
+      },
+      {
+        "time": "11:00",
+        "direction": "right"
+      },
+      {
+        "time": "11:10",
+        "direction": "left"
+      },
+      {
+        "time": "11:30",
+        "direction": "right"
+      },
+      {
+        "time": "11:40",
+        "direction": "left"
+      },
+      {
+        "time": "11:45",
+        "direction": "right"
+      },
+      {
+        "time": "12:00",
+        "direction": "both"
+      },
+      {
+        "time": "12:15",
+        "direction": "left"
+      },
+      {
+        "time": "12:30",
+        "direction": "both"
+      },
+      {
+        "time": "12:40",
+        "direction": "left"
+      },
+      {
+        "time": "13:00",
+        "direction": "both"
+      },
+      {
+        "time": "13:30",
+        "direction": "both"
+      },
+      {
+        "time": "14:00",
+        "direction": "both"
+      },
+      {
+        "time": "14:30",
+        "direction": "right"
+      },
+      {
+        "time": "14:45",
+        "direction": "left"
+      },
+      {
+        "time": "15:00",
+        "direction": "right"
+      },
+      {
+        "time": "15:15",
+        "direction": "left"
+      },
+      {
+        "time": "15:30",
+        "direction": "both"
+      },
+      {
+        "time": "16:00",
+        "direction": "both"
+      },
+      {
+        "time": "16:20",
+        "direction": "right"
+      },
+      {
+        "time": "16:30",
+        "direction": "both"
+      },
+      {
+        "time": "17:00",
+        "direction": "both"
+      },
+      {
+        "time": "17:10",
+        "direction": "left"
+      },
+      {
+        "time": "17:15",
+        "direction": "right"
+      },
+      {
+        "time": "17:25",
+        "direction": "right"
+      },
+      {
+        "time": "17:30",
+        "direction": "left"
+      },
+      {
+        "time": "17:35",
+        "direction": "right"
+      },
+      {
+        "time": "17:45",
+        "direction": "right"
+      },
+      {
+        "time": "18:00",
+        "direction": "both"
+      },
+      {
+        "time": "18:30",
+        "direction": "right"
+      },
+      {
+        "time": "19:00",
+        "direction": "left"
+      },
+      {
+        "time": "20:00",
+        "direction": "both"
+      },
+      {
+        "time": "20:20",
+        "direction": "right"
+      },
+      {
+        "time": "20:30",
+        "direction": "left"
+      },
+      {
+        "time": "20:50",
+        "direction": "right"
+      },
+      {
+        "time": "21:00",
+        "direction": "both"
+      },
+      {
+        "time": "21:20",
+        "direction": "both"
+      },
+      {
+        "time": "21:40",
+        "direction": "right"
+      },
+      {
+        "time": "21:45",
+        "direction": "left"
+      },
+      {
+        "time": "22:00",
+        "direction": "right"
+      },
+      {
+        "time": "22:10",
+        "direction": "left"
+      },
+      {
+        "time": "22:15",
+        "direction": "right"
+      },
+      {
+        "time": "22:30",
+        "direction": "both"
+      }
+    ],
+    "notWorkDay": [
+      {
+        "time": "7:40",
+        "direction": "both"
+      },
+      {
+        "time": "8:00",
+        "direction": "left"
+      },
+      {
+        "time": "8:20",
+        "direction": "both"
+      },
+      {
+        "time": "8:40",
+        "direction": "both"
+      },
+      {
+        "time": "9:00",
+        "direction": "both"
+      },
+      {
+        "time": "9:20",
+        "direction": "both"
+      },
+      {
+        "time": "9:40",
+        "direction": "both"
+      },
+      {
+        "time": "10:00",
+        "direction": "right"
+      },
+      {
+        "time": "10:20",
+        "direction": "left"
+      },
+      {
+        "time": "10:50",
+        "direction": "right"
+      },
+      {
+        "time": "11:50",
+        "direction": "left"
+      },
+      {
+        "time": "12:20",
+        "direction": "right"
+      },
+      {
+        "time": "14:30",
+        "direction": "left"
+      },
+      {
+        "time": "15:00",
+        "direction": "right"
+      },
+      {
+        "time": "16:30",
+        "direction": "left"
+      },
+      {
+        "time": "17:00",
+        "direction": "right"
+      },
+      {
+        "time": "17:30",
+        "direction": "left"
+      },
+      {
+        "time": "20:15",
+        "direction": "right"
+      },
+      {
+        "time": "20:40",
+        "direction": "left"
+      },
+      {
+        "time": "21:00",
+        "direction": "right"
+      },
+      {
+        "time": "21:20",
+        "direction": "left"
+      },
+      {
+        "time": "21:45",
+        "direction": "right"
+      },
+      {
+        "time": "22:10",
+        "direction": "left"
+      },
+      {
+        "time": "22:30",
+        "direction": "both"
+      }
+    ]
+  },
+  {
+    "Id": 1,
+    "mc": "邯郸-枫林",
+    "workDay": [
+      {
+        "time": "6:55",
+        "direction": "right"
+      },
+      {
+        "time": "7:10",
+        "direction": "both"
+      },
+      {
+        "time": "7:20",
+        "direction": "left"
+      },
+      {
+        "time": "8:15",
+        "direction": "both"
+      },
+      {
+        "time": "9:15",
+        "direction": "both"
+      },
+      {
+        "time": "10:15",
+        "direction": "right"
+      },
+      {
+        "time": "11:00",
+        "direction": "both"
+      },
+      {
+        "time": "11:45",
+        "direction": "left"
+      },
+      {
+        "time": "12:15",
+        "direction": "left"
+      },
+      {
+        "time": "12:30",
+        "direction": "right"
+      },
+      {
+        "time": "13:00",
+        "direction": "both"
+      },
+      {
+        "time": "14:00",
+        "direction": "both"
+      },
+      {
+        "time": "14:30",
+        "direction": "left"
+      },
+      {
+        "time": "15:30",
+        "direction": "both"
+      },
+      {
+        "time": "16:00",
+        "direction": "both"
+      },
+      {
+        "time": "16:55",
+        "direction": "both"
+      },
+      {
+        "time": "17:10",
+        "direction": "both"
+      },
+      {
+        "time": "17:25",
+        "direction": "left"
+      },
+      {
+        "time": "18:00",
+        "direction": "right"
+      },
+      {
+        "time": "18:20",
+        "direction": "left"
+      },
+      {
+        "time": "19:30",
+        "direction": "right"
+      },
+      {
+        "time": "20:20",
+        "direction": "both"
+      },
+      {
+        "time": "21:15",
+        "direction": "left"
+      },
+      {
+        "time": "21:25",
+        "direction": "right"
+      },
+      {
+        "time": "21:50",
+        "direction": "left"
+      }
+    ],
+    "notWorkDay": [
+      {
+        "time": "8:00",
+        "direction": "right"
+      },
+      {
+        "time": "9:00",
+        "direction": "left"
+      },
+      {
+        "time": "16:30",
+        "direction": "right"
+      },
+      {
+        "time": "17:30",
+        "direction": "left"
+      }
+    ]
+  },
+  {
+    "Id": 2,
+    "mc": "邯郸-张江",
+    "workDay": [
+      {
+        "time": "7:05",
+        "direction": "left"
+      },
+      {
+        "time": "7:10",
+        "direction": "right"
+      },
+      {
+        "time": "7:40",
+        "direction": "right"
+      },
+      {
+        "time": "8:00",
+        "direction": "both"
+      },
+      {
+        "time": "8:30",
+        "direction": "right"
+      },
+      {
+        "time": "8:40",
+        "direction": "left"
+      },
+      {
+        "time": "9:00",
+        "direction": "both"
+      },
+      {
+        "time": "10:00",
+        "direction": "both"
+      },
+      {
+        "time": "11:50",
+        "direction": "both"
+      },
+      {
+        "time": "12:15",
+        "direction": "left"
+      },
+      {
+        "time": "12:30",
+        "direction": "right"
+      },
+      {
+        "time": "12:40",
+        "direction": "left"
+      },
+      {
+        "time": "12:45",
+        "direction": "right"
+      },
+      {
+        "time": "14:15",
+        "direction": "left"
+      },
+      {
+        "time": "14:30",
+        "direction": "right"
+      },
+      {
+        "time": "15:20",
+        "direction": "left"
+      },
+      {
+        "time": "15:30",
+        "direction": "right"
+      },
+      {
+        "time": "15:40",
+        "direction": "left"
+      },
+      {
+        "time": "16:00",
+        "direction": "left"
+      },
+      {
+        "time": "16:15",
+        "direction": "right"
+      },
+      {
+        "time": "16:30",
+        "direction": "left"
+      },
+      {
+        "time": "17:15",
+        "direction": "left"
+      },
+      {
+        "time": "17:20",
+        "direction": "right"
+      },
+      {
+        "time": "17:40",
+        "direction": "left"
+      },
+      {
+        "time": "18:40",
+        "direction": "both"
+      },
+      {
+        "time": "19:40",
+        "direction": "left"
+      },
+      {
+        "time": "20:30",
+        "direction": "right"
+      },
+      {
+        "time": "21:00",
+        "direction": "right"
+      },
+      {
+        "time": "21:20",
+        "direction": "both"
+      },
+      {
+        "time": "21:50",
+        "direction": "left"
+      }
+    ],
+    "notWorkDay": [
+      {
+        "time": "8:30",
+        "direction": "right"
+      },
+      {
+        "time": "9:20",
+        "direction": "left"
+      },
+      {
+        "time": "16:30",
+        "direction": "right"
+      },
+      {
+        "time": "17:30",
+        "direction": "left"
+      }
+    ]
+  },
+  {
+    "Id": 3,
+    "mc": "江湾-张江",
+    "workDay": [
+      {
+        "time": "7:10",
+        "direction": "right"
+      },
+      {
+        "time": "8:45",
+        "direction": "left"
+      },
+      {
+        "time": "12:15",
+        "direction": "right"
+      },
+      {
+        "time": "13:30",
+        "direction": "left"
+      },
+      {
+        "time": "15:45",
+        "direction": "right"
+      },
+      {
+        "time": "17:00",
+        "direction": "left"
+      },
+      {
+        "time": "20:20",
+        "direction": "right"
+      },
+      {
+        "time": "21:15",
+        "direction": "left"
+      }
+    ],
+    "notWorkDay": []
+  },
+  {
+    "Id": 4,
+    "mc": "枫林-张江",
+    "workDay": [
+      {
+        "time": "7:00",
+        "direction": "right"
+      },
+      {
+        "time": "7:30",
+        "direction": "right"
+      },
+      {
+        "time": "7:50",
+        "direction": "left"
+      },
+      {
+        "time": "9:00",
+        "direction": "right"
+      },
+      {
+        "time": "12:15",
+        "direction": "both"
+      },
+      {
+        "time": "14:00",
+        "direction": "right"
+      },
+      {
+        "time": "15:00",
+        "direction": "left"
+      },
+      {
+        "time": "16:30",
+        "direction": "right"
+      },
+      {
+        "time": "16:45",
+        "direction": "left"
+      },
+      {
+        "time": "19:00",
+        "direction": "both"
+      },
+      {
+        "time": "21:20",
+        "direction": "both"
+      }
+    ],
+    "notWorkDay": []
+  },
+  {
+    "Id": 5,
+    "mc": "江湾-枫林",
+    "workDay": [
+      {
+        "time": "6:45",
+        "direction": "right"
+      },
+      {
+        "time": "8:15",
+        "direction": "right"
+      },
+      {
+        "time": "9:00",
+        "direction": "left"
+      },
+      {
+        "time": "12:10",
+        "direction": "right"
+      },
+      {
+        "time": "17:00",
+        "direction": "left"
+      },
+      {
+        "time": "20:25",
+        "direction": "right"
+      },
+      {
+        "time": "21:45",
+        "direction": "left"
+      }
+    ],
+    "notWorkDay": []
+  }
+]

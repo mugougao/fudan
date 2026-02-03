@@ -1,0 +1,55 @@
+@font-face {
+  font-family: "YouSheBiaoTiHei";
+  src: url("https://dt.fudan.edu.cn/assets/fonts/YouSheBiaoTiHei.TTF") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+}
+
+@font-face {
+  font-family: "D-DIN";
+  src: url("https://dt.fudan.edu.cn/assets/fonts/DIN-Bold.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+}
+
+@font-face {
+  font-family: "AlibabaPuHuiTi-3";
+  src: url("https://dt.fudan.edu.cn/assets/fonts/AlibabaPuHuiTi-3-55-RegularL3.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+}
+
+@font-face {
+  font-family: "AlibabaPuHuiTi-3-medium";
+  src: url("https://dt.fudan.edu.cn/assets/fonts/AlibabaPuHuiTi-3-65-Medium.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+}
+
+@font-face {
+  font-family: "AlibabaPuHuiTi-3-bold";
+  src: url("https://dt.fudan.edu.cn/assets/fonts/AlibabaPuHuiTi-3-85-Bold.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+}
+
+@font-face {
+  font-family: "AlimamaShuHeiTi-Bold";
+  font-weight: 700;
+  src:
+    url("https://dt.fudan.edu.cn/assets/fonts/AlimamaShuHeiTi-Bold.woff2") format("woff2"),
+    url("https://dt.fudan.edu.cn/assets/fonts/AlimamaShuHeiTi-Bold.woff") format("woff");
+  font-variation-settings: normal;
+  font-display: swap;
+}
+
+html,
+body {
+  font-family: "AlibabaPuHuiTi-3";
+  font-size: 16px;
+}

@@ -1,0 +1,42 @@
+<script setup lang="ts">
+defineOptions({ name: "BiBigScreen", inheritAttrs: false });
+
+const fullscreenTargetRef = useTemplateRef<HTMLDivElement>("fullscreenTarget");
+const { isFullscreen, toggle } = useFullscreen(fullscreenTargetRef);
+const open = ref(false);
+</script>
+
+<template>
+  <BoxPanel
+    :title="$t('assetMgr.biBigScreen')"
+    class="row-span-9">
+    <div class="group relative wh-full flex cursor-pointer items-center justify-center">
+      <div class="aspect-video w-full bg-gray-900">
+        <img src="@/assets/images/biBigScreen.png" alt="bg" class="h-full w-full object-cover">
+      </div>
+
+      <div
+        class="absolute inset-0 wh-full flex-center bg-gray-500/50 opacity-0 transition-all group-hover:opacity-100"
+        @click="open = true">
+        <i class="i-ri-eye-line text-5xl text-white" />
+      </div>
+    </div>
+    <DragPopup v-model:visible="open" :width="1536" left="auto">
+      <template #title>
+        <div class="flex items-center justify-between">
+          <span>{{ $t('assetMgr.biBigScreen') }}</span>
+          <button type="button" class="flex-center rounded bg-transparent wh-36px hover:bg-white/10" @click="toggle">
+            <i :class="[isFullscreen ? 'i-ri-fullscreen-exit-line' : 'i-ri-fullscreen-line']" />
+          </button>
+        </div>
+      </template>
+      <div ref="fullscreenTarget" class="h-864px bg-gray-900">
+        <iframe src="https://databi.fudan.edu.cn/decision/v5/design/report/c6cb731d03f8418b94f233c8c6958108/view?entryType=7" width="100%" height="100%" />
+      </div>
+    </DragPopup>
+  </BoxPanel>
+</template>
+
+<style scoped lang="scss">
+
+</style>

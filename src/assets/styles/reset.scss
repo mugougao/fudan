@@ -1,0 +1,42 @@
+* {
+  padding: 0;
+  margin: 0;
+  //@apply font-PH_regular;
+}
+
+html,
+body,
+#app {
+  //width: 100%;
+  //min-height: 100%;
+}
+
+a,
+input,
+button,
+canvas,
+textarea {
+  outline: none !important;
+  filter: chroma(color=#000000) !important;
+}
+
+a:focus,
+input:focus,
+textarea:focus,
+button:focus {
+  outline: none !important;
+  filter: chroma(color=#000000) !important;
+}
+
+input[type="password"]::-ms-reveal {
+  display: none;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+}

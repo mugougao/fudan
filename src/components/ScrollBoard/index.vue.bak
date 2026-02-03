@@ -1,0 +1,217 @@
+<script setup lang="ts">
+import type { ComputedRef, VNode } from "vue";
+import get from "lodash/get";
+import TextEllipsisTooltip from "@/components/TextEllipsisTooltip/index.vue";
+
+defineOptions({ name: "ScrollBoard" });
+const props = withDefaults(
+  defineProps<IProps>(),
+  {
+    rowKey: "id",
+    rowSize: 8,
+    hiddenHeader: false,
+    headerClass: "",
+    headerCellClass: "",
+    rowClass: "",
+    rowCellClass: "",
+  },
+);
+
+const emit = defineEmits<{
+  rowClick: [{ row: any; rowIndex: number }];
+  rowCellClick: [{ row: any; rowIndex: number; column: IScrollBoardColumn; columnIndex: number; value: any }];
+}>();
+
+export interface IProps {
+  columns: IScrollBoardColumn[];
+  data: any[];
+  // mode: "single" | "page"; // 模式: single: 单行滚动, page: 整页滚动
+  rowSize?: number;
+  hiddenHeader?: boolean;
+  rowKey?: string; // 主键字段, 默认为 id
+  headerClass?: string;
+  headerCellClass?: string | ((params: { column: IScrollBoardColumn; columnIndex: number }) => string);
+  rowClass?: string | ((params: { row: any; rowIndex: number }) => string);
+  rowCellClass?: string | ((params: { row: any; rowIndex: number; column: IScrollBoardColumn; columnIndex: number }) => string);
+}
+
+export interface IScrollBoardColumn {
+  title: string;
+  field: string;
+  align?: "left" | "center" | "right";
+  width?: number;
+  format?: (params: { value: any; row: any; column: any; rowIndex: number; colIndex: number }) => string | number;
+  ellipsis?: boolean;
+  render?: (params: {
+    value: any;
+    row: any;
+    column: any;
+    rowIndex: number;
+    colIndex: number;
+  }) => string | VNode | VNode[];
+}
+
+// 是否可以滚动
+const isScroll = computed(() => props.data.length > props.rowSize);
+
+function classFunRun(fun: string | ((...args: any[]) => string), ...args: any[]) {
+  if (typeof fun === "function") return fun(...args);
+  return fun;
+}
+
+const scrollBoardContainerRef = ref<HTMLDivElement>();
+const scrollBoardBodyRef = ref<HTMLDivElement>();
+const { width: containerWidth } = useElementSize(scrollBoardContainerRef);
+const { height: bodyHeight } = useElementSize(scrollBoardBodyRef);
+
+// 计算 body 行高
+const rowHeight = computed(() => bodyHeight.value / props.rowSize);
+
+// 计算列宽
+function computeScrollBoardColumnsWidth(columns: IScrollBoardColumn[]): number[] {
+  let noWidthColumnSize = 0;
+  const sumWidth = props.columns.reduce((prev, column) => {
+    if (!column.width)
+      noWidthColumnSize++;
+    return prev + (column.width || 0);
+  }, 0);
+  const remainingWidth = containerWidth.value > sumWidth ? containerWidth.value - sumWidth : 0;
+  const columnWidth = noWidthColumnSize > 0 ? remainingWidth / noWidthColumnSize : 0;
+  return columns.map(column => column.width || columnWidth);
+}
+
+const columnWidths = computed(() => computeScrollBoardColumnsWidth(props.columns));
+
+// 将 props.data 的数据量处理为偶数,这样做是为了防止在做隔行样式的时候, 避免出现奇数行和偶数行的样式不一致的情况
+const list = computed(() => {
+  const data = props.data.map((row, rowIndex) => ({ ...row, __rowIndex__: rowIndex }));
+  const dataLength = data.length;
+  if (dataLength % 2 === 0) return data;
+  return [...data, ...data];
+}) as ComputedRef<any[]>;
+
+const startIndex = ref(0);
+// 获取当前显示的数据
+const displayData = computed(() => {
+  if (!isScroll.value) return list.value.slice(0, props.data.length);
+  const result = list.value.slice(startIndex.value, startIndex.value + props.rowSize);
+  if (result.length < props.rowSize) result.push(...list.value.slice(0, props.rowSize - result.length));
+  return result;
+});
+// 跳过行数
+// const skipNumber = computed(() => props.mode === "single" ? 1 : props.rowSize);
+
+function nextRow() {
+  if (!isScroll.value) return;
+  startIndex.value += 1;
+  if (startIndex.value >= list.value.length) startIndex.value = 0;
+}
+
+function prevRow() {
+  if (!isScroll.value) return;
+  startIndex.value -= 1;
+  if (startIndex.value < 0) startIndex.value = list.value.length - 1;
+}
+
+const { pause, resume, isActive } = useIntervalFn(nextRow, 3000, { immediate: false });
+
+watch(isScroll, () => {
+  if (isScroll.value) {
+    if (!isActive.value) resume();
+  }
+  else {
+    pause();
+  }
+}, { immediate: true });
+
+const wheelHandler = useThrottleFn((e: WheelEvent) => {
+  if (!isScroll.value) return;
+  if (e.deltaY > 0) nextRow();
+  else prevRow();
+}, 500);
+</script>
+
+<template>
+  <section
+    ref="scrollBoardContainerRef"
+    class="scroll-board h-full w-full flex flex-col"
+    @mouseover="pause" @mouseleave="resume"
+    @wheel.prevent.stop="wheelHandler">
+    <header
+      v-if="!hiddenHeader"
+      class="scroll-board-header flex flex-shrink-0" :class="props.headerClass">
+      <div
+        v-for="(column, index) in columns" :key="`${column.field}-${index}`"
+        :style="{ width: `${columnWidths[index]}px`, textAlign: column.align || 'left' }"
+        class="scroll-board-header-cell px-1"
+        :class="classFunRun(props.headerCellClass, { column, columnIndex: index })">
+        {{ column.title }}
+      </div>
+    </header>
+    <TransitionGroup
+      ref="scrollBoardBodyRef" tag="main" name="single"
+      class="scroll-board-body flex-auto overflow-hidden">
+      <div
+        v-for="({ __rowIndex__: rowIndex, ...row }) in displayData" :key="row[props.rowKey]"
+        class="scroll-board-row flex" :class="classFunRun(props.rowClass, { row, rowIndex })"
+        :style="{ height: `${rowHeight}px` }"
+        @click="emit('rowClick', { row, rowIndex })">
+        <div
+          v-for="(column, colIndex) in columns" :key="`${row[props.rowKey]}-${column.field}`"
+          class="scroll-board-cell flex items-center px-1"
+          :class="classFunRun(props.rowCellClass, { row, rowIndex, column, columnIndex: colIndex })"
+          :style="{ width: `${columnWidths[colIndex]}px` }"
+          @click="emit('rowCellClick', { value: get(row, column.field), row, column, rowIndex, columnIndex: colIndex })">
+          <div class="scroll-board-cell-text w-full" :style="{ textAlign: column.align || 'left' }">
+            <slot
+              v-if="$slots[column.field]" :name="column.field"
+              v-bind="{ value: get(row, column.field), row, column, rowIndex, colIndex }" />
+            <template v-else-if="column.render">
+              <Component
+                :is="column.render({ value: get(row, column.field), row, column, rowIndex, colIndex })" />
+            </template>
+            <TextEllipsisTooltip
+              v-else-if="column?.ellipsis" :text="
+                column.format
+                  ? column.format({ value: get(row, column.field), row, column, rowIndex, colIndex })
+                  : get(row, column.field)
+              " />
+            <template v-else>
+              {{
+                column.format
+                  ? column.format({ value: get(row, column.field), row, column, rowIndex, colIndex })
+                  : get(row, column.field)
+              }}
+            </template>
+          </div>
+        </div>
+      </div>
+    </TransitionGroup>
+  </section>
+</template>
+
+<style scoped lang="scss">
+.single-move, /* 对移动中的元素应用的过渡 */
+.single-enter-active,
+.single-leave-active {
+  transition: all 0.5s ease;
+}
+
+//.single-enter-from,
+.single-leave-to {
+  opacity: 0.5;
+  overflow: hidden;
+  height: 0 !important;
+}
+
+.single-leave-to {
+  transform-origin: left top;
+}
+
+/* 确保将离开的元素从布局流中删除
+  以便能够正确地计算移动的动画。 */
+.single-leave-active {
+  position: absolute;
+  //z-index: -1;
+}
+</style>

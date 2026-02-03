@@ -1,0 +1,55 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 5044430 */
+  src:
+    url("iconfont.woff2?t=1761034476813") format("woff2"),
+    url("iconfont.woff?t=1761034476813") format("woff"),
+    url("iconfont.ttf?t=1761034476813") format("truetype");
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-ev:before {
+  content: "\e614";
+}
+
+.icon-car:before {
+  content: "\e615";
+}
+
+.icon-flash:before {
+  content: "\e612";
+}
+
+.icon-money-cny:before {
+  content: "\e613";
+}
+
+.icon-arrow-round:before {
+  content: "\e611";
+}
+
+.icon-financial-water:before {
+  content: "\e60c";
+}
+
+.icon-financial-renovate:before {
+  content: "\e60d";
+}
+
+.icon-financial-property:before {
+  content: "\e60e";
+}
+
+.icon-financial-electricity:before {
+  content: "\e60f";
+}
+
+.icon-financial-asset:before {
+  content: "\e610";
+}

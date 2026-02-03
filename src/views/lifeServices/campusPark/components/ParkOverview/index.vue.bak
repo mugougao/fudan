@@ -1,0 +1,242 @@
+<script setup lang="ts">
+import bed from "@/assets/images/lifeServices/campusPark/bed.png";
+import room from "@/assets/images/lifeServices/campusPark/cubicles.png";
+import hostel from "@/assets/images/lifeServices/campusPark/dormitory.png";
+import supervisor from "@/assets/images/lifeServices/campusPark/supervisor.png";
+import parkOverviewBed from "@/views/lifeServices/campusPark/components/parkOverviewBed/index.vue";
+import parkOverviewOccupancyRate from "@/views/lifeServices/campusPark/components/parkOverviewOccupancyRate/index.vue";
+import parkOverviewRoom from "@/views/lifeServices/campusPark/components/parkOverviewRoom/index.vue";
+
+const list = ref([
+  {
+    title: "宿舍楼宇",
+    num: 100,
+    unit: "栋",
+    icon: hostel,
+  },
+  {
+    title: "督导员",
+    num: 100,
+    unit: "人",
+    icon: supervisor,
+  },
+  {
+    title: "房间数",
+    num: 100,
+    unit: "间",
+    icon: room,
+  },
+  {
+    title: "床位数",
+    num: 100,
+    unit: "床",
+    icon: bed,
+  },
+]);
+const popShow = ref(false);
+const occupancyRate = ref(false);
+const btn = ref(false);
+const  idleTimeout =<any> ref(null);
+
+function btnClick() {
+  popShow.value = true;
+  btn.value = false;
+}
+function cross() {
+  popShow.value = false;
+  btn.value = true;
+}
+
+// 移入事件
+function mouseenter() {
+  clearTimeout(idleTimeout);
+  btn.value = true;
+  // 设置一个新的定时器
+  idleTimeout.value = setTimeout(() => {
+    btn.value = false;
+  }, 5000); // 5秒后切换按钮
+}
+</script>
+
+<template>
+  <BoxPanel
+    class="row-span-12"
+    title="园区基本概况"
+    content-class-name="grid grid-cols-1 grid-rows-24 overflow-hidden">
+    <div class="row-span-7 flex justify-between pl-12px pr-12px pt-12px">
+      <div v-for="(item, index) in list" :key="index" class="">
+        <img class="h-35px w-75px" :src="item.icon" alt="" sizes="" srcset="">
+        <div class="ml-16px mt-7px flex items-baseline gap-2 text-14px text-white">
+          <GradientText class="text-24px font-number" :deg="0" :colors="{ 0: '#94C8FF', 100: '#FFFFFF' }">
+            {{ item.num }}
+          </GradientText>
+          <span>{{ item.unit }}</span>
+        </div>
+        <div class="ml-18px text-14px text-white">
+          {{ item.title }}
+        </div>
+      </div>
+    </div>
+    <div class="row-span-12 flex justify-between">
+      <!-- 房间入住率  -->
+      <parkOverviewRoom />
+      <!-- 床位占用率  -->
+      <parkOverviewBed />
+    </div>
+    <div class="row-span-5 flex justify-between pl-9px pr-9px pt-8px">
+      <div>
+        <div class="text-14px text-white">
+          已入住房间
+        </div>
+        <div class="ml-4px mt-12px flex items-baseline gap-2 text-16px text-white">
+          <GradientText class="text-24px font-number" :deg="0" :colors="{ 0: '#04E3FF', 100: '#04E3FF' }">
+            951
+          </GradientText>
+          <span>间</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-14px text-white">
+          未入住房间
+        </div>
+        <div class="ml-4px mt-12px flex items-baseline gap-2 text-16px text-white">
+          <GradientText class="text-24px font-number" :deg="0" :colors="{ 0: '#089AFF', 100: '#089AFF' }">
+            49
+          </GradientText>
+          <span>间</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-14px text-white">
+          已入住床位
+        </div>
+        <div class="ml-4px mt-12px flex items-baseline gap-2 text-16px text-white">
+          <GradientText class="text-24px font-number" :deg="0" :colors="{ 0: '#69FFCA', 100: '#69FFCA' }">
+            951
+          </GradientText>
+          <span>间</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-14px text-white">
+          未入住床位
+        </div>
+        <div class="ml-4px mt-12px flex items-baseline gap-2 text-16px text-white">
+          <GradientText class="text-24px font-number" :deg="0" :colors="{ 0: '#36D99F', 100: '#36D99F' }">
+            49
+          </GradientText>
+          <span>间</span>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- 吸附按钮 -->
+    <div class="adsorption fixed left-440px top-140px" @mouseenter="mouseenter" @click="btn = true" />
+
+    <!--  菜单  -->
+    <div v-if="btn" class="menu fixed left-500px top-140px" @click="btnClick ">
+      <div class="icon" />
+    </div>
+
+    <!--  点击菜单显示弹窗内容 -->
+    <div v-if="popShow" class="pop fixed left-470px top-140px px-12px py-12px">
+      <div class="flex justify-end">
+        <div class="cross" @click="cross" />
+      </div>
+      <div class="mb-14px">
+        <div class="mb-12px text-16px text-white font-500">
+          楼宇名称显示
+        </div>
+        <label class="i18n-switch relative mt-8px h-24px w-52px flex-center cursor-pointer select-none gap-2 rounded bg-#4E5864 text-white has-[input[type=checkbox]:checked]:bg-#FF7B7B">
+          <input type="checkbox" class="hidden">
+        </label>
+      </div>
+      <div class="mb-14px">
+        <div class="mb-12px text-16px text-white font-500">
+          修缮时间分布
+        </div>
+        <label class="i18n-switch relative mt-8px h-24px w-52px flex-center cursor-pointer select-none gap-2 rounded bg-#4E5864 text-white has-[input[type=checkbox]:checked]:bg-#FF7B7B">
+          <input type="checkbox" class="hidden">
+        </label>
+      </div>
+      <div class="mb-14px">
+        <div class="mb-12px text-16px text-white font-500">
+          入住率分布
+        </div>
+        <label class="i18n-switch relative mt-8px h-24px w-52px flex-center cursor-pointer select-none gap-2 rounded bg-#4E5864 text-white has-[input[type=checkbox]:checked]:bg-#FF7B7B">
+          <input v-model="occupancyRate" type="checkbox" class="hidden">
+        </label>
+      </div>
+    </div>
+
+    <!-- 入住率分布图例  -->
+    <parkOverviewOccupancyRate v-if="occupancyRate" class="fixed bottom-100px left-470px" />
+  </BoxPanel>
+</template>
+
+<style scoped lang="scss">
+.i18n-switch {
+  box-sizing: border-box;
+  border: 1.2px solid #4d4d4d;
+  box-shadow: inset 0px 2px 12px 0px #000000;
+  &:after {
+    content: "";
+    @apply absolute wh-19px bg-#B5B5B5 transition-all;
+    left: 5px;
+    border-radius: 50%;
+  }
+  &:has(input[type="checkbox"]:checked) {
+    border: 1.2px solid #ffffff;
+    box-shadow: inset 0px 4px 10px 0px rgba(255, 38, 38, 0.3);
+    &:after {
+      content: "";
+      @apply absolute wh-18px bg-white transition-all;
+      left: calc(100% - 23px);
+      box-sizing: border-box;
+      border: 1.2px solid #ffffff;
+      box-shadow: inset 0px 4px 10px 0px rgba(255, 38, 38, 0.3);
+    }
+  }
+  border-radius: 23px;
+}
+
+.icon {
+  width: 36px;
+  height: 36px;
+  background: url("@/assets/images/lifeServices/campusPark/icon.png") no-repeat;
+  background-size: 100% 100%;
+}
+.pop {
+  width: 149px;
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    rgba(21, 44, 56, 0.7167) 0%,
+    rgba(3, 22, 44, 0.6023) 38%,
+    rgba(14, 27, 43, 0.64) 99%
+  );
+  box-sizing: border-box;
+  border: 1px solid;
+  border-image: linear-gradient(326deg, #ffb0b0 0%, #ffffff 53%, #ffb6b6 100%);
+  backdrop-filter: blur(10px);
+  transition: all 4s ease;
+  .cross {
+    width: 14px;
+    height: 14px;
+    background: url("@/assets/images/lifeServices/building/cross.png") no-repeat;
+    background-size: 100% 100%;
+  }
+}
+
+.adsorption {
+  width: 27px;
+  height: 32px;
+  background-size: 100% 100%;
+  background: url("@/assets/images/lifeServices/campusPark/adsorption.png") no-repeat;
+}
+</style>

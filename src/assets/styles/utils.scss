@@ -1,0 +1,35 @@
+.empty-text {
+  &:empty:before {
+    content: "--";
+  }
+}
+
+.empty-number {
+  &:empty:before {
+    content: "0";
+  }
+}
+
+.clearfix {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.dot-border {
+  background:
+    linear-gradient(to right, #ffe5e5, #ffe5e5) no-repeat left top / 2px 2px,
+    linear-gradient(to right, #ffe5e5, #ffe5e5) no-repeat left bottom / 2px 2px,
+    linear-gradient(to right, #ffe5e5, #ffe5e5) no-repeat right top / 2px 2px,
+    linear-gradient(to right, #ffe5e5, #ffe5e5) no-repeat right bottom / 2px 2px,
+    linear-gradient(to right, #fff3f30f, #fff3f30f) no-repeat left top / 100% 1px,
+    linear-gradient(to right, #fff3f30f, #fff3f30f) no-repeat left bottom / 100% 1px,
+    linear-gradient(to right, #fff3f30f, #fff3f30f) no-repeat left top / 1px 100%,
+    linear-gradient(to right, #fff3f30f, #fff3f30f) no-repeat right top / 1px 100%,
+    linear-gradient(to right, #000a1733, #000a1733) no-repeat right top / 100% 100%;
+}

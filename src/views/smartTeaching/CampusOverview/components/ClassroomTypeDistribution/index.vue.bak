@@ -1,0 +1,50 @@
+<script setup lang="ts">
+import classRoomType from "@/assets/images/smartTeaching/classroomType.png";
+import CustomCarousel from "@/components/CustomCarousel/index.vue";
+import chunk from "lodash/chunk";
+
+defineOptions({ name: "ClassroomTypeDistribution", inheritAttrs: false });
+
+const { data } = defineProps<{
+  data: {
+    title: string;
+    value: number;
+  }[];
+}>();
+</script>
+
+<template>
+  <div class="row-span-10 flex flex-col px-20px">
+    <header class="mt-2 flex flex-shrink-0 justify-between">
+      <SecondTitle class="ml-3">
+        {{ $t('smartsTeaching.classroomTypeDistribution') }}
+      </SecondTitle>
+    </header>
+    <div class="oul mt-3 flex-auto overflow-hidden">
+      <CustomCarousel :data="data" :autoplay="false">
+        <div v-for="(item, index) in chunk(data, 8)" :key="index" class="grid-cols-2 grid-rows-4 h-full !grid">
+          <div v-for="(subItem, subIndex) in item" :key="`${index}-${subIndex}`" class="oli flex">
+            <img class="ml-1 mr-10px h-52px w-52px" :src="classRoomType" alt="" sizes="" srcset="">
+            <div class="flex-auto">
+              <div class="multi-media w-full truncate" :title="subItem.title">
+                {{ subItem.title }}
+              </div>
+              <div class="mt-4px flex">
+                <GradientText class="text-22px font-bold -mt-2px" :deg="180" :colors="{ 0: '#FFFFFF', 99: '#CAF2FF' }">
+                  {{ subItem.value }}
+                </GradientText>
+                <div class="ml-20px mt-6px text-15px text-white">
+                  间
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </CustomCarousel>
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+
+</style>
