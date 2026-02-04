@@ -162,7 +162,6 @@ onBeforeUnmount(() => {
               </template>
             </LargeScreenPreview>
           </li>
-
           <li
             v-for="item in busRouteList" :key="item.value"
             class="navigation-menu-list-item mt-3 flex items-center justify-center gap-1 py-0.5"

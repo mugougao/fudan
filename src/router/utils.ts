@@ -103,13 +103,20 @@ export function filterRoutes(routes: RouteRecordRaw[], permissions: string[]) {
 }
 
 /**
- * 转换路由
- * @description 根据权限过滤路由，并设置布局组件、设置重定向
+ * 转换路由为菜单
  * @param routes
- * @param permissions
  */
+
+let asyncRoutesInitialized = false;
+
 export function addAsyncRoutes(routes: RouteRecordRaw[], permissions: string[]) {
   if (!routes || !routes.length) return;
+  
+  // 避免重复初始化
+  if (asyncRoutesInitialized) {
+    return;
+  }
+  
   // 不再进行权限过滤
   // routes = filterRoutes(routes, permissions);
   routes = setupLayouts(routes);
@@ -120,6 +127,19 @@ export function addAsyncRoutes(routes: RouteRecordRaw[], permissions: string[]) 
       router.addRoute(route);
     });
   }
+  
+  // 添加通配符404路由，确保它在所有异步路由之后添加
+  if (!router.hasRoute("notFound")) {
+    const notFoundRoute: RouteRecordRaw = {
+      path: "/:pathMatch(.*)*",
+      name: "notFound",
+      component: () => import("@/views/notFound/index.vue"),
+      meta: { title: "404" },
+    };
+    router.addRoute(notFoundRoute);
+  }
+  
+  asyncRoutesInitialized = true;
 }
 
 export interface Menu {

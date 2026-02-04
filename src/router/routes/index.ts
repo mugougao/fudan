@@ -17,10 +17,10 @@ export const routes: RouteRecordRaw[] = [
     component: () => import("@/views/decrypt/index.vue"),
     meta: { title: "解密" },
   },
-  {
-    path: "/:pathMatch(.*)*",
-    name: "notFound",
-    component: () => import("@/views/notFound/index.vue"),
-    meta: { title: "404" },
-  },
+  // {
+  //   path: "/:pathMatch(.*)*",
+  //   name: "notFound",
+  //   component: () => import("@/views/notFound/index.vue"),
+  //   meta: { title: "404" },
+  // },
 ];

@@ -1,13 +1,21 @@
 <script setup lang="ts">
+import { useRoute } from "vue-router";
 import { createLoading, type ICreateLoading } from "@/utils/createLoading.ts";
 import wdpMap from "@/utils/WdpMap/wdpMap.ts";
 
 defineOptions({ name: "Render", inheritAttrs: false });
 
+const route = useRoute();
 let loading: ICreateLoading;
 
 onMounted(async () => {
   await nextTick();
+  
+  // 如果是campusStyle页面，不自动渲染，等待弹窗配置
+  if (route.name === "campusStyle") {
+    return;
+  }
+  
   loading = createLoading({ tip: "地图场景加载中，请等待...", size: "large" });
   wdpMap.render("player");
   (window as any).__wdpMap__ = wdpMap;
@@ -44,7 +52,7 @@ useEventListener(window, "contextmenu", async () => {
   if (!wdpMap.app) return;
   const { result } = await wdpMap.app.CameraControl.GetCameraInfo();
   const { location, rotation } = result;
-  console.log("🚀 ~ index.vue ~ 32 ~  ~ res: ", { targetPosition: location, rotation });
+  console.log("🚀 ~ index.vue ~ 32 ~ ～ res: ", { targetPosition: location, rotation });
 });
 </script>
 
@@ -55,5 +63,4 @@ useEventListener(window, "contextmenu", async () => {
 </template>
 
 <style scoped lang="scss">
-
 </style>

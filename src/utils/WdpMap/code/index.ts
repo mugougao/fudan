@@ -20,17 +20,26 @@ export default class WdpMap extends MapLayerControl {
   }
 
   // 获取配置文件
-  getConfig() {
-    let sceneUrl = window.__config__.wdp.sceneUrl;
-    let sceneOrder = window.__config__.wdp.sceneOrder;
+  getConfig(sceneUrl?: string, sceneOrder?: string) {
+    let finalSceneUrl = window.__config__.wdp.sceneUrl;
+    let finalSceneOrder = window.__config__.wdp.sceneOrder;
+    
+    // 优先使用传入的参数
+    if (this.isValidParam(sceneUrl)) {
+      finalSceneUrl = sceneUrl!;
+    }
+    if (this.isValidParam(sceneOrder)) {
+      finalSceneOrder = sceneOrder!;
+    }
+    
     // 读取配置文件 - url
     const params = new URLSearchParams(window.location.search);
 
     if (this.isValidParam(params.get("sceneUrl"))) {
-      sceneUrl = params.get("sceneUrl")!;
+      finalSceneUrl = params.get("sceneUrl")!;
     }
     if (this.isValidParam(params.get("sceneOrder"))) {
-      sceneOrder = params.get("sceneOrder")!;
+      finalSceneOrder = params.get("sceneOrder")!;
     }
 
     // 获取 屏幕宽高
@@ -39,7 +48,7 @@ export default class WdpMap extends MapLayerControl {
     this.screenWidth = screenWidth;
     this.screenHeight = screenHeight;
 
-    return { sceneUrl, sceneOrder, screenWidth, screenHeight };
+    return { sceneUrl: finalSceneUrl, sceneOrder: finalSceneOrder, screenWidth, screenHeight };
   }
 
   resize() {
@@ -53,18 +62,18 @@ export default class WdpMap extends MapLayerControl {
     this.app.Renderer.SetRendererMode("fixed", [screenWidth, screenHeight]);
   }
 
-  async render(DomId: string) {
+  async render(DomId: string, sceneUrl?: string, sceneOrder?: string) {
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
     this.status = "loading";
-    const { sceneUrl, sceneOrder, screenWidth, screenHeight } = this.getConfig();
+    const { sceneUrl: finalSceneUrl, sceneOrder: finalSceneOrder, screenWidth, screenHeight } = this.getConfig(sceneUrl, sceneOrder);
     const app = new WdpApi({
       id: DomId,
-      url: sceneUrl,
-      order: sceneOrder,
+      url: finalSceneUrl,
+      order: finalSceneOrder,
       // resolution: [3840, 2160],
       resolution: [screenWidth, screenHeight],
-      debugMode: "none", // [选填] none: 无日志输出, normal: 普通级别日志输出，high：高级别日志输出，all：全日志输出
+      debugMode: "normal", // [选填] none: 无日志输出, normal: 普通级别日志输出，high：高级别日志输出，all：全日志输出
       keyboard: {
         normal: false,
         func: false,

@@ -14,26 +14,96 @@ import roamingRoutePlay from "@/utils/WdpMap/campusStyle/RoamingRoutePlay.ts";
 import roamingRoutePoiLayer from "@/utils/WdpMap/campusStyle/RoamingRoutePoiLayer.ts";
 import roamingRouteTextLayer from "@/utils/WdpMap/campusStyle/RoamingRouteTextLayer";
 import wdpMap from "@/utils/WdpMap/wdpMap";
+import { createLoading } from "@/utils/createLoading.ts";
 import CulturalAttractions from "@/views/campusStyle/CulturalAttractions/index.vue";
 import HuangBuilding from "@/views/campusStyle/HuangBuilding/index.vue";
 import NavigationMenu from "./components/NavigationMenu/index.vue";
 import PublicityVideo from "./components/PublicityVideo/index.vue";
+import RenderConfigPopup from "./components/RenderConfigPopup/index.vue";
 
 const campusStore = useCampusStore();
+const sceneLoaded = ref(false);
+
 onMounted(async () => {
   wdpMap.addLayer(roamingRoutePoiLayer, roamingRoutePathLayer, roamingRouteTextLayer, roamingRoutePlay);
-  wdpMap.onCreated(() => {
-    // 默认 邯郸校区视角
-    campusStore.setActiveCampusId(CampusId.HanDan);
-    campusRangeLayer.focusByCampusId(CampusId.HanDan);
-  });
+  // 尝试加载已保存的场景配置
+  await loadSavedScene();
 });
 
 onBeforeUnmount(() => {
   wdpMap.removeLayer(roamingRoutePoiLayer, roamingRoutePathLayer, roamingRouteTextLayer, roamingRoutePlay);
 });
 
+// 监听三维场景创建完成
+function setupSceneCreatedListener() {
+  wdpMap.onCreated(async (app) => {
+    sceneLoaded.value = true;
+    // 设置相机 默认角度（与Render组件中相同）
+    await app.CameraControl.UpdateCamera({
+      location: [121.50093817003349, 31.29741537805052, 229.26945738888742],
+      rotation: { pitch: -30.75469970703125, yaw: -107.26077270507812 },
+      locationLimit: [],
+      pitchLimit: [-89, 0],
+      yawLimit: [-180, 179.99899291992188],
+      viewDistanceLimit: [1, 10000],
+      controlMode: "RTS",
+      fieldOfView: 90,
+    });
+    // 默认 邯郸校区视角
+    campusStore.setActiveCampusId(CampusId.HanDan);
+    campusRangeLayer.focusByCampusId(CampusId.HanDan);
+  });
+}
+
 const { isChinese } = storeToRefs(useI18nStore());
+
+// 渲染配置弹窗
+const showRenderConfigPopup = ref(false);
+const renderConfig = reactive({
+  sceneUrl: localStorage.getItem('campusStyle_sceneUrl') || '',
+  sceneOrder: localStorage.getItem('campusStyle_sceneOrder') || '',
+});
+
+// 自动加载已保存的场景配置
+async function loadSavedScene() {
+  if (renderConfig.sceneUrl && renderConfig.sceneOrder) {
+    // 设置场景创建监听器
+    setupSceneCreatedListener();
+    // 开始加载三维场景
+    const loading = createLoading({ tip: "三维场景加载中，请等待...", size: "large" });
+    try {
+      await wdpMap.render("player", renderConfig.sceneUrl, renderConfig.sceneOrder);
+      (window as any).__wdpMap__ = wdpMap;
+      
+      // 监听场景创建完成
+      wdpMap.onCreated(() => {
+        loading?.close();
+      });
+      
+      wdpMap.onError(() => {
+        loading?.close();
+      });
+      
+    } catch (error) {
+      loading?.close();
+      console.error("三维场景加载失败:", error);
+      // 如果加载失败，显示配置弹窗让用户重新配置
+      showRenderConfigPopup.value = true;
+    }
+  } else {
+    // 如果没有保存的配置，显示配置弹窗
+    showRenderConfigPopup.value = true;
+  }
+}
+
+function handleRenderConfigSubmit(config: { sceneUrl: string; sceneOrder: string }) {
+  localStorage.setItem('campusStyle_sceneUrl', config.sceneUrl);
+  localStorage.setItem('campusStyle_sceneOrder', config.sceneOrder);
+  renderConfig.sceneUrl = config.sceneUrl;
+  renderConfig.sceneOrder = config.sceneOrder;
+  // 设置场景创建监听器
+  setupSceneCreatedListener();
+}
 
 // 宣传片弹窗
 const showPublicityVideo = ref(false);
@@ -142,6 +212,11 @@ function onCloseRoamingRoutePoiListPopup() {
       @stop="() => roamingRoutePlay.pause()"
       @change="(id) => roamingRoutePoiClick(id)"
       @close="onCloseRoamingRoutePoiListPopup" />
+    <!--  渲染配置弹窗 -->
+    <RenderConfigPopup
+      v-model:visible="showRenderConfigPopup"
+      :initial-config="renderConfig"
+      @submit="handleRenderConfigSubmit" />
   </UiViewPanel>
 </template>
 

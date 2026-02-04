@@ -25,7 +25,7 @@ export const useUserStore = defineStore(
       permissionList.value = (res?.resultData || [])?.map(item => item.route_url);
     }
 
-    const addAsyncRouted = ref(false);
+    const addAsyncRouted = useLocalStorage<boolean>("addAsyncRouted", false);
     function setAddAsyncRouted(val: boolean) {
       addAsyncRouted.value = val;
     }
