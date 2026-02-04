@@ -5,7 +5,7 @@ import { cn } from "@/utils";
 defineOptions({ name: "AssetOverview", inheritAttrs: false });
 
 const props = defineProps<{
-  totalCount?: [number, number, number]; // [总金额, 资产净值, 总资产数]
+  totalCount?: [300, number, number]; // [总金额, 资产净值, 总资产数]
   typeCount?: {
     device: [number, number, number]; // [总金额, 资产净值, 总资产数]
     furniture: [number, number, number];

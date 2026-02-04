@@ -2,8 +2,8 @@
 import type { Ref } from "vue";
 import { useRouteQuery } from "@vueuse/router";
 import to from "await-to-js";
-import { fetchCampusAssetsTypeByCollege } from "@/api/assetManagement/campusAssets.ts";
-import { getAllCollege } from "@/api/commons";
+// import { fetchCampusAssetsTypeByCollege } from "@/api/assetManagement/campusAssets.ts";
+// import { getAllCollege } from "@/api/commons";
 import { CampusId, campusIdFormat } from "@/enums";
 import { cn, highlightText } from "@/utils";
 import campusAssetsTypeWithCollegePoiLayer from "@/utils/WdpMap/assetManagement/campusAssets/CampusAssetsTypeWithCollegePoiLayer.ts";
@@ -14,15 +14,61 @@ const campusId = useRouteQuery<CampusId>("campusId", CampusId.Overview) as unkno
 
 const searchText = ref("");
 
+// 模拟院系资产数据
+const mockFacultyAssetsData = [
+  { name: "计算机学院", number: 1250, amount: 3850 },
+  { name: "电子工程学院", number: 980, amount: 2950 },
+  { name: "机械工程学院", number: 1120, amount: 3420 },
+  { name: "材料科学与工程学院", number: 760, amount: 2280 },
+  { name: "化学化工学院", number: 890, amount: 2670 },
+  { name: "物理学院", number: 670, amount: 2010 },
+  { name: "数学学院", number: 540, amount: 1620 },
+  { name: "生命科学学院", number: 1030, amount: 3090 },
+  { name: "医学院", number: 1560, amount: 4680 },
+  { name: "经济管理学院", number: 920, amount: 2760 },
+  { name: "法学院", number: 480, amount: 1440 },
+  { name: "文学院", number: 610, amount: 1830 },
+  { name: "外国语学院", number: 520, amount: 1560 },
+  { name: "艺术学院", number: 430, amount: 1290 },
+  { name: "体育学院", number: 380, amount: 1140 }
+];
+
+// 模拟院系列表
+const mockCollegeOptions = [
+  "计算机学院", "电子工程学院", "机械工程学院", "材料科学与工程学院", 
+  "化学化工学院", "物理学院", "数学学院", "生命科学学院", "医学院",
+  "经济管理学院", "法学院", "文学院", "外国语学院", "艺术学院", "体育学院"
+];
+
 const { state, execute } = useAsyncState(
   async () => {
-    const [err, res] = await to(fetchCampusAssetsTypeByCollege(searchText.value));
-    if (err) return [];
-    return (res?.resultData || []).map(({ campus, sl, je }) => {
-      return { name: campus?.replace("校区", ""), number: sl, amount: je };
-    });
+    // 模拟API调用：根据搜索文本过滤院系资产数据
+    // const [err, res] = await to(fetchCampusAssetsTypeByCollege(searchText.value));
+    // if (err) return [];
+    // return (res?.resultData || []).map(({ campus, sl, je }) => {
+    //   return { name: campus?.replace("校区", ""), number: sl, amount: je };
+    // });
+    
+    // 使用模拟数据
+    if (!searchText.value.trim()) {
+      // 如果搜索文本为空，返回所有模拟数据
+      return mockFacultyAssetsData;
+    }
+    
+    // 根据搜索文本过滤院系数据
+    const searchLower = searchText.value.toLowerCase();
+    const filteredData = mockFacultyAssetsData.filter(item => 
+      item.name.toLowerCase().includes(searchLower)
+    );
+    
+    // 如果过滤结果为空，返回前5个默认数据作为展示
+    if (filteredData.length === 0) {
+      return mockFacultyAssetsData.slice(0, 5);
+    }
+    
+    return filteredData;
   },
-  [],
+  mockFacultyAssetsData, // 初始数据使用模拟数据
   {
     resetOnExecute: false,
   },
@@ -41,10 +87,14 @@ function setFacultiesQueryFlag(value: string) {
 const options = ref<{ value: string }[]>([]);
 const { state: optionsSource } = useAsyncState(
   async () => {
-    const campusName = campusIdFormat(campusId.value);
-    const [err, res] = await to(getAllCollege({ xq: campusName }));
-    if (err) return [];
-    return (res?.resultData || []).map(item => ({ value: item }));
+    // 模拟API调用：获取所有院系列表
+    // const campusName = campusIdFormat(campusId.value);
+    // const [err, res] = await to(getAllCollege({ xq: campusName }));
+    // if (err) return [];
+    // return (res?.resultData || []).map(item => ({ value: item }));
+    
+    // 使用模拟数据
+    return mockCollegeOptions.map(item => ({ value: item }));
   },
   [] as { value: string }[],
   {
@@ -67,11 +117,15 @@ async function onSelect(_value) {
 function handleSearch() {
   if (!searchText.value) {
     options.value = optionsSource.value;
+    // 搜索文本为空时也更新数据
+    execute();
     return;
   }
   options.value = optionsSource.value.reduce((acc, cur) => {
     return cur.value.includes(searchText.value) ? [...acc, cur] : acc;
   }, [] as { value: string }[]);
+  // 输入时更新数据
+  execute();
 }
 
 watch(
