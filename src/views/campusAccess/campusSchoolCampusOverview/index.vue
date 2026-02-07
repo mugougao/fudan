@@ -1,16 +1,72 @@
 <script setup lang="ts">
-import to from "await-to-js";
-import { fetchCampusOverview, type IFetchCampusOverviewResult } from "@/api/campusAccess/campusSchool";
+// import to from "await-to-js";
+// import { fetchCampusOverview, type IFetchCampusOverviewResult } from "@/api/campusAccess/campusSchool";
 import GradientText from "@/components/GradientText";
 import { numberToThousands } from "@/utils";
 import CampusSchoolCampusOverviewSwipeNum from "@/views/campusAccess/campusSchoolCampusOverviewSwipeNum/index.vue";
 import TodaysSituation from "@/views/campusAccess/todaysSituation/index.vue";
 
-const { state } = useAsyncState<IFetchCampusOverviewResult>(async () => {
-  const [err, res] = await to(fetchCampusOverview());
-  if (err) return {} as IFetchCampusOverviewResult;
-  return (res?.resultData || {}) as IFetchCampusOverviewResult;
-}, {} as IFetchCampusOverviewResult, { immediate: true, resetOnExecute: false });
+// 模拟数据：校园概览
+const mockCampusOverviewData = {
+  jxrsfb: [
+    { name: "邯郸校区", value: 1250 },
+    { name: "江湾校区", value: 980 },
+    { name: "枫林校区", value: 750 },
+    { name: "张江校区", value: 520 }
+  ],
+  skjxsl: [
+    {
+      name: "邯郸校区",
+      value: [
+        { name: "校门1", value: 320 },
+        { name: "校门2", value: 280 },
+        { name: "校门3", value: 240 },
+        { name: "校门4", value: 180 }
+      ]
+    },
+    {
+      name: "江湾校区",
+      value: [
+        { name: "校门1", value: 250 },
+        { name: "校门2", value: 220 },
+        { name: "校门3", value: 190 },
+        { name: "校门4", value: 150 }
+      ]
+    },
+    {
+      name: "枫林校区",
+      value: [
+        { name: "校门1", value: 200 },
+        { name: "校门2", value: 180 },
+        { name: "校门3", value: 160 },
+        { name: "校门4", value: 120 }
+      ]
+    },
+    {
+      name: "张江校区",
+      value: [
+        { name: "校门1", value: 150 },
+        { name: "校门2", value: 130 },
+        { name: "校门3", value: 110 },
+        { name: "校门4", value: 90 }
+      ]
+    }
+  ],
+  crksl: [
+    { name: "邯郸校区", value: 8 },
+    { name: "江湾校区", value: 6 },
+    { name: "枫林校区", value: 5 },
+    { name: "张江校区", value: 4 }
+  ]
+};
+
+const { state } = useAsyncState<typeof mockCampusOverviewData>(
+  async () => {
+    return mockCampusOverviewData;
+  },
+  mockCampusOverviewData,
+  { immediate: true, resetOnExecute: false },
+);
 
 // 今日进校总人数
 const todayEnterTheSchoolTotal = computed(() => (state.value.jxrsfb || []).reduce((pre, cur) => pre + cur.value, 0));

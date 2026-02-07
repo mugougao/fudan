@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Ref } from "vue";
 import { useRouteQuery } from "@vueuse/router";
-import to from "await-to-js";
-import { fetchCampusGateSituation, type IFetchCampusGateSituationResult } from "@/api/campusAccess/campusSchool";
+// import to from "await-to-js";
+// import { fetchCampusGateSituation, type IFetchCampusGateSituationResult } from "@/api/campusAccess/campusSchool";
 import GradientText from "@/components/GradientText";
 import { CampusId, CampusName } from "@/enums";
 
@@ -11,15 +11,53 @@ defineOptions({ name: "IngressSituation" });
 // 校区id
 const campusId = useRouteQuery("campusId", CampusId.Overview) as unknown as Ref<CampusId>;
 
-const { state, execute } = useAsyncState<IFetchCampusGateSituationResult>(
-  async () => {
-    if (campusId.value === CampusId.Overview) return {} as IFetchCampusGateSituationResult;
-    const campusName = CampusName[campusId.value];
-    const [err, res] = await to(fetchCampusGateSituation(`${campusName}校区`));
-    if (err) return {} as IFetchCampusGateSituationResult;
-    return (res?.resultData || {}) as IFetchCampusGateSituationResult;
+// 模拟数据：校区出入口态势数据
+const mockCampusGateSituationData = {
+  "3": { // 邯郸校区
+    jrjx: {
+      xn: 850,  // 校内人次
+      zrs: 1250, // 总人数
+      xw: 400   // 校外人次
+    },
+    sbsl: 32,   // 设备数量
+    crksl: 8    // 出入口数量
   },
-  {} as IFetchCampusGateSituationResult,
+  "4": { // 江湾校区
+    jrjx: {
+      xn: 680,
+      zrs: 980,
+      xw: 300
+    },
+    sbsl: 24,
+    crksl: 6
+  },
+  "5": { // 枫林校区
+    jrjx: {
+      xn: 520,
+      zrs: 750,
+      xw: 230
+    },
+    sbsl: 20,
+    crksl: 5
+  },
+  "6": { // 张江校区
+    jrjx: {
+      xn: 350,
+      zrs: 520,
+      xw: 170
+    },
+    sbsl: 16,
+    crksl: 4
+  }
+};
+
+const { state, execute } = useAsyncState<typeof mockCampusGateSituationData["3"]>(
+  async () => {
+    if (campusId.value === CampusId.Overview) return {} as typeof mockCampusGateSituationData["3"];
+    // 获取校区数据，默认为邯郸校区
+    return mockCampusGateSituationData[campusId.value as keyof typeof mockCampusGateSituationData] || mockCampusGateSituationData["3"];
+  },
+  {} as typeof mockCampusGateSituationData["3"],
   { immediate: false, resetOnExecute: false },
 );
 

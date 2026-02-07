@@ -6,7 +6,7 @@ import AssetOverview from "../AssetOverview/index.vue";
 defineOptions({ name: "Asset", inheritAttrs: false });
 
 const {
-  totalCount = [0, 0, 0],
+  totalCount = [300, 0, 0],
   typeCount = {
     device: [0, 0, 0],
     furniture: [0, 0, 0],
@@ -17,7 +17,7 @@ const {
   moneyData = [],
   chargeData = [0, 0],
 } = defineProps<{
-  totalCount?: [number, number, number];
+  totalCount?: [300, number, number];
   typeCount?: {
     device: [number, number, number];
     furniture: [number, number, number];
