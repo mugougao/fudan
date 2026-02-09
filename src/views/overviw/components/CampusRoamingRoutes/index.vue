@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import to from "await-to-js";
-import { getLandmarkFile } from "@/api/campusStyle/index.ts";
+import { getLandmarkFileData } from "@/data/landmarkFileData";
 import { useCampusStore } from "@/stores/campus.ts";
 import { cn } from "@/utils";
 import campusPoiLayer from "@/utils/WdpMap/CampusPoiLayer.ts";
@@ -94,7 +94,7 @@ async function roamingRoutePoiClick(id: string) {
   roamingRouteTextLayer.showAll();
   roamingRoutePoiLayer.hideAll();
   roamingRoutePoiLayer.focusById(id, activeRoute.value!);
-  const [,res] = await to(getLandmarkFile(id));
+  const res = getLandmarkFileData(id);
   const { resultData = {} } = res || {};
   emit("poiSelected", {
     id,

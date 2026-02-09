@@ -263,7 +263,7 @@ class RoamingRoutePoiLayer extends PoiLayer<any> {
       const { geometry, properties } = item;
       const  coordinates  = geometry.coordinates;
       const { dbmc } = properties;
-      const id = properties.FID_;
+      const id = String(properties.FID_);
       return {
         id,
         name: dbmc,

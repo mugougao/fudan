@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import to from "await-to-js";
 import { storeToRefs } from "pinia";
-import { getLandmarkFile } from "@/api/campusStyle";
+import { getLandmarkFileData } from "@/data/landmarkFileData";
 import RoamingRoutePoiListPopup from "@/components/RoamingRoutePoiListPopup/index.vue";
 import { CampusId } from "@/enums";
 import { useState } from "@/hooks";
@@ -156,7 +156,7 @@ async function roamingRoutePoiClick(id: string) {
   roamingRouteTextLayer.showAll();
   roamingRoutePoiLayer.hideAll();
   roamingRoutePoiLayer.focusById(id, activeTab.value);
-  const [,res] = await to(getLandmarkFile(id));
+  const res = getLandmarkFileData(id);
   const { resultData = {} } = res || {};
   poiDetails.value = {
     img: resultData.fileList ?? [],

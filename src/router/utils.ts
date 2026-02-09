@@ -107,15 +107,8 @@ export function filterRoutes(routes: RouteRecordRaw[], permissions: string[]) {
  * @param routes
  */
 
-let asyncRoutesInitialized = false;
-
 export function addAsyncRoutes(routes: RouteRecordRaw[], permissions: string[]) {
   if (!routes || !routes.length) return;
-  
-  // 避免重复初始化
-  if (asyncRoutesInitialized) {
-    return;
-  }
   
   // 不再进行权限过滤
   // routes = filterRoutes(routes, permissions);
@@ -138,8 +131,6 @@ export function addAsyncRoutes(routes: RouteRecordRaw[], permissions: string[]) 
     };
     router.addRoute(notFoundRoute);
   }
-  
-  asyncRoutesInitialized = true;
 }
 
 export interface Menu {
