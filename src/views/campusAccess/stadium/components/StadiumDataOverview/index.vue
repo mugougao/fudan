@@ -1,22 +1,34 @@
 <script setup lang="ts">
 import type { EChartsOption } from "echarts";
-import to from "await-to-js";
-import { merge } from "lodash";
-import {
-  fetchSwimmingPoolOverview,
-  type IFetchSwimmingPoolOverviewResult,
+import type {
+  // fetchSwimmingPoolOverview,
+  IFetchSwimmingPoolOverviewResult,
 } from "@/api/campusAccess/stadium";
-import GradientText from "@/components/GradientText";
-import { useDataSlice, useEChartRender } from "@/hooks";
+// import to from "await-to-js";
+import { merge } from "lodash";
 import GymnasiumSplitBuild from "@/utils/WdpMap/campusAccess/stadium/GymnasiumSplitBuild.ts";
 import StadiumDataOverviewPersonnelDistribution from "@/views/campusAccess/stadium/components/StadiumDataOverviewPersonnelDistribution/index.vue";
 import StadiumDataOverviewStadium from "@/views/campusAccess/stadium/components/StadiumDataOverviewStadium/index.vue";
 
-const { state } = useAsyncState<IFetchSwimmingPoolOverviewResult>(async () => {
-  const [err, res] = await to(fetchSwimmingPoolOverview());
-  if (err) return {} as IFetchSwimmingPoolOverviewResult;
-  return res?.resultData || {} as IFetchSwimmingPoolOverviewResult;
-}, {} as IFetchSwimmingPoolOverviewResult, { immediate: true, resetOnExecute: false });
+// 硬编码游泳馆概览数据
+const state = ref<IFetchSwimmingPoolOverviewResult>({
+  ryzs: 1560, // 月总人数
+  xsyl: [
+    { name: "周一", value: 210 },
+    { name: "周二", value: 185 },
+    { name: "周三", value: 256 },
+    { name: "周四", value: 198 },
+    { name: "周五", value: 312 },
+    { name: "周六", value: 289 },
+    { name: "周日", value: 265 },
+  ], // 月使用率
+  rylxfb: [
+    { name: "学生", value: 45 },
+    { name: "教职工", value: 28 },
+    { name: "访客", value: 17 },
+    { name: "其他", value: 10 },
+  ], // 人员类型分布
+});
 
 // 游泳馆位置 checked
 const natatoriumLocationChecked = ref(false);

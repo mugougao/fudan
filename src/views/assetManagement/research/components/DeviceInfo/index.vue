@@ -31,7 +31,7 @@ function onAfterChange(current: number) {
 function ListRender(props: { listStr: string }) {
   const { listStr } = camelizeProps(props);
   return (
-    <ul class="space-y-1 text-[14px]">
+    <ul class="text-[14px] space-y-1">
       {
         // \n\n 或者 \r\n\r\n 分割
         (listStr || "").split(/\n\n|\r\n\r\n/).map((item) => {
@@ -49,13 +49,13 @@ function ListRender(props: { listStr: string }) {
 
 <template>
   <div :class="cn('device-info space-y-5', $attrs.class ?? '')">
-    <UiSubTitle title="电镜设备介绍"></UiSubTitle>
+    <UiSubTitle title="电镜设备介绍" />
     <div class="text-[14px] text-white/80">
       <p>{{ desc }}</p>
     </div>
 
     <div v-if="images?.length" class="relative h-[200px] w-full">
-      <div class="mx-auto p-2 img-box">
+      <div class="img-box mx-auto p-2">
         <ACarousel
           autoplay draggable dots-class="custom-paging [&>li]:!size-[8px] !bottom-[-15px]"
           :after-change="onAfterChange">

@@ -1,6 +1,7 @@
 import to from "await-to-js";
 import { getDormitoryBuildingSpace } from "@/api/lifeServices";
 import floorCameraInfo from "@/assets/json/smartTeaching/floorCameraInfo.json";
+import { getBuildingUuidByNumericId } from "@/utils/buildingMapping";
 import PoiLayer from "../code/PoiLayer";
 
 class DormitoryAreaOneBuildLayer extends PoiLayer {
@@ -25,32 +26,131 @@ class DormitoryAreaOneBuildLayer extends PoiLayer {
   }
 
   async fetchData(buildId: string) {
-    if (this.hasData(buildId)) return;
-    const [, res] = await to(getDormitoryBuildingSpace(buildId));
+    console.log("🏢 [DormitoryAreaOneBuildLayer] fetchData 开始:", {
+      楼栋数字ID: buildId,
+      已有数据: this.hasData(buildId),
+    });
+
+    if (this.hasData(buildId)) {
+      console.log("🏢 [DormitoryAreaOneBuildLayer] 楼栋数据已存在，跳过获取");
+      return;
+    }
+
+    const buildingUuid = getBuildingUuidByNumericId(buildId);
+    console.log("🏢 [DormitoryAreaOneBuildLayer] ID映射结果:", {
+      数字ID: buildId,
+      映射UUID: buildingUuid,
+      映射成功: !!buildingUuid,
+    });
+
+    if (!buildingUuid) {
+      console.warn("⚠️ [DormitoryAreaOneBuildLayer] ID映射失败，无法获取楼栋数据");
+      return;
+    }
+
+    console.log("🏢 [DormitoryAreaOneBuildLayer] 调用API获取楼栋空间数据:", {
+      UUID: buildingUuid,
+      API地址: `${import.meta.env.VITE_HTTP_BASE_URL}/getBuilding`,
+      请求参数: { lyid: buildingUuid },
+    });
+
+    const [err, res] = await to(getDormitoryBuildingSpace(buildingUuid));
+
+    if (err) {
+      console.error("❌ [DormitoryAreaOneBuildLayer] API调用失败:", err);
+      console.warn("⚠️ [DormitoryAreaOneBuildLayer] API超时或失败，尝试使用从layer-dianwei.json获取位置数据");
+      
+      // 临时方案：从 layer-dianwei.json 获取楼栋位置
+      const layerDianweiData = await import("@/assets/json/layer-dianwei.json");
+      const building = layerDianweiData.features.find((feature: any) => {
+        const { id, lx } = feature.properties;
+        return lx === "宿舍楼" && String(id) === buildId;
+      });
+
+      if (building) {
+        const { geometry, properties } = building;
+        const { coordinates } = geometry;
+        const { name } = properties;
+        
+        const poiData = {
+          id: buildingUuid,
+          name,
+          location: [...coordinates, 0] as [number, number, number],
+          data: { id: buildingUuid, mc: name },
+          style: this.specialBuildingIds.includes(buildingUuid) ? "dormitoryActive" : "dormitory",
+        };
+
+        console.log("✅ [DormitoryAreaOneBuildLayer] 使用本地数据创建POI:", poiData);
+        this.pushData(poiData);
+        return;
+      }
+      
+      console.error("❌ [DormitoryAreaOneBuildLayer] 无法从本地数据获取楼栋信息");
+      return;
+    }
+
     const item = res?.resultData?.features?.[0];
-    if (!item) return;
+    if (!item) {
+      console.warn("⚠️ [DormitoryAreaOneBuildLayer] API返回数据为空");
+      return;
+    }
+
     const { geometry, properties = {} } = item;
     const { coordinates } = geometry;
     const { id, mc } = properties;
-    this.pushData({
+
+    const poiData = {
       id,
       name: mc,
       location: [...coordinates, 0] as [number, number, number],
       data: properties,
       style: this.specialBuildingIds.includes(id) ? "dormitoryActive" : "dormitory",
+    };
+
+    console.log("🏢 [DormitoryAreaOneBuildLayer] 楼栋数据获取成功:", {
+      楼栋UUID: id,
+      楼栋名称: mc,
+      坐标: coordinates,
+      是否特殊楼栋: this.specialBuildingIds.includes(id),
+      POI样式: poiData.style,
     });
+
+    this.pushData(poiData);
   }
 
   async render(buildId: string) {
+    console.log("🏢 [DormitoryAreaOneBuildLayer] render 开始渲染楼栋:", {
+      楼栋数字ID: buildId,
+    });
+
     // 清除上次渲染
     await this.removeAll();
+
     // 获取数据
     await this.fetchData(buildId);
+
     // 渲染
     const data = this.getData(buildId);
-    if (!data) return;
+    if (!data) {
+      console.warn("⚠️ [DormitoryAreaOneBuildLayer] 无法获取楼栋数据，渲染失败");
+      return;
+    }
+
+    console.log("🏢 [DormitoryAreaOneBuildLayer] 准备添加POI到地图:", {
+      楼栋数据: data,
+    });
+
     const result = await this.add(data);
+
+    console.log("🏢 [DormitoryAreaOneBuildLayer] POI添加成功，开始飞行动画:", {
+      目标楼栋ID: data.id,
+      飞行参数: { distanceFactor: 100, rotation: { pitch: -50 } },
+    });
+
     this.flyTo(data.id, { distanceFactor: 100, rotation: { pitch: -50 } });
+
+    console.log("✅ [DormitoryAreaOneBuildLayer] 楼栋渲染完成");
+
     return result;
   }
 

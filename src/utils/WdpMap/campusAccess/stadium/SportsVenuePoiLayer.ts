@@ -1,5 +1,3 @@
-import to from "await-to-js";
-import { fetchVenueFacilities } from "@/api/campusAccess/stadium";
 import PoiLayer from "@/utils/WdpMap/code/PoiLayer.ts";
 
 class SportsVenuePoiLayer extends PoiLayer<any> {
@@ -7,19 +5,23 @@ class SportsVenuePoiLayer extends PoiLayer<any> {
   layerName: string = "运动场馆Poi图层";
 
   async fetchData() {
-    const [,res] = await to(fetchVenueFacilities());
-    const result = (res?.resultData?.features ?? [])
-      ?.map((item: any) => {
-        const { id, mc } = item.properties;
-        const coordinates = item.geometry.coordinates as [number, number];
-        return {
-          id,
-          name: mc,
-          location: [...coordinates, 0],
-          data: item.properties,
-        };
-      });
-    this.setData(result);
+    // 硬编码运动场馆数据，从 tb_arena.csv 中提取
+    const hardcodedData = [
+      {
+        id: "1",
+        name: "江湾体育馆 ★",
+        location: [121.499069, 31.335651, 0] as [number, number, number],
+        data: {
+          id: "1",
+          mc: "江湾体育馆 ★",
+          xq: "江湾",
+          geom: "0101000000A35C1ABFF05F5E40A4DE5339ED553F40",
+          坐标点数量: 1,
+          坐标数据: "(121.499069,31.335651)",
+        },
+      },
+    ];
+    this.setData(hardcodedData);
   }
 
   async render() {

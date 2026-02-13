@@ -62,7 +62,7 @@ export default abstract class PoiLayer<T = any> extends BaseLayer<IPoiDataItem<T
 
       labelContent.forEach((text, index) => {
         const { fontSize = 12, width, padding = "0 0 0 0" } = get(poiStyleOption, `specificLabelStyle.content${index + 1}`);
-        const [,pr = 0,,pl = 0] = padding.split(" ").map(Number);
+        const [, pr = 0, , pl = 0] = padding.split(" ").map(Number);
         const resultWidth = width - pr - pl;
         // 统计中文字符（包括中文标点）
         const chineseChars = (text.match(/[\u4E00-\u9FA5\u3000-\u303F\uFF00-\uFFEF]/g) || []).length;
@@ -83,11 +83,19 @@ export default abstract class PoiLayer<T = any> extends BaseLayer<IPoiDataItem<T
 
       const option = {
         poiStyle: poiStyleOption,
-        visible2D: poiStyleOption.visible2D,
+        // visible2D: poiStyleOption.visible2D,
         location,
         customId: id.startsWith(`${this.layerId}_`) ? id : `${this.layerId}_${id}`,
         entityName: name,
+        visible2D: {
+          camera: {
+            hideDistance: 2000, // 定义实体隐藏的距离(单位:米),相机超过此距离时,实体会被隐藏
+            hideType: "none", // 实体超出显示距离(none:不显示; default:圆圈显示)
+            scaleMode: "3D", // 是否受相机的透视影响(2D:不影响; 3D:影响)；透视包括近大远小、overlapOrder生效
+          },
+        },
         customData: { data },
+
       };
       options.push(option);
       const entity = new Poi(option);

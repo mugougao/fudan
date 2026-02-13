@@ -1,9 +1,6 @@
-import to from "await-to-js";
 import dayjs from "dayjs";
-import { fetchDeviceCount, fetchHealthCount, fetchSsidCount, fetchTopCount } from "@/api/network";
-import { fetchUserAndTerminal, fetchUserDistributionTop5 } from "@/api/network/campus.ts";
-import { useCampusStore } from "@/stores/campus.ts";
 import { CampusId } from "@/enums";
+import { useCampusStore } from "@/stores/campus.ts";
 
 export default function useCampusPanelCountData() {
   const campusStore = useCampusStore();
@@ -185,9 +182,9 @@ export default function useCampusPanelCountData() {
   // 模拟数据：用户/终端变化趋势（近30天）
   const mockUserTerminalTrendData: { name: string; value1: number; value2: number }[] = [];
   for (let i = 30; i > 0; i--) {
-    const date = dayjs().subtract(i, 'day');
+    const date = dayjs().subtract(i, "day");
     mockUserTerminalTrendData.push({
-      name: date.format('M/D'),
+      name: date.format("M/D"),
       value1: Math.floor(8000 + Math.random() * 4000), // 用户数：8000-12000
       value2: Math.floor(10000 + Math.random() * 5000), // 终端数：10000-15000
     });
@@ -302,11 +299,12 @@ export default function useCampusPanelCountData() {
     //       value2: countac,
     //     };
     //   });
-    
+
     if (userOrTerminalStateType.value === "1") {
       // 近30天数据
       return mockUserTerminalTrendData;
-    } else {
+    }
+    else {
       // 近24小时数据
       const hourlyData: { name: string; value1: number; value2: number }[] = [];
       for (let i = 23; i >= 0; i--) {

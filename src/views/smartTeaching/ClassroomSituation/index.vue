@@ -11,30 +11,28 @@ import buildingOccupancyRangeLayer from "@/utils/WdpMap/smartTeaching/BuildingOc
 // 校区ID - 从URL查询参数获取当前校区，默认值为邯郸校区
 const campusId = useRouteQuery<string>("campusId", CampusId.HanDan) as unknown as Ref<string>;
 
-
-
 // 模拟数据：近七天教室使用率 - 按校区区分
 const mockClassroomUsageData = {
   // 邯郸校区教室使用率数据
-  "3": [
+  3: [
     { name: "2025-01-01", value: 65 },
     { name: "2025-01-02", value: 72 },
     { name: "2025-01-03", value: 58 },
     { name: "2025-01-04", value: 80 },
     { name: "2025-01-05", value: 45 },
     { name: "2025-01-06", value: 68 },
-    { name: "2025-01-07", value: 75 }
+    { name: "2025-01-07", value: 75 },
   ],
   // 江湾校区教室使用率数据
-  "4": [
+  4: [
     { name: "2025-01-08", value: 70 },
     { name: "2025-01-09", value: 68 },
     { name: "2025-01-10", value: 62 },
     { name: "2025-01-11", value: 78 },
     { name: "2025-01-12", value: 55 },
     { name: "2025-01-13", value: 72 },
-    { name: "2025-01-14", value: 65 }
-  ]
+    { name: "2025-01-14", value: 65 },
+  ],
 };
 // 根据当前校区ID获取对应的教室使用率数据
 const state = computed(() => mockClassroomUsageData[campusId.value as "3" | "4"] || mockClassroomUsageData["3"]);
@@ -42,30 +40,28 @@ const state = computed(() => mockClassroomUsageData[campusId.value as "3" | "4"]
 // 处理教室使用率数据，将日期格式化为月-日格式
 const classroomUtilizationData = computed(() => state.value.map(({ name, value }) => ({ name: dayjs(name).format("M-D"), value })));
 
-
-
 // 模拟数据：教学楼栋使用率 - 按校区区分
 const mockBuildingUsageRate = {
   // 邯郸校区教学楼栋使用率数据
-  "3": [
+  3: [
     { id: "1", name: "光华楼", value: 85 },
     { id: "2", name: "逸夫楼", value: 72 },
     { id: "3", name: "第三教学楼", value: 68 },
     { id: "4", name: "第四教学楼", value: 45 },
     { id: "5", name: "第五教学楼", value: 60 },
     { id: "6", name: "第六教学楼", value: 78 },
-    { id: "7", name: "第七教学楼", value: 52 }
+    { id: "7", name: "第七教学楼", value: 52 },
   ],
   // 江湾校区教学楼栋使用率数据
-  "4": [
+  4: [
     { id: "8", name: "江湾一号楼", value: 78 },
     { id: "9", name: "江湾二号楼", value: 65 },
     { id: "10", name: "江湾三号楼", value: 82 },
     { id: "11", name: "江湾四号楼", value: 55 },
     { id: "12", name: "江湾五号楼", value: 70 },
     { id: "13", name: "江湾六号楼", value: 48 },
-    { id: "14", name: "江湾七号楼", value: 62 }
-  ]
+    { id: "14", name: "江湾七号楼", value: 62 },
+  ],
 };
 // 根据当前校区ID获取对应的教学楼栋使用率数据
 const buildingUsageRate = computed(() => mockBuildingUsageRate[campusId.value as "3" | "4"] || mockBuildingUsageRate["3"]);
@@ -277,7 +273,7 @@ onBeforeUnmount(() => {
         <UiChartBar :data="classroomUtilizationData" legend="使用率" unit="%" />
       </div>
     </div>
-    
+
     <!-- 第二部分：教学楼栋使用率统计图表（排名+热图） -->
     <div class="row-span-16 flex flex-col flex-shrink-0">
       <UiSubTitle title-path="smartsTeaching.buildingOccupancy">

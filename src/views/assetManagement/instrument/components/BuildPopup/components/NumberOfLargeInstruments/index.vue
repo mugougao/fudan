@@ -20,7 +20,7 @@ const columns = [
 </script>
 
 <template>
-  <ul class="mx-1 my-2 columns-2 grid grid-cols-2">
+  <ul class="grid grid-cols-2 mx-1 my-2 columns-2">
     <li
       v-for="({ title, field, suffix }) in columns" :key="field"
       class="flex items-center whitespace-nowrap text-14px text-white font-text-medium">
@@ -46,7 +46,7 @@ const columns = [
           {{ title }}:
         </div>
         <div>
-          <span class="font-number text-[18px]">{{ get(data, field, 0) }}</span>
+          <span class="text-[18px] font-number">{{ get(data, field, 0) }}</span>
           <span class="text-[12px] text-white/80">{{ suffix }}</span>
         </div>
       </template>

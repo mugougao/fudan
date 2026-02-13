@@ -1,6 +1,5 @@
 import type { MaybeRefOrGetter, Ref } from "vue";
 import { useRouteQuery } from "@vueuse/router";
-import to from "await-to-js";
 // import {
 //   fetchCampusAssets,
 //   fetchCampusAssetsBuildAssets,
@@ -32,30 +31,30 @@ export function useCampusAssets() {
   // 模拟数据：各校区资产类型分布
   const mockTypeData: Record<CampusId, Record<"设备" | "家具" | "软件", [number, number]>> = {
     [CampusId.Overview]: {
-      "设备": [8560, 28500],
-      "家具": [3200, 8500],
-      "软件": [800, 1500]
+      设备: [8560, 28500],
+      家具: [3200, 8500],
+      软件: [800, 1500],
     },
     [CampusId.HanDan]: {
-      "设备": [3500, 12500],
-      "家具": [1200, 4500],
-      "软件": [500, 1500]
+      设备: [3500, 12500],
+      家具: [1200, 4500],
+      软件: [500, 1500],
     },
     [CampusId.JiangWan]: {
-      "设备": [2600, 8500],
-      "家具": [900, 3200],
-      "软件": [300, 800]
+      设备: [2600, 8500],
+      家具: [900, 3200],
+      软件: [300, 800],
     },
     [CampusId.FengLin]: {
-      "设备": [1800, 4200],
-      "家具": [500, 1200],
-      "软件": [200, 400]
+      设备: [1800, 4200],
+      家具: [500, 1200],
+      软件: [200, 400],
     },
     [CampusId.ZhangJiang]: {
-      "设备": [750, 1800],
-      "家具": [250, 500],
-      "软件": [60, 200]
-    }
+      设备: [750, 1800],
+      家具: [250, 500],
+      软件: [60, 200],
+    },
   };
 
   // 模拟数据：资产数量分布（仅概览页面）
@@ -63,7 +62,7 @@ export function useCampusAssets() {
     { name: "邯郸校区", value: 5200, value2: 18500 },
     { name: "江湾校区", value: 3800, value2: 12500 },
     { name: "枫林校区", value: 2500, value2: 5800 },
-    { name: "张江校区", value: 1060, value2: 1700 }
+    { name: "张江校区", value: 1060, value2: 1700 },
   ];
 
   // 模拟数据：资产到期分布（按校区和类型）
@@ -74,14 +73,14 @@ export function useCampusAssets() {
         { name: "2025年", value1: 980, value2: 3500 },
         { name: "2026年", value1: 750, value2: 2800 },
         { name: "2027年", value1: 520, value2: 1800 },
-        { name: "2028年", value1: 380, value2: 1200 }
+        { name: "2028年", value1: 380, value2: 1200 },
       ],
       1: [
         { name: "3年内", value1: 2980, value2: 9500 },
         { name: "3-5年", value1: 1250, value2: 4200 },
         { name: "5-10年", value1: 750, value2: 2800 },
-        { name: "10年以上", value1: 380, value2: 1200 }
-      ]
+        { name: "10年以上", value1: 380, value2: 1200 },
+      ],
     },
     [CampusId.HanDan]: {
       0: [
@@ -89,14 +88,14 @@ export function useCampusAssets() {
         { name: "2025年", value1: 420, value2: 1500 },
         { name: "2026年", value1: 320, value2: 1200 },
         { name: "2027年", value1: 220, value2: 800 },
-        { name: "2028年", value1: 180, value2: 600 }
+        { name: "2028年", value1: 180, value2: 600 },
       ],
       1: [
         { name: "3年内", value1: 1240, value2: 4500 },
         { name: "3-5年", value1: 520, value2: 1800 },
         { name: "5-10年", value1: 320, value2: 1200 },
-        { name: "10年以上", value1: 180, value2: 600 }
-      ]
+        { name: "10年以上", value1: 180, value2: 600 },
+      ],
     },
     [CampusId.JiangWan]: {
       0: [
@@ -104,14 +103,14 @@ export function useCampusAssets() {
         { name: "2025年", value1: 320, value2: 1100 },
         { name: "2026年", value1: 250, value2: 900 },
         { name: "2027年", value1: 180, value2: 600 },
-        { name: "2028年", value1: 150, value2: 500 }
+        { name: "2028年", value1: 150, value2: 500 },
       ],
       1: [
         { name: "3年内", value1: 950, value2: 3350 },
         { name: "3-5年", value1: 380, value2: 1250 },
         { name: "5-10年", value1: 250, value2: 900 },
-        { name: "10年以上", value1: 150, value2: 500 }
-      ]
+        { name: "10年以上", value1: 150, value2: 500 },
+      ],
     },
     [CampusId.FengLin]: {
       0: [
@@ -119,14 +118,14 @@ export function useCampusAssets() {
         { name: "2025年", value1: 200, value2: 700 },
         { name: "2026年", value1: 150, value2: 500 },
         { name: "2027年", value1: 100, value2: 350 },
-        { name: "2028年", value1: 80, value2: 250 }
+        { name: "2028年", value1: 80, value2: 250 },
       ],
       1: [
         { name: "3年内", value1: 630, value2: 2100 },
         { name: "3-5年", value1: 250, value2: 850 },
         { name: "5-10年", value1: 150, value2: 500 },
-        { name: "10年以上", value1: 80, value2: 250 }
-      ]
+        { name: "10年以上", value1: 80, value2: 250 },
+      ],
     },
     [CampusId.ZhangJiang]: {
       0: [
@@ -134,15 +133,15 @@ export function useCampusAssets() {
         { name: "2025年", value1: 100, value2: 350 },
         { name: "2026年", value1: 80, value2: 280 },
         { name: "2027年", value1: 60, value2: 200 },
-        { name: "2028年", value1: 50, value2: 180 }
+        { name: "2028年", value1: 50, value2: 180 },
       ],
       1: [
         { name: "3年内", value1: 300, value2: 1010 },
         { name: "3-5年", value1: 120, value2: 400 },
         { name: "5-10年", value1: 80, value2: 280 },
-        { name: "10年以上", value1: 50, value2: 180 }
-      ]
-    }
+        { name: "10年以上", value1: 50, value2: 180 },
+      ],
+    },
   };
 
   // 模拟数据：大型仪器分布
@@ -157,7 +156,7 @@ export function useCampusAssets() {
       { name: "电化学工作站", value: 6 },
       { name: "原子力显微镜", value: 5 },
       { name: "激光共聚焦显微镜", value: 4 },
-      { name: "超高速离心机", value: 3 }
+      { name: "超高速离心机", value: 3 },
     ],
     [CampusId.HanDan]: [
       { name: "扫描电子显微镜", value: 12 },
@@ -169,7 +168,7 @@ export function useCampusAssets() {
       { name: "电化学工作站", value: 2 },
       { name: "原子力显微镜", value: 2 },
       { name: "激光共聚焦显微镜", value: 1 },
-      { name: "超高速离心机", value: 1 }
+      { name: "超高速离心机", value: 1 },
     ],
     [CampusId.JiangWan]: [
       { name: "扫描电子显微镜", value: 8 },
@@ -181,7 +180,7 @@ export function useCampusAssets() {
       { name: "电化学工作站", value: 2 },
       { name: "原子力显微镜", value: 1 },
       { name: "激光共聚焦显微镜", value: 1 },
-      { name: "超高速离心机", value: 1 }
+      { name: "超高速离心机", value: 1 },
     ],
     [CampusId.FengLin]: [
       { name: "扫描电子显微镜", value: 5 },
@@ -193,7 +192,7 @@ export function useCampusAssets() {
       { name: "电化学工作站", value: 1 },
       { name: "原子力显微镜", value: 1 },
       { name: "激光共聚焦显微镜", value: 1 },
-      { name: "超高速离心机", value: 1 }
+      { name: "超高速离心机", value: 1 },
     ],
     [CampusId.ZhangJiang]: [
       { name: "扫描电子显微镜", value: 3 },
@@ -205,8 +204,8 @@ export function useCampusAssets() {
       { name: "电化学工作站", value: 1 },
       { name: "原子力显微镜", value: 0 },
       { name: "激光共聚焦显微镜", value: 0 },
-      { name: "超高速离心机", value: 0 }
-    ]
+      { name: "超高速离心机", value: 0 },
+    ],
   };
 
   const { state: totalState, execute: totalExecute } = useAsyncState(
@@ -233,9 +232,9 @@ export function useCampusAssets() {
       //     [item.name]: [item.sl, item.je],
       //   }), {} as Record<"设备" | "家具" | "软件", [number, number]>);
       return mockTypeData[campusId.value] || {
-        "设备": [0, 0],
-        "家具": [0, 0],
-        "软件": [0, 0]
+        设备: [0, 0],
+        家具: [0, 0],
+        软件: [0, 0],
       };
     },
     {} as Record<"设备" | "家具" | "软件", [number, number]>,
@@ -333,7 +332,7 @@ export function useCampusAssetsBuildInfo(buildId: MaybeRefOrGetter<string>) {
       constructionYear: 2010,
       usage: "教学科研",
       manager: "资产管理处",
-      contact: "021-5566xxxx"
+      contact: "021-5566xxxx",
     };
   }, {
     buildingName: "",
@@ -341,7 +340,7 @@ export function useCampusAssetsBuildInfo(buildId: MaybeRefOrGetter<string>) {
     constructionYear: 0,
     usage: "",
     manager: "",
-    contact: ""
+    contact: "",
   }, { immediate: false, resetOnExecute: false });
 
   const { state: assetsInfo, execute: assetsInfoExecute } = useAsyncState(async () => {
@@ -354,14 +353,14 @@ export function useCampusAssetsBuildInfo(buildId: MaybeRefOrGetter<string>) {
       totalAmount: 3850,
       deviceCount: 850,
       furnitureCount: 320,
-      softwareCount: 80
+      softwareCount: 80,
     };
   }, {
     totalNumber: 0,
     totalAmount: 0,
     deviceCount: 0,
     furnitureCount: 0,
-    softwareCount: 0
+    softwareCount: 0,
   }, { immediate: false, resetOnExecute: false });
 
   const { state: assetsTypeInfo, execute: assetsTypeInfoExecute } = useAsyncState(
@@ -384,15 +383,15 @@ export function useCampusAssetsBuildInfo(buildId: MaybeRefOrGetter<string>) {
           { name: "实验仪器", value: 280 },
           { name: "办公家具", value: 120 },
           { name: "计算机", value: 180 },
-          { name: "软件系统", value: 80 }
+          { name: "软件系统", value: 80 },
         ],
         amount: [
           { name: "教学设备", value: 1850 },
           { name: "实验仪器", value: 1250 },
           { name: "办公家具", value: 450 },
           { name: "计算机", value: 200 },
-          { name: "软件系统", value: 100 }
-        ]
+          { name: "软件系统", value: 100 },
+        ],
       };
     },
     { number: [], amount: [] },
@@ -412,14 +411,15 @@ export function useCampusAssetsBuildInfo(buildId: MaybeRefOrGetter<string>) {
         { name: "2025年", value1: 85, value2: 320 },
         { name: "2026年", value1: 65, value2: 250 },
         { name: "2027年", value1: 45, value2: 180 },
-        { name: "2028年", value1: 30, value2: 120 }
+        { name: "2028年", value1: 30, value2: 120 },
       ];
-    } else {
+    }
+    else {
       return [
         { name: "3年内", value1: 310, value2: 1070 },
         { name: "3-5年", value1: 120, value2: 420 },
         { name: "5-10年", value1: 65, value2: 250 },
-        { name: "10年以上", value1: 30, value2: 120 }
+        { name: "10年以上", value1: 30, value2: 120 },
       ];
     }
   }, [], { immediate: false, resetOnExecute: false });

@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import type { EChartsOption } from "echarts";
 import type { Ref } from "vue";
 import { useRouteQuery } from "@vueuse/router";
 // import to from "await-to-js";
 import dayjs from "dayjs";
 // import { fetchCampusGateFlowDistribution } from "@/api/campusAccess/campusSchool";
-import { useDataSlice, useEChartRender } from "@/hooks";
 import { cn } from "@/utils";
 
 defineOptions({ name: "FootTrafficDistribution" });
@@ -18,7 +16,7 @@ const list = ["campusAccess.personnelOnCampusDistribution", "campusAccess.offCam
 
 // 模拟数据：门岗人流量分布
 const mockGateFlowDistributionData: Record<string, { name: string; value1: number; value2: number }[]> = {
-  "校门1": [
+  校门1: [
     { name: "6", value1: 25, value2: 15 },
     { name: "7", value1: 38, value2: 22 },
     { name: "8", value1: 65, value2: 40 },
@@ -36,9 +34,9 @@ const mockGateFlowDistributionData: Record<string, { name: string; value1: numbe
     { name: "20", value1: 65, value2: 40 },
     { name: "21", value1: 48, value2: 30 },
     { name: "22", value1: 35, value2: 22 },
-    { name: "23", value1: 25, value2: 15 }
+    { name: "23", value1: 25, value2: 15 },
   ],
-  "校门2": [
+  校门2: [
     { name: "6", value1: 20, value2: 12 },
     { name: "7", value1: 30, value2: 18 },
     { name: "8", value1: 52, value2: 32 },
@@ -56,9 +54,9 @@ const mockGateFlowDistributionData: Record<string, { name: string; value1: numbe
     { name: "20", value1: 52, value2: 32 },
     { name: "21", value1: 38, value2: 25 },
     { name: "22", value1: 28, value2: 18 },
-    { name: "23", value1: 20, value2: 12 }
+    { name: "23", value1: 20, value2: 12 },
   ],
-  "校门3": [
+  校门3: [
     { name: "6", value1: 15, value2: 10 },
     { name: "7", value1: 25, value2: 15 },
     { name: "8", value1: 42, value2: 25 },
@@ -76,9 +74,9 @@ const mockGateFlowDistributionData: Record<string, { name: string; value1: numbe
     { name: "20", value1: 42, value2: 25 },
     { name: "21", value1: 32, value2: 20 },
     { name: "22", value1: 22, value2: 15 },
-    { name: "23", value1: 15, value2: 10 }
+    { name: "23", value1: 15, value2: 10 },
   ],
-  "校门4": [
+  校门4: [
     { name: "6", value1: 12, value2: 8 },
     { name: "7", value1: 20, value2: 12 },
     { name: "8", value1: 35, value2: 20 },
@@ -96,8 +94,8 @@ const mockGateFlowDistributionData: Record<string, { name: string; value1: numbe
     { name: "20", value1: 35, value2: 20 },
     { name: "21", value1: 25, value2: 15 },
     { name: "22", value1: 18, value2: 12 },
-    { name: "23", value1: 12, value2: 8 }
-  ]
+    { name: "23", value1: 12, value2: 8 },
+  ],
 };
 
 const { state, execute } = useAsyncState<{ name: string; value1: number; value2: number }[]>(async () => {

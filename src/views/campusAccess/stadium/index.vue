@@ -15,7 +15,7 @@ const campusStore = useCampusStore();
 //
 const publishname = useRouteQuery("publishname", "") as unknown as Ref<string>;
 // 进入场馆
-const venuesVisible = ref(false);
+const venuesVisible = ref(true);
 
 onMounted(() => {
   wdpMap.addLayer(sportsVenuePoiLayer, GymnasiumSplitBuild);

@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import type { Ref } from "vue";
+// import to from "await-to-js";
+import type { IFetchVenueUsageRateResult } from "@/api/campusAccess/stadium";
 import { useRouteQuery } from "@vueuse/router";
-import to from "await-to-js";
-import { fetchVenueUsageRate, type IFetchVenueUsageRateResult } from "@/api/campusAccess/stadium";
-import badminton from "@/assets/images/campusAccess/badminton.png";
-import basketball from "@/assets/images/campusAccess/basketball.png";
-import tableTennis from "@/assets/images/campusAccess/TableTennis.png";
-import tennis from "@/assets/images/campusAccess/tennis.png";
-import volleyball from "@/assets/images/campusAccess/volleyball.png";
 import { cn } from "@/utils";
 import gymnasiumSplitBuild from "@/utils/WdpMap/campusAccess/stadium/GymnasiumSplitBuild.ts";
 
@@ -20,11 +15,15 @@ onBeforeUnmount(() => {
   publishname.value = "";
 });
 
-const { state } = useAsyncState<IFetchVenueUsageRateResult[]>(async () => {
-  const [err, res] = await to(fetchVenueUsageRate());
-  if (err) return [];
-  return res?.resultData || [];
-}, [], { immediate: true, resetOnExecute: false });
+// 硬编码场馆使用率数据
+const state = ref<IFetchVenueUsageRateResult[]>([
+  { num: 12, name: "江湾体育馆室内网球", sttime: "08:00", entime: "10:00" },
+  { num: 8, name: "江湾体育馆羽毛球场", sttime: "10:00", entime: "12:00" },
+  { num: 15, name: "江湾体育馆篮球场（半场）", sttime: "12:00", entime: "14:00" },
+  { num: 6, name: "江湾体育馆排球场1号", sttime: "14:00", entime: "16:00" },
+  { num: 7, name: "江湾体育馆排球场2号", sttime: "16:00", entime: "18:00" },
+  { num: 10, name: "江湾体育馆乒乓球场", sttime: "18:00", entime: "20:00" },
+]);
 
 const iconMap = {
   网球: "i-svg-icon-tennis",

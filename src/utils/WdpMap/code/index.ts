@@ -23,7 +23,7 @@ export default class WdpMap extends MapLayerControl {
   getConfig(sceneUrl?: string, sceneOrder?: string) {
     let finalSceneUrl = window.__config__.wdp.sceneUrl;
     let finalSceneOrder = window.__config__.wdp.sceneOrder;
-    
+
     // 优先使用传入的参数
     if (this.isValidParam(sceneUrl)) {
       finalSceneUrl = sceneUrl!;
@@ -31,7 +31,7 @@ export default class WdpMap extends MapLayerControl {
     if (this.isValidParam(sceneOrder)) {
       finalSceneOrder = sceneOrder!;
     }
-    
+
     // 读取配置文件 - url
     const params = new URLSearchParams(window.location.search);
 
@@ -141,12 +141,34 @@ export default class WdpMap extends MapLayerControl {
   }
 
   onCreated(callback: (app: WdpApi) => void) {
+    console.log("🗺️ [wdpMap.onCreated] 注册回调:", {
+      当前状态: this.status,
+      图层列表: this.layerList.map(l => ({ id: l.layerId, mounted: l.mounted })),
+      所有图层已挂载: this.layerList.every(layer => layer.mounted),
+    });
+
     if (this.status === "ready") {
-      waitFor(() => this.layerList.every(layer => layer.mounted))
-        .then(() => callback(this.app!));
+      console.log("🗺️ [wdpMap.onCreated] 地图已ready，等待图层挂载完成...");
+      waitFor(() => {
+        const allMounted = this.layerList.every(layer => layer.mounted);
+        console.log("🗺️ [wdpMap.onCreated] 检查图层挂载状态:", {
+          所有图层已挂载: allMounted,
+          图层状态: this.layerList.map(l => ({ id: l.layerId, mounted: l.mounted })),
+        });
+        return allMounted;
+      })
+        .then(() => {
+          console.log("✅ [wdpMap.onCreated] 所有图层已挂载，执行回调");
+          callback(this.app!);
+        })
+        .catch((err) => {
+          console.error("❌ [wdpMap.onCreated] 等待图层挂载超时:", err);
+        });
       return;
     }
+    console.log("🗺️ [wdpMap.onCreated] 地图未ready，监听created事件");
     this.on("created", () => {
+      console.log("✅ [wdpMap.onCreated] created事件触发，执行回调");
       callback(this.app!);
     });
   }

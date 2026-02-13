@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import get from "lodash/get";
-import CountItem from "@/components/CountItem/index.vue";
 import { cn } from "@/utils";
 
 defineOptions({ name: "BaseInfo", inheritAttrs: false });

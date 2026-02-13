@@ -18,10 +18,10 @@ const columns: IEasyTableProps["columns"] = [
     ),
     field: "value",
     align: "center",
-    className:'font-number text-[14px]'
+    className: "font-number text-[14px]",
   },
   {
-     title: () => (
+    title: () => (
       <span>
         金额
         <span class="text-[10px] text-white/60">(万元)</span>
@@ -29,16 +29,14 @@ const columns: IEasyTableProps["columns"] = [
     ),
     field: "value1",
     align: "center",
-    className:'font-number text-[14px]'
+    className: "font-number text-[14px]",
   },
 ];
-
- 
 </script>
 
 <template>
-  <div class="device-distribution h-160px mt-2">
-    <UiEasyTable :data="data" :columns="columns"  />
+  <div class="device-distribution mt-2 h-160px">
+    <UiEasyTable :data="data" :columns="columns" />
   </div>
 </template>
 

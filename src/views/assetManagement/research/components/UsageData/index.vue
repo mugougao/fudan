@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import get from "lodash/get";
 import { cn, replaceTemplate } from "@/utils";
 
 defineOptions({ name: "UsageData", inheritAttrs: false });
@@ -12,8 +11,6 @@ const data = {
   appointmentOut: 3,
   chargesOut: 5050,
 };
-
- 
 
 const columns = [
   ["", "校内", "校外"],
@@ -50,7 +47,7 @@ const columns = [
       </div>
     </div>
 
-    <div class="count-table text-center mt-5">
+    <div class="count-table mt-5 text-center">
       <div class="row flex">
         <div
           v-for="(item, index) in columns[0]" :key="index"
@@ -61,9 +58,8 @@ const columns = [
       <div v-for="(column, index) in columns.slice(1)" :key="index" class="row body mt-2 h-[42px] flex leading-[42px]">
         <div
           v-for="col in column" :key="col"
-          class="cell text-[16px] text-white flex items-center gap-0.5 justify-center font-text-medium first:w-[70px] first:shrink-0 not-first:grow first:text-[14px] first:text-white first:font-title"
-          v-html="replaceTemplate(col, data)">
-        </div>
+          class="cell flex items-center justify-center gap-0.5 text-[16px] text-white font-text-medium first:w-[70px] first:shrink-0 not-first:grow first:text-[14px] first:text-white first:font-title"
+          v-html="replaceTemplate(col, data)" />
       </div>
     </div>
   </div>

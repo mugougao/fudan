@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ItemType } from "ant-design-vue";
 import { asyncRoutes } from "@/router/routes/asyncRoutes.ts";
-import { filterRoutes, type Menu, transformRouteToMenu } from "@/router/utils.ts";
+import { type Menu, transformRouteToMenu } from "@/router/utils.ts";
 import { useUserStore } from "@/stores/user.ts";
 
 defineOptions({ name: "AsideNav" });

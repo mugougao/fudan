@@ -2,19 +2,24 @@
 import type { EChartsOption } from "echarts";
 import type { Ref } from "vue";
 import { useRouteQuery } from "@vueuse/router";
-import to from "await-to-js";
+// import to from "await-to-js";
 import { merge } from "lodash";
-import { fetchVenueUsageRate7Days } from "@/api/campusAccess/stadium";
+// import { fetchVenueUsageRate7Days } from "@/api/campusAccess/stadium";
 
 const publishname = useRouteQuery("publishname", "") as unknown as Ref<string>;
 
-const { state, execute } = useAsyncState<{ name: string; value: number }[]>(async () => {
-  const [err, res] = await to(fetchVenueUsageRate7Days(publishname.value));
-  if (err) return [];
-  return res?.resultData || [];
-}, [], { immediate: true, resetOnExecute: false });
+// 硬编码近七天场馆预约数据
+const state = ref<{ name: string; value: number }[]>([
+  { name: "周一", value: 125 },
+  { name: "周二", value: 98 },
+  { name: "周三", value: 156 },
+  { name: "周四", value: 112 },
+  { name: "周五", value: 189 },
+  { name: "周六", value: 234 },
+  { name: "周日", value: 201 },
+]);
 
-watch(publishname, () => execute());
+// watch(publishname, () => execute());
 
 function mergeOption(option: EChartsOption) {
   return merge(

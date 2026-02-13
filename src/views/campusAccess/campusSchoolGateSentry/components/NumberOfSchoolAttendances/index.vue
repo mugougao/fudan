@@ -2,7 +2,6 @@
 import type { Ref } from "vue";
 import { useRouteQuery } from "@vueuse/router";
 // import to from "await-to-js";
-import dayjs from "dayjs";
 // import { fetchCampusGateInOutStatistics30Days, fetchCampusGateInOutStatisticsAVG } from "@/api/campusAccess/campusSchool";
 import { numberToThousands } from "@/utils";
 
@@ -13,7 +12,7 @@ const schoolDoorId = useRouteQuery("schoolDoorId", "") as unknown as Ref<string>
 
 // 模拟数据：门岗近30天进校人次
 const mockGate30DaysData: Record<string, { name: string; value: number }[]> = {
-  "校门1": [
+  校门1: [
     { name: "1-1", value: 125 },
     { name: "1-2", value: 132 },
     { name: "1-3", value: 118 },
@@ -43,9 +42,9 @@ const mockGate30DaysData: Record<string, { name: string; value: number }[]> = {
     { name: "1-27", value: 138 },
     { name: "1-28", value: 152 },
     { name: "1-29", value: 165 },
-    { name: "1-30", value: 158 }
+    { name: "1-30", value: 158 },
   ],
-  "校门2": [
+  校门2: [
     { name: "1-1", value: 98 },
     { name: "1-2", value: 105 },
     { name: "1-3", value: 92 },
@@ -75,9 +74,9 @@ const mockGate30DaysData: Record<string, { name: string; value: number }[]> = {
     { name: "1-27", value: 105 },
     { name: "1-28", value: 118 },
     { name: "1-29", value: 125 },
-    { name: "1-30", value: 118 }
+    { name: "1-30", value: 118 },
   ],
-  "校门3": [
+  校门3: [
     { name: "1-1", value: 78 },
     { name: "1-2", value: 85 },
     { name: "1-3", value: 72 },
@@ -107,9 +106,9 @@ const mockGate30DaysData: Record<string, { name: string; value: number }[]> = {
     { name: "1-27", value: 85 },
     { name: "1-28", value: 95 },
     { name: "1-29", value: 102 },
-    { name: "1-30", value: 95 }
+    { name: "1-30", value: 95 },
   ],
-  "校门4": [
+  校门4: [
     { name: "1-1", value: 65 },
     { name: "1-2", value: 72 },
     { name: "1-3", value: 58 },
@@ -139,16 +138,16 @@ const mockGate30DaysData: Record<string, { name: string; value: number }[]> = {
     { name: "1-27", value: 72 },
     { name: "1-28", value: 82 },
     { name: "1-29", value: 88 },
-    { name: "1-30", value: 82 }
-  ]
+    { name: "1-30", value: 82 },
+  ],
 };
 
 // 模拟数据：门岗平均进校人次
 const mockGateAvgData: Record<string, number> = {
-  "校门1": 142,
-  "校门2": 112,
-  "校门3": 88,
-  "校门4": 75
+  校门1: 142,
+  校门2: 112,
+  校门3: 88,
+  校门4: 75,
 };
 
 // 进校次数

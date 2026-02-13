@@ -1,9 +1,8 @@
 <script setup lang="tsx">
 import type { Ref } from "vue";
+import type { IGetClassroomDetailPanelResult } from "@/api/smartTeaching";
 import { useRouteQuery } from "@vueuse/router";
-import to from "await-to-js";
 import get from "lodash/get";
-import { getClassroomDetailPanel, type IGetClassroomDetailPanelResult } from "@/api/smartTeaching";
 import VideoHlsPlayer from "@/components/VideoHlsPlayer/index.vue";
 
 // 楼层房间
@@ -12,9 +11,137 @@ const roomId = useRouteQuery<string>("roomId", "") as unknown as Ref<string>;
 const { state, execute } = useAsyncState<IGetClassroomDetailPanelResult>(
   async () => {
     if (!roomId.value) return {} as IGetClassroomDetailPanelResult;
-    const [err, res] = await to(getClassroomDetailPanel(roomId.value));
-    if (err) return {} as IGetClassroomDetailPanelResult;
-    return res?.resultData || {} as IGetClassroomDetailPanelResult;
+
+    // 硬编码教室详情数据
+    const classroomDetailData: Record<string, IGetClassroomDetailPanelResult> = {
+      "101_1": {
+        jsxx: {
+          sklx: "理论课",
+          kcdl: "CS101",
+          skjs: "张教授",
+          kcmc: "计算机科学导论",
+          skrs: "45",
+        },
+        jszt: "在用",
+        jsbh: "101",
+        jsfmd: 85,
+      },
+      "102_1": {
+        jsxx: {
+          sklx: "实验课",
+          kcdl: "PHY201",
+          skjs: "李教授",
+          kcmc: "物理实验",
+          skrs: "30",
+        },
+        jszt: "在用",
+        jsbh: "102",
+        jsfmd: 72,
+      },
+      "103_1": {
+        jsxx: {
+          sklx: "讨论课",
+          kcdl: "MATH301",
+          skjs: "王教授",
+          kcmc: "高等数学讨论",
+          skrs: "25",
+        },
+        jszt: "未用",
+        jsbh: "103",
+        jsfmd: 35,
+      },
+      "201_2": {
+        jsxx: {
+          sklx: "理论课",
+          kcdl: "ENG101",
+          skjs: "赵教授",
+          kcmc: "英语写作",
+          skrs: "50",
+        },
+        jszt: "在用",
+        jsbh: "201",
+        jsfmd: 90,
+      },
+      "202_2": {
+        jsxx: {
+          sklx: "实验课",
+          kcdl: "CHEM202",
+          skjs: "刘教授",
+          kcmc: "化学实验",
+          skrs: "28",
+        },
+        jszt: "在用",
+        jsbh: "202",
+        jsfmd: 78,
+      },
+      "301_3": {
+        jsxx: {
+          sklx: "理论课",
+          kcdl: "BIO101",
+          skjs: "陈教授",
+          kcmc: "生物学导论",
+          skrs: "55",
+        },
+        jszt: "在用",
+        jsbh: "301",
+        jsfmd: 82,
+      },
+      "401_4": {
+        jsxx: {
+          sklx: "讨论课",
+          kcdl: "ECON201",
+          skjs: "孙教授",
+          kcmc: "经济学原理",
+          skrs: "35",
+        },
+        jszt: "在用",
+        jsbh: "401",
+        jsfmd: 65,
+      },
+      "501_5": {
+        jsxx: {
+          sklx: "理论课",
+          kcdl: "HIST101",
+          skjs: "周教授",
+          kcmc: "中国历史",
+          skrs: "60",
+        },
+        jszt: "在用",
+        jsbh: "501",
+        jsfmd: 88,
+      },
+      "587": { // 特殊教室，有视频流
+        jsxx: {
+          sklx: "多媒体课",
+          kcdl: "MEDIA301",
+          skjs: "吴教授",
+          kcmc: "多媒体技术",
+          skrs: "40",
+        },
+        jszt: "在用",
+        jsbh: "587",
+        jsfmd: 95,
+      },
+    };
+
+    // 返回对应教室的数据，如果没有则返回默认数据
+    return classroomDetailData[roomId.value] || {
+      jsxx: {
+        sklx: "理论课",
+        kcdl: "DEFAULT101",
+        skjs: "默认教师",
+        kcmc: "默认课程",
+        skrs: "30",
+      },
+      jszt: "在用",
+      jsbh: roomId.value,
+      jsfmd: 70,
+    };
+
+    // 注释掉原来的API调用
+    // const [err, res] = await to(getClassroomDetailPanel(roomId.value));
+    // if (err) return {} as IGetClassroomDetailPanelResult;
+    // return res?.resultData || {} as IGetClassroomDetailPanelResult;
   },
   {} as IGetClassroomDetailPanelResult,
   { immediate: false, resetOnExecute: false },
@@ -99,8 +226,7 @@ const labelCardTexts = computed(() => {
 .count-box {
   background: url("@/assets/images_new/value-bg3.png") no-repeat center top / 142px 100px;
   .count {
-    background:
-      linear-gradient(to bottom, rgba(0, 0, 0, 0), #fff, rgba(0, 0, 0, 0)) no-repeat center center / 1px 30px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), #fff, rgba(0, 0, 0, 0)) no-repeat center center / 1px 30px;
   }
 }
 .content {

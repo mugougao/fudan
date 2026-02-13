@@ -37,6 +37,7 @@ const { campusId } = useWatchCampusIdPushRoute({
 
 // FloorExtraction
 const { x, y } = useMouse();
+floorExtractionCustomLayer.setSplitMethod("CrystalSplit");
 wdpMap.addLayer(floorExtractionCustomLayer, equipmentBuildingPoiLayer, networkDevicePoiLayer, equipmentPersonnelHeatMapLayer, PersonnelBuildLayer);
 wdpMap.onCreated(async () => {
   setTimeout(async () => {
@@ -47,7 +48,7 @@ wdpMap.onCreated(async () => {
       await equipmentBuildingPoiLayer.flyTo(buildId.value);
       await equipmentBuildingPoiLayer.hideAll();
       // 炸开 楼栋
-      await floorExtractionCustomLayer.disperse(buildId.value);
+      await floorExtractionCustomLayer.disperse(buildId.value, "light");
       if (floorId.value) {
         sleep(3000).then(() => {
           floorExtractionCustomLayer.extract(floorId.value!);
@@ -65,7 +66,7 @@ wdpMap.onCreated(async () => {
     equipmentBuildingPoiLayer.flyTo(id, { distanceFactor: 300, rotation: { pitch: -30 } });
     equipmentBuildingPoiLayer.hideAll();
     // 炸开 楼栋
-    floorExtractionCustomLayer.disperse(id);
+    floorExtractionCustomLayer.disperse(id, "light");
   });
 
   networkDevicePoiLayer.onHover(

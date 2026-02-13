@@ -1,6 +1,5 @@
 import { useAsyncState } from "@vueuse/core";
 import { useRouteQuery } from "@vueuse/router";
-import to from "await-to-js";
 // import {
 //   fetchTodaySchoolAssets,
 //   fetchTodaySchoolEnergy,
@@ -18,37 +17,37 @@ export function usePanelData() {
       count: 28560,
       traffic: Array.from({ length: 24 }, (_, i) => ({
         name: `${i}`,
-        value: Math.floor(800 + Math.random() * 400)
-      }))
+        value: Math.floor(800 + Math.random() * 400),
+      })),
     },
     [CampusId.HanDan]: {
       count: 12500,
       traffic: Array.from({ length: 24 }, (_, i) => ({
         name: `${i}`,
-        value: Math.floor(350 + Math.random() * 200)
-      }))
+        value: Math.floor(350 + Math.random() * 200),
+      })),
     },
     [CampusId.JiangWan]: {
       count: 8500,
       traffic: Array.from({ length: 24 }, (_, i) => ({
         name: `${i}`,
-        value: Math.floor(250 + Math.random() * 150)
-      }))
+        value: Math.floor(250 + Math.random() * 150),
+      })),
     },
     [CampusId.FengLin]: {
       count: 5200,
       traffic: Array.from({ length: 24 }, (_, i) => ({
         name: `${i}`,
-        value: Math.floor(150 + Math.random() * 100)
-      }))
+        value: Math.floor(150 + Math.random() * 100),
+      })),
     },
     [CampusId.ZhangJiang]: {
       count: 3200,
       traffic: Array.from({ length: 24 }, (_, i) => ({
         name: `${i}`,
-        value: Math.floor(100 + Math.random() * 80)
-      }))
-    }
+        value: Math.floor(100 + Math.random() * 80),
+      })),
+    },
   };
 
   // 模拟数据：校园资产数据（按校区）[数量, 金额, 净值]
@@ -57,7 +56,7 @@ export function usePanelData() {
     [CampusId.HanDan]: [52000, 185000, 125000],
     [CampusId.JiangWan]: [38000, 125000, 85000],
     [CampusId.FengLin]: [25000, 58000, 42000],
-    [CampusId.ZhangJiang]: [10600, 17000, 12000]
+    [CampusId.ZhangJiang]: [10600, 17000, 12000],
   };
 
   // 模拟数据：能耗统计数据（按校区）
@@ -67,24 +66,24 @@ export function usePanelData() {
   }> = {
     [CampusId.Overview]: {
       water: { yearOverYear: -8.5, year: 2850, lastYear: 3120 },
-      electricity: { yearOverYear: -12.2, year: 4250, lastYear: 4850 }
+      electricity: { yearOverYear: -12.2, year: 4250, lastYear: 4850 },
     },
     [CampusId.HanDan]: {
       water: { yearOverYear: -7.2, year: 1250, lastYear: 1350 },
-      electricity: { yearOverYear: -10.5, year: 1850, lastYear: 2050 }
+      electricity: { yearOverYear: -10.5, year: 1850, lastYear: 2050 },
     },
     [CampusId.JiangWan]: {
       water: { yearOverYear: -6.8, year: 850, lastYear: 920 },
-      electricity: { yearOverYear: -9.8, year: 1250, lastYear: 1380 }
+      electricity: { yearOverYear: -9.8, year: 1250, lastYear: 1380 },
     },
     [CampusId.FengLin]: {
       water: { yearOverYear: -5.5, year: 520, lastYear: 550 },
-      electricity: { yearOverYear: -8.2, year: 850, lastYear: 920 }
+      electricity: { yearOverYear: -8.2, year: 850, lastYear: 920 },
     },
     [CampusId.ZhangJiang]: {
       water: { yearOverYear: -4.2, year: 320, lastYear: 340 },
-      electricity: { yearOverYear: -6.5, year: 520, lastYear: 580 }
-    }
+      electricity: { yearOverYear: -6.5, year: 520, lastYear: 580 },
+    },
   };
 
   const {
@@ -135,7 +134,7 @@ export function usePanelData() {
       // 注释掉API请求，使用模拟数据
       // const [,res] = await to(fetchTodaySchoolEnergy(campusId.value));
       // const { yearelectmom = 0, oldyearwater = 0, oldyearelect = 0, yearwater = 0, yearelect = 0, yearwatermom = 0 } = res?.resultData || {};
-      // 
+      //
       // return {
       //   water: {
       //     yearOverYear: yearwatermom,

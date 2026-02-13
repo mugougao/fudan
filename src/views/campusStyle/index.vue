@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import to from "await-to-js";
 import { storeToRefs } from "pinia";
-import { getLandmarkFileData } from "@/data/landmarkFileData";
 import RoamingRoutePoiListPopup from "@/components/RoamingRoutePoiListPopup/index.vue";
+import { getLandmarkFileData } from "@/data/landmarkFileData";
 import { CampusId } from "@/enums";
 import { useState } from "@/hooks";
 import { useCampusStore } from "@/stores/campus.ts";
 import { useI18nStore } from "@/stores/i18n.ts";
+import { createLoading } from "@/utils/createLoading.ts";
 import campusPoiLayer from "@/utils/WdpMap/CampusPoiLayer.ts";
 import campusRangeLayer from "@/utils/WdpMap/CampusRangeLayer.ts";
 import roamingRoutePathLayer from "@/utils/WdpMap/campusStyle/RoamingRoutePathLayer.ts";
@@ -14,7 +14,6 @@ import roamingRoutePlay from "@/utils/WdpMap/campusStyle/RoamingRoutePlay.ts";
 import roamingRoutePoiLayer from "@/utils/WdpMap/campusStyle/RoamingRoutePoiLayer.ts";
 import roamingRouteTextLayer from "@/utils/WdpMap/campusStyle/RoamingRouteTextLayer";
 import wdpMap from "@/utils/WdpMap/wdpMap";
-import { createLoading } from "@/utils/createLoading.ts";
 import CulturalAttractions from "@/views/campusStyle/CulturalAttractions/index.vue";
 import HuangBuilding from "@/views/campusStyle/HuangBuilding/index.vue";
 import NavigationMenu from "./components/NavigationMenu/index.vue";
@@ -40,11 +39,11 @@ function setupSceneCreatedListener() {
     sceneLoaded.value = true;
     // 设置相机 默认角度（与Render组件中相同）
     await app.CameraControl.UpdateCamera({
-      location: [121.50093817003349, 31.29741537805052, 229.26945738888742],
-      rotation: { pitch: -30.75469970703125, yaw: -107.26077270507812 },
+      location: [121.50093817, 31.29741538, 229.26945739],
+      rotation: { pitch: -30.7547, yaw: -107.260773 },
       locationLimit: [],
       pitchLimit: [-89, 0],
-      yawLimit: [-180, 179.99899291992188],
+      yawLimit: [-180, 179.998993],
       viewDistanceLimit: [1, 10000],
       controlMode: "RTS",
       fieldOfView: 90,
@@ -60,8 +59,8 @@ const { isChinese } = storeToRefs(useI18nStore());
 // 渲染配置弹窗
 const showRenderConfigPopup = ref(false);
 const renderConfig = reactive({
-  sceneUrl: localStorage.getItem('campusStyle_sceneUrl') || '',
-  sceneOrder: localStorage.getItem('campusStyle_sceneOrder') || '',
+  sceneUrl: localStorage.getItem("campusStyle_sceneUrl") || "",
+  sceneOrder: localStorage.getItem("campusStyle_sceneOrder") || "",
 });
 
 // 自动加载已保存的场景配置
@@ -74,31 +73,32 @@ async function loadSavedScene() {
     try {
       await wdpMap.render("player", renderConfig.sceneUrl, renderConfig.sceneOrder);
       (window as any).__wdpMap__ = wdpMap;
-      
+
       // 监听场景创建完成
       wdpMap.onCreated(() => {
         loading?.close();
       });
-      
+
       wdpMap.onError(() => {
         loading?.close();
       });
-      
-    } catch (error) {
+    }
+    catch (error) {
       loading?.close();
       console.error("三维场景加载失败:", error);
       // 如果加载失败，显示配置弹窗让用户重新配置
       showRenderConfigPopup.value = true;
     }
-  } else {
+  }
+  else {
     // 如果没有保存的配置，显示配置弹窗
     showRenderConfigPopup.value = true;
   }
 }
 
 function handleRenderConfigSubmit(config: { sceneUrl: string; sceneOrder: string }) {
-  localStorage.setItem('campusStyle_sceneUrl', config.sceneUrl);
-  localStorage.setItem('campusStyle_sceneOrder', config.sceneOrder);
+  localStorage.setItem("campusStyle_sceneUrl", config.sceneUrl);
+  localStorage.setItem("campusStyle_sceneOrder", config.sceneOrder);
   renderConfig.sceneUrl = config.sceneUrl;
   renderConfig.sceneOrder = config.sceneOrder;
   // 设置场景创建监听器
@@ -151,21 +151,24 @@ watch(
 );
 
 async function roamingRoutePoiClick(id: string) {
+  console.log("[campusStyle] roamingRoutePoiClick called, id:", id, "activeTab:", activeTab.value);
   roamingRoutePlay.destroy();
   activePoiId.value = id;
   roamingRouteTextLayer.showAll();
   roamingRoutePoiLayer.hideAll();
+  console.log("[campusStyle] Calling focusById, id:", id, "pathId:", activeTab.value);
   roamingRoutePoiLayer.focusById(id, activeTab.value);
   const res = getLandmarkFileData(id);
-  const { resultData = {} } = res || {};
+  const resultData = (res?.resultData as any) || {};
+  console.log("[campusStyle] Landmark data retrieved:", { id, hasImages: resultData.fileList?.length, hasDescription: !!resultData.jj });
   poiDetails.value = {
     img: resultData.fileList ?? [],
     description: resultData.jj ?? "",
   };
 }
-roamingRoutePoiLayer.onClick(({ id,name }) => {
+roamingRoutePoiLayer.onClick(({ id, name }) => {
   activePoiName.value = name;
-  roamingRoutePoiClick(id)
+  roamingRoutePoiClick(id);
 });
 
 function onCloseRoamingRoutePoiListPopup() {
@@ -201,7 +204,7 @@ function onCloseRoamingRoutePoiListPopup() {
     <PublicityVideo v-model:visible="showPublicityVideo" @close="() => resetActiveTab()" />
     <!--  漫游路线POI 弹窗 -->
     <RoamingRoutePoiListPopup
-      v-model="activePoiId"  v-model:name="activePoiName"
+      v-model="activePoiId" v-model:name="activePoiName"
       v-model:visible="showRoamingRoutePoiListPopup" :data="roamingRoutePoiListPopupData"
       @play="() => {
         roamingRoutePlay.play(activeTab);

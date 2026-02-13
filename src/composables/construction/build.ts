@@ -1,7 +1,6 @@
-import to from "await-to-js";
-import { fetchBuildList, fetchBuildQueryOptions, type FetchBuildResultItem } from "@/api/construction/build.ts";
-import { useCampusStore } from "@/stores/campus";
+import type { FetchBuildResultItem } from "@/api/construction/build.ts";
 import { CampusId } from "@/enums";
+import { useCampusStore } from "@/stores/campus";
 
 export function useBuildListParamsOptions() {
   const { activeCampusId } = useCampusStore();
@@ -9,24 +8,24 @@ export function useBuildListParamsOptions() {
   const mockBuildQueryOptionsData: Record<CampusId, { area: string[]; type: string[] }> = {
     [CampusId.Overview]: {
       area: ["主校区", "东区", "西区", "北区", "南区"],
-      type: ["教学楼", "实验楼", "办公楼", "宿舍楼", "图书馆", "体育馆", "食堂"]
+      type: ["教学楼", "实验楼", "办公楼", "宿舍楼", "图书馆", "体育馆", "食堂"],
     },
     [CampusId.HanDan]: {
       area: ["光华楼区", "图书馆区", "教学区", "实验区", "生活区", "运动区"],
-      type: ["教学楼", "实验楼", "办公楼", "宿舍楼", "图书馆", "体育馆", "食堂", "行政楼"]
+      type: ["教学楼", "实验楼", "办公楼", "宿舍楼", "图书馆", "体育馆", "食堂", "行政楼"],
     },
     [CampusId.JiangWan]: {
       area: ["法学区", "环境科学区", "生命科学区", "物理区", "图书馆区", "生活区"],
-      type: ["教学楼", "实验楼", "办公楼", "宿舍楼", "图书馆", "体育馆", "食堂"]
+      type: ["教学楼", "实验楼", "办公楼", "宿舍楼", "图书馆", "体育馆", "食堂"],
     },
     [CampusId.FengLin]: {
       area: ["医学实验区", "基础医学区", "临床医学区", "药学区", "图书馆区", "生活区"],
-      type: ["教学楼", "实验楼", "办公楼", "宿舍楼", "图书馆", "体育馆", "食堂", "医院楼"]
+      type: ["教学楼", "实验楼", "办公楼", "宿舍楼", "图书馆", "体育馆", "食堂", "医院楼"],
     },
     [CampusId.ZhangJiang]: {
       area: ["微电子区", "软件工程区", "计算机科学区", "网络安全区", "图书馆区", "生活区"],
-      type: ["教学楼", "实验楼", "办公楼", "宿舍楼", "图书馆", "体育馆", "食堂", "研发楼"]
-    }
+      type: ["教学楼", "实验楼", "办公楼", "宿舍楼", "图书馆", "体育馆", "食堂", "研发楼"],
+    },
   };
 
   const { state, execute } = useAsyncState<{
@@ -66,7 +65,7 @@ export function useBuildList() {
 
   const { activeCampusId } = useCampusStore();
 
-  const mockBuildListData: Record<CampusId, { list: FetchBuildResultItem[], total: number }> = {
+  const mockBuildListData: Record<CampusId, { list: FetchBuildResultItem[]; total: number }> = {
     [CampusId.Overview]: {
       total: 35,
       list: [
@@ -104,8 +103,8 @@ export function useBuildList() {
         { id: "32", name: "教学楼E", area: "教学区", level: "中层", x: 121.531, y: 31.324 },
         { id: "33", name: "实验楼F", area: "实验区", level: "中层", x: 121.532, y: 31.325 },
         { id: "34", name: "办公楼D", area: "行政区", level: "高层", x: 121.533, y: 31.326 },
-        { id: "35", name: "宿舍楼5", area: "生活区", level: "高层", x: 121.534, y: 31.327 }
-      ]
+        { id: "35", name: "宿舍楼5", area: "生活区", level: "高层", x: 121.534, y: 31.327 },
+      ],
     },
     [CampusId.HanDan]: {
       total: 25,
@@ -134,8 +133,8 @@ export function useBuildList() {
         { id: "hd-22", name: "篮球馆", area: "运动区", level: "低层", x: 121.521, y: 31.314 },
         { id: "hd-23", name: "清真食堂", area: "生活区", level: "低层", x: 121.522, y: 31.315 },
         { id: "hd-24", name: "国际交流处", area: "行政区", level: "中层", x: 121.523, y: 31.316 },
-        { id: "hd-25", name: "法学院", area: "教学区", level: "中层", x: 121.524, y: 31.317 }
-      ]
+        { id: "hd-25", name: "法学院", area: "教学区", level: "中层", x: 121.524, y: 31.317 },
+      ],
     },
     [CampusId.JiangWan]: {
       total: 20,
@@ -159,8 +158,8 @@ export function useBuildList() {
         { id: "jw-17", name: "科研中心", area: "实验区", level: "高层", x: 121.516, y: 31.309 },
         { id: "jw-18", name: "国际法学院", area: "法学区", level: "中层", x: 121.517, y: 31.310 },
         { id: "jw-19", name: "生态实验楼", area: "环境科学区", level: "中层", x: 121.518, y: 31.311 },
-        { id: "jw-20", name: "研究生公寓", area: "生活区", level: "高层", x: 121.519, y: 31.312 }
-      ]
+        { id: "jw-20", name: "研究生公寓", area: "生活区", level: "高层", x: 121.519, y: 31.312 },
+      ],
     },
     [CampusId.FengLin]: {
       total: 18,
@@ -182,8 +181,8 @@ export function useBuildList() {
         { id: "fl-15", name: "游泳馆", area: "运动区", level: "低层", x: 121.514, y: 31.307 },
         { id: "fl-16", name: "第二食堂", area: "生活区", level: "低层", x: 121.515, y: 31.308 },
         { id: "fl-17", name: "科研中心", area: "医学实验区", level: "高层", x: 121.516, y: 31.309 },
-        { id: "fl-18", name: "附属医院楼", area: "临床医学区", level: "高层", x: 121.517, y: 31.310 }
-      ]
+        { id: "fl-18", name: "附属医院楼", area: "临床医学区", level: "高层", x: 121.517, y: 31.310 },
+      ],
     },
     [CampusId.ZhangJiang]: {
       total: 15,
@@ -202,9 +201,9 @@ export function useBuildList() {
         { id: "zj-12", name: "数据科学楼", area: "计算机科学区", level: "中层", x: 121.511, y: 31.304 },
         { id: "zj-13", name: "电子工程楼", area: "微电子区", level: "中层", x: 121.512, y: 31.305 },
         { id: "zj-14", name: "研究生公寓", area: "生活区", level: "高层", x: 121.513, y: 31.306 },
-        { id: "zj-15", name: "研发中心", area: "研发区", level: "高层", x: 121.514, y: 31.307 }
-      ]
-    }
+        { id: "zj-15", name: "研发中心", area: "研发区", level: "高层", x: 121.514, y: 31.307 },
+      ],
+    },
   };
 
   const { state, execute } = useAsyncState(
@@ -213,12 +212,12 @@ export function useBuildList() {
       // const [err, res] = await to(fetchBuildList({ xq: activeCampusId, pageNum: current.value, pageSize: 10, ...params.value }));
       // if (err) return { list: [], total: 0 };
       // const { list, total } = res?.resultData || {};
-      
+
       // 获取当前校区的模拟数据
       const campusData = mockBuildListData[activeCampusId] || mockBuildListData[CampusId.HanDan];
       let filteredList = [...campusData.list];
       const { name, area, type } = params.value;
-      
+
       // 模拟搜索和过滤功能
       if (name) {
         filteredList = filteredList.filter(item => item.name.includes(name));
@@ -230,13 +229,13 @@ export function useBuildList() {
         // 类型过滤需要根据类型映射，这里简化为区域包含类型关键词
         filteredList = filteredList.filter(item => item.area.includes(type) || item.name.includes(type));
       }
-      
+
       // 模拟分页
       const total = filteredList.length;
       const startIndex = (current.value - 1) * 10;
       const endIndex = startIndex + 10;
       const paginatedList = filteredList.slice(startIndex, endIndex);
-      
+
       return { list: paginatedList, total };
     },
     { list: [], total: 0 },

@@ -3,8 +3,7 @@ import type { Ref } from "vue";
 import { useRouteQuery } from "@vueuse/router";
 // import to from "await-to-js";
 // import { fetchCampusGateSituation, type IFetchCampusGateSituationResult } from "@/api/campusAccess/campusSchool";
-import GradientText from "@/components/GradientText";
-import { CampusId, CampusName } from "@/enums";
+import { CampusId } from "@/enums";
 
 defineOptions({ name: "IngressSituation" });
 
@@ -13,49 +12,49 @@ const campusId = useRouteQuery("campusId", CampusId.Overview) as unknown as Ref<
 
 // 模拟数据：校区出入口态势数据
 const mockCampusGateSituationData = {
-  "3": { // 邯郸校区
+  3: { // 邯郸校区
     jrjx: {
-      xn: 850,  // 校内人次
+      xn: 850, // 校内人次
       zrs: 1250, // 总人数
-      xw: 400   // 校外人次
+      xw: 400, // 校外人次
     },
-    sbsl: 32,   // 设备数量
-    crksl: 8    // 出入口数量
+    sbsl: 32, // 设备数量
+    crksl: 8, // 出入口数量
   },
-  "4": { // 江湾校区
+  4: { // 江湾校区
     jrjx: {
       xn: 680,
       zrs: 980,
-      xw: 300
+      xw: 300,
     },
     sbsl: 24,
-    crksl: 6
+    crksl: 6,
   },
-  "5": { // 枫林校区
+  1: { // 枫林校区
     jrjx: {
       xn: 520,
       zrs: 750,
-      xw: 230
+      xw: 230,
     },
     sbsl: 20,
-    crksl: 5
+    crksl: 5,
   },
-  "6": { // 张江校区
+  2: { // 张江校区
     jrjx: {
       xn: 350,
       zrs: 520,
-      xw: 170
+      xw: 170,
     },
     sbsl: 16,
-    crksl: 4
-  }
+    crksl: 4,
+  },
 };
 
 const { state, execute } = useAsyncState<typeof mockCampusGateSituationData["3"]>(
   async () => {
     if (campusId.value === CampusId.Overview) return {} as typeof mockCampusGateSituationData["3"];
     // 获取校区数据，默认为邯郸校区
-    return mockCampusGateSituationData[campusId.value as keyof typeof mockCampusGateSituationData] || mockCampusGateSituationData["3"];
+    return mockCampusGateSituationData[campusId.value as unknown as keyof typeof mockCampusGateSituationData] || mockCampusGateSituationData["3"];
   },
   {} as typeof mockCampusGateSituationData["3"],
   { immediate: false, resetOnExecute: false },

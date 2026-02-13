@@ -42,25 +42,46 @@ onMounted(() => {
 });
 
 function navListClick() {
-  // 目前只有 邯郸-北区- 119栋/45栋 有 三维户型 模式
-  if (!threeDimensionalHouseType?.has3DMode(buildId.value)) {
-    threeDHouseModel.value = false;
-    window.$message.warning("当前楼栋三维户型模式暂未开放！！！");
-    return;
-  }
+  console.log("🏠 [房间详情] 点击三维户型按钮:", {
+    当前状态: threeDHouseModel.value ? "已开启" : "未开启",
+    楼栋ID: buildId.value,
+    房间号: roomInfo?.fjh,
+  });
+
+  // 直接切换状态，不进行任何校验
   threeDHouseModel.value = !threeDHouseModel.value;
-  threeDHouseModel.value
-    ? threeDimensionalHouseType.enter3DMode(buildId.value, roomInfo?.fjh)
-    : threeDimensionalHouseType.exit3DMode();
+  
+  console.log("🏠 [房间详情] 切换三维户型状态:", {
+    新状态: threeDHouseModel.value ? "开启" : "关闭",
+  });
+
+  if (threeDHouseModel.value) {
+    console.log("🎬 [房间详情] 直接进入三维户型模式（无校验）...");
+    threeDimensionalHouseType.enter3DMode(buildId.value, roomInfo?.fjh);
+  } else {
+    console.log("🚪 [房间详情] 退出三维户型模式...");
+    threeDimensionalHouseType.exit3DMode();
+  }
 }
 
 // 切换 俯视/漫游
 function switchVisualAngleModel() {
+  const oldMode = visualAngleModel.value;
   visualAngleModel.value = visualAngleModel.value === "over" ? "roam" : "over";
+  
+  console.log("🔄 [房间详情] 切换视角模式:", {
+    原模式: oldMode === "over" ? "俯视" : "漫游",
+    新模式: visualAngleModel.value === "over" ? "俯视" : "漫游",
+  });
+
   // 漫游
-  visualAngleModel.value === "roam"
-    ? threeDimensionalHouseType.enterRoam()
-    : threeDimensionalHouseType.enterOver();
+  if (visualAngleModel.value === "roam") {
+    console.log("🚶 [房间详情] 进入漫游模式...");
+    threeDimensionalHouseType.enterRoam();
+  } else {
+    console.log("👁️ [房间详情] 进入俯视模式...");
+    threeDimensionalHouseType.enterOver();
+  }
 }
 
 onBeforeUnmount(() => {
@@ -99,32 +120,81 @@ onBeforeRouteLeave(async () => {
     </div>
 
     <Teleport to="body">
-      <div class="fixed left-430px top-150px space-y-5">
-        <div class="building" :class="threeDHouseModel ? 'active' : 'building'" @click="navListClick">
-          <div>
-            <div>
-              {{ $t('dormitory.room.HouseType_3D') }}
-            </div>
-          </div>
-        </div>
-        <div v-show="threeDHouseModel" class="building active" @click="switchVisualAngleModel">
-          <div>
-            <div>
-              <span :class="visualAngleModel === 'over' ? 'font-bold' : 'text-12px'">
-                {{ $t('dormitory.room.over') }}
-              </span>
-              <span class="mx-0.5">/</span>
-              <span :class="visualAngleModel === 'roam' ? 'font-bold' : 'text-12px' ">
-                {{ $t('dormitory.room.roam') }}
-              </span>
-            </div>
-          </div>
-        </div>
+      <div class="three-d-controls">
+        <button
+          type="button"
+          class="control-btn"
+          :class="{ active: threeDHouseModel }"
+          @click="navListClick">
+          <span class="btn-text">{{ $t('dormitory.room.HouseType_3D') }}</span>
+        </button>
+        <button
+          v-show="threeDHouseModel"
+          type="button"
+          class="control-btn active"
+          @click="switchVisualAngleModel">
+          <span class="btn-text">
+            <span :class="visualAngleModel === 'over' ? 'font-bold' : 'opacity-60'">
+              {{ $t('dormitory.room.over') }}
+            </span>
+            <span class="mx-1">/</span>
+            <span :class="visualAngleModel === 'roam' ? 'font-bold' : 'opacity-60'">
+              {{ $t('dormitory.room.roam') }}
+            </span>
+          </span>
+        </button>
       </div>
     </Teleport>
   </UiBoxPanel>
 </template>
 
 <style scoped lang="scss">
+.three-d-controls {
+  position: fixed;
+  left: 18%;
+  top: 12%;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
+.control-btn {
+  width: 120px;
+  height: 40px;
+  background: url("@/assets/images_new/btn-bg.png") no-repeat center / 100% 100%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+
+  .btn-text {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  &:hover {
+    background-image: url("@/assets/images_new/btn-bg-active.png");
+
+    .btn-text {
+      color: rgba(255, 255, 255, 1);
+      font-weight: bold;
+    }
+  }
+
+  &.active {
+    background-image: url("@/assets/images_new/btn-bg-active.png");
+
+    .btn-text {
+      color: rgba(255, 255, 255, 1);
+      font-weight: bold;
+    }
+  }
+}
 </style>

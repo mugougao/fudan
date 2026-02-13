@@ -1,5 +1,3 @@
-import to from "await-to-js";
-import { getLandmark } from "@/api/campusStyle/index.ts";
 import TextLayer from "../code/TextLayer.ts";
 import cameraInfo from "./RoamingRoutePoiCameraInfo.json";
 
@@ -11,31 +9,31 @@ class RoamingRouteTextLayer extends TextLayer<any> {
 
   async fetchData(type: "1" | "2" | "3") {
     const _type = this.typeMap[type];
-    const [err, res] = await to(getLandmark(_type));
-    if (err) {
-      window.$message.error(`${this.layerName}-数据获取失败!!!`);
+    console.log(`[RoamingRouteTextLayer] 加载${_type}硬编码数据，从cameraInfo.json中过滤pathId=${type}的数据`);
+
+    // 从cameraInfo中过滤出对应类型的地标数据
+    const features = cameraInfo.filter(item => item.pathId === type);
+    console.log(`[RoamingRouteTextLayer] 找到${features.length}个${_type}地标`);
+
+    if (features.length === 0) {
+      console.warn(`[RoamingRouteTextLayer] ${_type}类型在cameraInfo.json中没有找到数据`);
       return;
     }
-    if (!res?.resultData) {
-      window.$message.warning(`暂无${_type}数据!!!`);
-      return;
-    }
-    const { features = [] } = res.resultData;
+
     this.setData(features.map((item: any) => {
-      const { geometry, properties } = item;
-      const { coordinates } = geometry;
-      const { dbmc, id } = properties;
+      const { id, name, targetPosition, rotation } = item;
+      // targetPosition格式: [经度, 纬度, 高度]，直接作为3D坐标使用
       return {
         id,
-        name: dbmc,
-        location: [...coordinates],
+        name,
+        location: targetPosition,
         scale3d: [10, 3, 3],
         rotator: {
           pitch: 0,
-          yaw: cameraInfo.find(item => item.id === id)?.rotation?.yaw ?? 60,
+          yaw: rotation?.yaw ?? 60,
           roll: 0,
         },
-        data: item.properties,
+        data: item,
       };
     }));
   }

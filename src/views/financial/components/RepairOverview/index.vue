@@ -49,7 +49,7 @@ const state = {
 <style scoped lang="scss">
 .repair-overview {
   .chart-box {
-    background: url("@/assets/images_new/count-bg2.png") no-repeat center ;
+    background: url("@/assets/images_new/count-bg2.png") no-repeat center;
     background-size: contain;
   }
 }

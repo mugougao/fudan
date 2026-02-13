@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { EChartsOption } from "echarts";
 import round from "lodash/round";
-import { useEChartRender } from "@/hooks";
 import { largestRemainderMethod, numberToThousands } from "@/utils";
 
 defineOptions({ name: "AssetDistribution" });

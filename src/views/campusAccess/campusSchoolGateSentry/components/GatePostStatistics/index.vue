@@ -3,7 +3,6 @@ import type { Ref } from "vue";
 import { useRouteQuery } from "@vueuse/router";
 // import to from "await-to-js";
 // import { fetchCampusGateInOutStatistics } from "@/api/campusAccess/campusSchool";
-import GradientText from "@/components/GradientText";
 
 defineOptions({ name: "GatePostStatistics" });
 
@@ -12,14 +11,14 @@ const schoolDoorId = useRouteQuery("schoolDoorId", "") as unknown as Ref<string>
 
 // 模拟数据：门岗校内/校外进出统计
 const mockGateInOutStatisticsData: Record<string, { xn: number; xw: number }> = {
-  "校门1": { xn: 125, xw: 85 },
-  "校门2": { xn: 98, xw: 65 },
-  "校门3": { xn: 78, xw: 52 },
-  "校门4": { xn: 65, xw: 42 },
-  "gate1": { xn: 120, xw: 80 },
-  "gate2": { xn: 95, xw: 62 },
-  "gate3": { xn: 75, xw: 48 },
-  "gate4": { xn: 60, xw: 40 }
+  校门1: { xn: 125, xw: 85 },
+  校门2: { xn: 98, xw: 65 },
+  校门3: { xn: 78, xw: 52 },
+  校门4: { xn: 65, xw: 42 },
+  gate1: { xn: 120, xw: 80 },
+  gate2: { xn: 95, xw: 62 },
+  gate3: { xn: 75, xw: 48 },
+  gate4: { xn: 60, xw: 40 },
 };
 
 const { state, execute } = useAsyncState<{ xn: number; xw: number }>(async () => {

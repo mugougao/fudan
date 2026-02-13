@@ -1,7 +1,6 @@
-import to from "await-to-js";
 import { cloneDeep, set } from "lodash";
-import { fetchCampusWithCollegePoi } from "@/api/assetManagement/instrument.ts";
-import { type CampusId, campusIdFormat } from "@/enums";
+import layerPoint from "@/assets/json/layer-dianwei.json";
+import { CampusId } from "@/enums";
 import poiStyle from "@/utils/WdpMap/code/poiStyle.ts";
 import PoiLayer from "../../code/PoiLayer";
 
@@ -36,18 +35,38 @@ class CampusAssetsBuildPoiLayer extends PoiLayer {
   };
 
   async fetchData(campusId: CampusId) {
-    const [, res] = await to(fetchCampusWithCollegePoi(campusIdFormat(campusId, "")));
-    const result = (res?.resultData?.features || []).map((item) => {
-      const { geometry: { coordinates }, properties } = item;
-      // console.log("🚀 ~ CampusAssetsBuildPoiLayer ~ fetchData ~ properties:", properties);
-      const id = properties.no || properties.mc;
+    // 校区ID到sid的映射（排除Overview）
+    const campusIdToSid: Partial<Record<CampusId, string>> = {
+      [CampusId.FengLin]: "1",
+      [CampusId.ZhangJiang]: "2",
+      [CampusId.HanDan]: "3",
+      [CampusId.JiangWan]: "4",
+    };
+
+    const targetSid = campusIdToSid[campusId];
+    if (!targetSid) {
+      this.setData([]);
+      return;
+    }
+
+    // 从layer-dianwei.json中过滤对应校区的POI数据，只包含楼宇建筑
+    const filteredFeatures = layerPoint.features.filter((feature) => {
+      const sid = feature.properties.sid?.toString();
+      const lx2 = feature.properties.lx2;
+      return sid === targetSid && lx2 === "楼宇建筑";
+    });
+
+    const result = filteredFeatures.map((feature) => {
+      const { geometry: { coordinates }, properties } = feature;
+      const id = properties.id?.toString() || properties.name;
       const style = cloneDeep(poiStyle.marker);
-      const cj = properties.cj;
+      // cj字段可能不存在，使用默认值1
+      const cj = (properties as any).cj || 1;
       set(style, "visible2D", this.visible2DLevelMap[cj]);
       return {
         id,
-        name: properties.mc,
-        location: [...coordinates, 0],
+        name: properties.name,
+        location: [...coordinates, 0] as [number, number, number],
         data: properties,
         style,
       };

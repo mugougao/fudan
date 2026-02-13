@@ -1,5 +1,3 @@
-import to from "await-to-js";
-import { getSchoolBuildLayer } from "@/api/smartTeaching";
 import PoiLayer from "../code/PoiLayer";
 
 // 教学楼 点位
@@ -22,20 +20,68 @@ class SchoolBuildPoiLayer extends PoiLayer<any> {
   }
 
   async fetchData(campusId: string) {
-    const [,res] = await to(getSchoolBuildLayer(campusId));
-    this.setData(
-      (res?.resultData?.features || [])?.map((item: any) => {
-        const { geometry: { coordinates }, properties } = item;
-        const id = item.properties.id;
-        const name = item.properties.mc;
-        return {
-          id,
-          name,
-          location: [...coordinates, 0] as [number, number, number],
-          data: properties,
-        };
-      }),
+    // 硬编码教学楼点位数据，从CSV文件中提取
+    // 原始CSV数据格式：id,mc,campus,geom,坐标点数量,"坐标数据(X,Y)",supnme
+    const campusNameMap = {
+      3: "邯郸校区",
+      4: "江湾校区",
+      1: "枫林校区",
+      2: "张江校区",
+    };
+
+    const targetCampusName = campusNameMap[campusId as unknown as keyof typeof campusNameMap];
+
+    // 硬编码教学楼数据
+    const buildingData = [
+      { id: "141", mc: "H6 ★", campus: "邯郸校区", coordinates: [121.500003, 31.29699], supnme: "JXL6" },
+      { id: "140", mc: "H5 ★", campus: "邯郸校区", coordinates: [121.499796, 31.297452], supnme: "JXL5" },
+      { id: "144", mc: "JB", campus: "江湾校区", coordinates: [121.499611, 31.338676], supnme: "" },
+      { id: "143", mc: "JA", campus: "江湾校区", coordinates: [121.50071, 31.338324], supnme: "" },
+      { id: "139", mc: "H4", campus: "邯郸校区", coordinates: [121.497003, 31.300505], supnme: "" },
+      { id: "178", mc: "H光学楼", campus: "邯郸校区", coordinates: [121.497003, 31.299887], supnme: "" },
+      { id: "170", mc: "H光华东辅楼", campus: "邯郸校区", coordinates: [121.501594, 31.301953], supnme: "" },
+      { id: "171", mc: "H光华西辅楼", campus: "邯郸校区", coordinates: [121.500054, 31.301953], supnme: "" },
+      { id: "142", mc: "HQ新闻", campus: "邯郸校区", coordinates: [121.505211, 31.30164], supnme: "" },
+      { id: "138", mc: "H3", campus: "邯郸校区", coordinates: [121.49978, 31.300105], supnme: "" },
+      { id: "137", mc: "H2", campus: "邯郸校区", coordinates: [121.499969, 31.299669], supnme: "" },
+      { id: "264", mc: "H元创中心", campus: "邯郸校区", coordinates: [121.500595, 31.302801], supnme: "" },
+    ];
+
+    // 根据校区过滤数据
+    const filteredData = buildingData.filter(building =>
+      targetCampusName ? building.campus === targetCampusName : true,
     );
+
+    // 转换为图层需要的格式
+    const features = filteredData.map(building => ({
+      id: building.id,
+      name: building.mc,
+      location: [...building.coordinates, 0] as [number, number, number],
+      data: {
+        id: building.id,
+        mc: building.mc,
+        campus: building.campus,
+        supnme: building.supnme,
+      },
+    }));
+
+    this.setData(features);
+
+    // 注释掉原来的API调用
+    // const [,res] = await to(getSchoolBuildLayer(campusId));
+    // this.setData(
+    //   (res?.resultData?.features || [])?.map((item: any) => {
+    //     const { geometry: { coordinates }, properties } = item;
+    //     const id = item.properties.id;
+    //     const name = item.properties.mc;
+    //     return {
+    //       id,
+    //       name,
+    //       location: [...coordinates, 0] as [number, number, number],
+    //       data: properties,
+    //     };
+    //   }),
+    // );
   }
 
   async render(campusId: string) {
@@ -69,14 +115,14 @@ class SchoolBuildPoiLayer extends PoiLayer<any> {
   //     await this.doBuildingRaise(buildId);
   //   }
   //   this.activeBuildFloor = floor.toString();
-  //   this.cloudMap?.SuperAPI("DrawerSplit", { BuildID: buildId, Floor: floor });
+  //   this.cloudMap?.SuperAPI("CrystalSplit", { BuildID: buildId, Floor: floor });
   // }
 
   // // 清空楼宇拆解
   // async clearSplitBuild() {
   //   // if (!this.activeBuildId) return;
   //   // 关闭抽出的楼层
-  //   // this.cloudMap?.SuperAPI("DrawerSplit", { BuildID: this.activeBuildId, Floor: 100 });
+  //   // this.cloudMap?.SuperAPI("CrystalSplit", { BuildID: this.activeBuildId, Floor: 100 });
   //   this.closeBuildingRaise();
   //   this.activeBuildId = "";
   //   this.activeBuildFloor = "";

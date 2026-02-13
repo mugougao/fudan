@@ -23,11 +23,12 @@ export const request = (() => {
     },
   });
 
+  // 🚫 注释掉 loading 和 message 拦截器
   [
     requestData,
-    requestLoading,
-    responseError,
-    responseMessage,
+    // requestLoading,      // 禁用加载蒙版
+    // responseError,       // 禁用错误提示
+    // responseMessage,     // 禁用成功消息
     responseResultFailed,
     requestToken,
     responseDecodeData,
@@ -50,11 +51,12 @@ export const ETLRequest = (() => {
     },
   });
 
+  // 🚫 注释掉 loading 和 message 拦截器
   [
     requestData,
-    requestLoading,
-    responseError,
-    responseMessage,
+    // requestLoading,      // 禁用加载蒙版
+    // responseError,       // 禁用错误提示
+    // responseMessage,     // 禁用成功消息
     responseResultFailed,
     requestToken,
     responseDecodeData,
@@ -68,9 +70,10 @@ export const localJsonRequest = CreateRequest.create({
   timeout: 10000,
 });
 
+// 🚫 注释掉 loading 和 message 拦截器
 [
   requestData,
-  requestLoading,
-  responseError,
-  responseMessage,
+  // requestLoading,      // 禁用加载蒙版
+  // responseError,       // 禁用错误提示
+  // responseMessage,     // 禁用成功消息
 ].forEach(localJsonRequest.use.bind(localJsonRequest));

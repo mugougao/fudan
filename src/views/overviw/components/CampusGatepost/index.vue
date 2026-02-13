@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import type { EChartsOption } from "echarts";
 import dayjs from "dayjs";
-import { useDataSlice } from "@/hooks";
-import { cn, createEChartsLinearGradient, createEChartsRadialGradient, numberToThousands } from "@/utils";
+import { cn, numberToThousands } from "@/utils";
 
 defineOptions({ name: "CampusGatepost", inheritAttrs: false });
 

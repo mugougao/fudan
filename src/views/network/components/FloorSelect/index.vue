@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { Ref } from "vue";
 import { useRouteQuery } from "@vueuse/router";
-import to from "await-to-js";
-import { fetchBuildingFloor } from "@/api/network/campus.ts";
 
 defineOptions({ name: "FloorSelect", inheritAttrs: false });
 
@@ -16,8 +14,17 @@ const floorId = useRouteQuery("floorId") as unknown as Ref<string | undefined>;
 const { state: floorList, execute: floorListExecute } = useAsyncState(
   async () => {
     if (!buildId.value) return [];
-    const [,res] = await to(fetchBuildingFloor(buildId.value));
-    return (res?.resultData || []).reverse();
+
+    // 硬编码楼栋楼层数据
+    const buildingFloorData: Record<string, string[]> = {
+      1019: ["1", "2", "3", "4", "5", "6"], // 第五教学楼，6层
+      1020: ["1", "2", "3", "4", "5", "6"], // 第六教学楼，6层
+    };
+
+    // 返回对应楼栋的数据，如果没有则返回默认数据
+    const floors = buildingFloorData[buildId.value] || ["1", "2", "3", "4", "5", "6"];
+
+    return floors.reverse(); // 倒序显示（高层在上）
   },
   [],
   { immediate: true, resetOnExecute: false },

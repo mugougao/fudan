@@ -1,15 +1,7 @@
-import to from "await-to-js";
 import dayjs from "dayjs";
-import {
-  fetchApAndUserAndTerminal,
-  fetchDeviceCount,
-  fetchHealthCount,
-  fetchSsidCount,
-  fetchTopCount,
-  fetchUserAndTerminalAndTraffic,
-} from "@/api/network";
-import { useCampusStore } from "@/stores/campus.ts";
+
 import { CampusId } from "@/enums";
+import { useCampusStore } from "@/stores/campus.ts";
 
 export default function usePanelCountData() {
   const campusStore = useCampusStore();
@@ -262,9 +254,9 @@ export default function usePanelCountData() {
   // 模拟数据：用户/终端变化趋势（近30天）
   const mockUserTerminalTrendData: { name: string; value1: number; value2: number }[] = [];
   for (let i = 30; i > 0; i--) {
-    const date = dayjs().subtract(i, 'day');
+    const date = dayjs().subtract(i, "day");
     mockUserTerminalTrendData.push({
-      name: date.format('M/D'),
+      name: date.format("M/D"),
       value1: Math.floor(8000 + Math.random() * 4000), // 用户数：8000-12000
       value2: Math.floor(10000 + Math.random() * 5000), // 终端数：10000-15000
     });
@@ -273,9 +265,9 @@ export default function usePanelCountData() {
   // 模拟数据：流量对比（近30天）
   const mockTrafficData: { name: string; value1: number; value2: number }[] = [];
   for (let i = 30; i > 0; i--) {
-    const date = dayjs().subtract(i, 'day');
+    const date = dayjs().subtract(i, "day");
     mockTrafficData.push({
-      name: date.format('M/D'),
+      name: date.format("M/D"),
       value1: Math.floor(5 + Math.random() * 3), // 上行流量：5-8 Gbps
       value2: Math.floor(8 + Math.random() * 5), // 下行流量：8-13 Gbps
     });
@@ -301,7 +293,7 @@ export default function usePanelCountData() {
       // const [err, res] = await to(fetchApAndUserAndTerminal(campusId.value));
       // if (err) return { APData: [], userAndTerminalData: [] };
       // const result = res?.resultData || [];
-      // 
+      //
       // return {
       //   APData: result.map(item => ({ name: item.name, value: item.apnum })),
       //   userAndTerminalData: result.map(item => ({ name: item.name, value1: item.acnum, value2: item.userac })),
@@ -377,11 +369,12 @@ export default function usePanelCountData() {
     //       value2: countac,
     //     };
     //   });
-    
+
     if (userOrTerminalStateType.value === "1") {
       // 近30天数据
       return mockUserTerminalTrendData;
-    } else {
+    }
+    else {
       // 近24小时数据
       const hourlyData: { name: string; value1: number; value2: number }[] = [];
       for (let i = 23; i >= 0; i--) {
@@ -412,11 +405,12 @@ export default function usePanelCountData() {
     //       value2: sumtx,
     //     };
     //   });
-    
+
     if (trafficDataType.value === "1") {
       // 近30天数据
       return mockTrafficData;
-    } else {
+    }
+    else {
       // 近24小时数据
       const hourlyData: { name: string; value1: number; value2: number }[] = [];
       for (let i = 23; i >= 0; i--) {

@@ -114,6 +114,7 @@ watch(
 
 onMounted(() => {
   campusStore.activeCampusId = CampusId.HanDan;
+  floorExtractionCustomLayer.setSplitMethod("DrawerSplit");
   wdpMap.addLayer(buildingOccupancyRangeLayer, schoolBuildPoiLayer, floorExtractionCustomLayer);
   wdpMap.onCreated(async () => {
     campusPoiLayer.hideAll();

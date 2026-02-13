@@ -4,7 +4,7 @@
 const props = withDefaults(
   defineProps<{
     introduce?: string;
-    fristWord?:string;
+    fristWord?: string;
   }>(),
   {},
 );
@@ -15,14 +15,14 @@ const introduce = computed(() => {
 });
 
 const hasFristWord = computed(() => props.fristWord && props.introduce?.includes(props.fristWord));
-
-
 </script>
 
 <template>
   <UiBoxPanel class="row-span-8 flex-col" title="校园文化景点" content-class-name="py-3">
     <div class="text mx-2 h-full overflow-x-hidden overflow-y-auto text-[14px] leading-[24px]">
-      <p v-if="hasFristWord" class="float-left text-[18px] font-title bg-gradient-to-b from-red to-white leading-[24px] text-transparent bg-clip-text">{{ fristWord }}</p>
+      <p v-if="hasFristWord" class="float-left from-red to-white bg-gradient-to-b bg-clip-text text-[18px] text-transparent leading-[24px] font-title">
+        {{ fristWord }}
+      </p>
       <p>{{ introduce }}</p>
     </div>
   </UiBoxPanel>

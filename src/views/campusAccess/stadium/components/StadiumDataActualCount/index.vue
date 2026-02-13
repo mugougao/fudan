@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import to from "await-to-js";
+// import to from "await-to-js";
 import get from "lodash/get";
-import { fetchOverviewCount } from "@/api/campusAccess/stadium";
+// import { fetchOverviewCount } from "@/api/campusAccess/stadium";
 import { numberToThousands } from "@/utils";
 
 defineOptions({ name: "StadiumDataActualCount" });
 
-const { state } = useAsyncState(async () => {
-  const [err, res] = await to(fetchOverviewCount());
-  if (err) return {};
-  return res?.resultData || {};
-}, {}, { immediate: true, resetOnExecute: false });
+// 硬编码场次总览统计数据
+const state = ref({
+  jr: 28, // 今日预约场次
+  jn: 1560, // 年度预约场次
+});
 </script>
 
 <template>

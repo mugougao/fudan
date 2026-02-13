@@ -1,5 +1,4 @@
-import to from "await-to-js";
-import { fetchBuildingWithNetworkDevice } from "@/api/network/campus.ts";
+import layerPoint from "@/assets/json/layer-dianwei.json";
 import { CampusId } from "@/enums";
 import PoiLayer from "../code/PoiLayer";
 
@@ -41,16 +40,36 @@ class EquipmentBuildingPoiLayer extends PoiLayer {
   }
 
   async fetchData(campusId: CampusId = CampusId.HanDan) {
-    const [,res] = await to(fetchBuildingWithNetworkDevice(campusId));
+    // 从layer-dianwei.json中过滤第五教学楼和第六教学楼的数据
+    const targetBuildings = ["第五教学楼", "第六教学楼"];
+
+    // 校区ID到sid的映射（排除Overview）
+    const campusIdToSid: Partial<Record<CampusId, string>> = {
+      [CampusId.FengLin]: "1",
+      [CampusId.ZhangJiang]: "2",
+      [CampusId.HanDan]: "3",
+      [CampusId.JiangWan]: "4",
+    };
+
+    const targetSid = campusIdToSid[campusId];
+
+    const filteredFeatures = layerPoint.features.filter((feature) => {
+      const { name, sid, lx } = feature.properties;
+      const sidStr = sid?.toString();
+      // 只获取楼宇建筑类型且名称匹配的目标教学楼，并按校区过滤
+      // 如果是概览视图（campusId为"0"），不按校区过滤
+      const campusMatch = campusId === CampusId.Overview || sidStr === targetSid;
+      return lx === "楼宇建筑" && targetBuildings.includes(name) && campusMatch;
+    });
 
     this.setData(
-      (res?.resultData?.features || []).map(({ properties, geometry }) => {
-        const { id, mc } = properties;
+      filteredFeatures.map(({ properties, geometry }) => {
+        const { id, name } = properties;
         const { coordinates } = geometry;
         return {
-          id,
-          name: mc,
-          location: [...coordinates, 0],
+          id: id?.toString() || name,
+          name,
+          location: [...coordinates, 0] as [number, number, number],
           data: properties,
         };
       }),

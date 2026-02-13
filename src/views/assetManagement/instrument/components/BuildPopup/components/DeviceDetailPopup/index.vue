@@ -13,7 +13,7 @@ const columns: IEasyTableProps["columns"] = [
   { title: "设备名称", field: "name", align: "center" },
   { title: "单位", field: "yx", align: "center" },
   {
-     title: () => (
+    title: () => (
       <span>
         金额
         <span class="text-[10px] text-white/60">(万元)</span>
@@ -30,7 +30,7 @@ const columns: IEasyTableProps["columns"] = [
   <DragPopup
     v-model:visible="visible" title="设备分布详情" :width="400" :top="500" left="calc(100% - 1300px)"
     :auto-prev-popup="false">
-    <UiEasyTable height="200px" :data="data" :columns="columns"  />
+    <UiEasyTable height="200px" :data="data" :columns="columns" />
   </DragPopup>
 </template>
 

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import to from "await-to-js";
 import { getLandmarkFileData } from "@/data/landmarkFileData";
 import { useCampusStore } from "@/stores/campus.ts";
 import { cn } from "@/utils";
@@ -89,13 +88,16 @@ async function handleChange(event: Event, name: string) {
 }
 
 async function roamingRoutePoiClick(id: string) {
+  console.log("[CampusRoamingRoutes] roamingRoutePoiClick called, id:", id, "activeRoute:", activeRoute.value);
   roamingRoutePlay.destroy();
   selectedRoutePoi.value = id;
   roamingRouteTextLayer.showAll();
   roamingRoutePoiLayer.hideAll();
+  console.log("[CampusRoamingRoutes] Calling focusById, id:", id, "pathId:", activeRoute.value);
   roamingRoutePoiLayer.focusById(id, activeRoute.value!);
   const res = getLandmarkFileData(id);
-  const { resultData = {} } = res || {};
+  const resultData = (res?.resultData as any) || {};
+  console.log("[CampusRoamingRoutes] Landmark data retrieved:", { id, hasImages: resultData.fileList?.length, hasDescription: !!resultData.jj });
   emit("poiSelected", {
     id,
     images: resultData.fileList ?? [],
@@ -116,7 +118,7 @@ function onCloseRoamingRoutePoiListPopup() {
 
 <template>
   <div :class="cn('campus-roaming-routes', $attrs.class ?? '')">
-    <UiSubTitle  title="漫游路线"/>
+    <UiSubTitle title="漫游路线" />
     <div class="mt-3 flex items-center gap-x-3 px-3 children:flex-1">
       <label
         v-for="{ label, key, name } in routes" :key="key"

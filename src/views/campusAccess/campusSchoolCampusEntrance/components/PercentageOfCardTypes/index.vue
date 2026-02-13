@@ -4,7 +4,7 @@ import type { Ref } from "vue";
 import { useRouteQuery } from "@vueuse/router";
 // import to from "await-to-js";
 // import { fetchCampusCardType } from "@/api/campusAccess/campusSchool";
-import { CampusId, CampusName } from "@/enums";
+import { CampusId } from "@/enums";
 import { largestRemainderMethod, numberToThousands } from "@/utils";
 
 defineOptions({ name: "PercentageOfCardTypes" });
@@ -14,37 +14,37 @@ const campusId = useRouteQuery("campusId", CampusId.Overview) as unknown as Ref<
 
 // 模拟数据：刷卡类型占比数据
 const mockCampusCardTypeData = {
-  "3": [ // 邯郸校区
+  3: [ // 邯郸校区
     { name: "学生卡", value: 520 },
     { name: "教职工卡", value: 380 },
     { name: "访客卡", value: 220 },
-    { name: "临时卡", value: 130 }
+    { name: "临时卡", value: 130 },
   ],
-  "4": [ // 江湾校区
+  4: [ // 江湾校区
     { name: "学生卡", value: 420 },
     { name: "教职工卡", value: 310 },
     { name: "访客卡", value: 180 },
-    { name: "临时卡", value: 70 }
+    { name: "临时卡", value: 70 },
   ],
-  "5": [ // 枫林校区
+  1: [ // 枫林校区
     { name: "学生卡", value: 320 },
     { name: "教职工卡", value: 240 },
     { name: "访客卡", value: 140 },
-    { name: "临时卡", value: 50 }
+    { name: "临时卡", value: 50 },
   ],
-  "6": [ // 张江校区
+  2: [ // 张江校区
     { name: "学生卡", value: 220 },
     { name: "教职工卡", value: 180 },
     { name: "访客卡", value: 90 },
-    { name: "临时卡", value: 30 }
-  ]
+    { name: "临时卡", value: 30 },
+  ],
 };
 
 const { state, execute } = useAsyncState<{ name: string; value: number }[]>(
   async () => {
     if (campusId.value === CampusId.Overview) return [];
     // 获取校区数据，默认为邯郸校区
-    return mockCampusCardTypeData[campusId.value as keyof typeof mockCampusCardTypeData] || mockCampusCardTypeData["3"];
+    return mockCampusCardTypeData[campusId.value as unknown as keyof typeof mockCampusCardTypeData] || mockCampusCardTypeData["3"];
   },
   [],
   { immediate: false, resetOnExecute: false },

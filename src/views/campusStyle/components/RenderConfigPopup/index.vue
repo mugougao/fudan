@@ -4,16 +4,16 @@ import wdpMap from "@/utils/WdpMap/wdpMap.ts";
 
 defineOptions({ name: "RenderConfigPopup", inheritAttrs: false });
 
+const props = defineProps<{
+  initialConfig?: { sceneUrl: string; sceneOrder: string };
+}>();
+
 const emit = defineEmits<{
   (e: "close"): void;
   (e: "submit", config: { sceneUrl: string; sceneOrder: string }): void;
 }>();
 
 const visible = defineModel<boolean>("visible", { default: false });
-const props = defineProps<{
-  initialConfig?: { sceneUrl: string; sceneOrder: string };
-}>();
-
 const formData = reactive({
   sceneUrl: "",
   sceneOrder: "",
@@ -38,27 +38,27 @@ async function handleSubmit() {
     window.$message?.error?.("请填写渲染地址和渲染口令");
     return;
   }
-  
+
   visible.value = false;
   emit("submit", { ...formData });
-  
+
   // 开始加载三维场景
   loading = createLoading({ tip: "三维场景加载中，请等待...", size: "large" });
-  
+
   try {
     await wdpMap.render("player", formData.sceneUrl, formData.sceneOrder);
     (window as any).__wdpMap__ = wdpMap;
-    
+
     // 监听场景创建完成（只关闭loading，相机设置由父页面处理）
     wdpMap.onCreated(() => {
       loading?.close();
     });
-    
+
     wdpMap.onError(() => {
       loading?.close();
     });
-    
-  } catch (error) {
+  }
+  catch (error) {
     loading?.close();
     window.$message?.error?.("三维场景加载失败");
     console.error("三维场景加载失败:", error);
@@ -73,7 +73,7 @@ async function handleSubmit() {
     @close="handleClose">
     <div class="p-4 space-y-4">
       <div class="space-y-2">
-        <label class="block text-white/80 text-sm">渲染地址 (sceneUrl)</label>
+        <label class="block text-sm text-white/80">渲染地址 (sceneUrl)</label>
         <AInput
           v-model:value="formData.sceneUrl"
           placeholder="请输入渲染地址，如：http://10.108.76.203:8890/service"
@@ -82,7 +82,7 @@ async function handleSubmit() {
           allow-clear />
       </div>
       <div class="space-y-2">
-        <label class="block text-white/80 text-sm">渲染口令 (sceneOrder)</label>
+        <label class="block text-sm text-white/80">渲染口令 (sceneOrder)</label>
         <AInput
           v-model:value="formData.sceneOrder"
           placeholder="请输入渲染口令，如：331ff3ceea96acf192b0d0c126fd6ad0"
@@ -91,8 +91,12 @@ async function handleSubmit() {
           allow-clear />
       </div>
       <div class="flex justify-end gap-2 pt-4">
-        <AButton size="large" @click="handleClose">取消</AButton>
-        <AButton type="primary" size="large" @click="handleSubmit">确定并启动三维场景</AButton>
+        <AButton size="large" @click="handleClose">
+          取消
+        </AButton>
+        <AButton type="primary" size="large" @click="handleSubmit">
+          确定并启动三维场景
+        </AButton>
       </div>
     </div>
   </DragPopup>

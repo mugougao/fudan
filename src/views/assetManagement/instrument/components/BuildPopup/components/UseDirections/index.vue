@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { largestRemainderMethod, numberToThousands } from "@/utils";
 import type { EChartsOption } from "echarts";
 import { round } from "lodash";
+import { largestRemainderMethod, numberToThousands } from "@/utils";
 
 defineOptions({ name: "UseDirections" });
 
@@ -77,7 +77,7 @@ const options = computed(() => {
     },
     legend: {
       orient: "horizontal",
-      top: '40%',
+      top: "40%",
       left: 180,
       itemGap: 10,
       formatter: (name) => {
@@ -90,8 +90,8 @@ const options = computed(() => {
           name: item.name,
           textStyle: {
             rich: {
-              name: { width:80, color: "#fff", fontSize: 12, padding: [0, 0, 2, 0] },
-              percent: { width:60, color: `url(#UseDirections_${_color})`, fontSize: 12,align: "right" },
+              name: { width: 80, color: "#fff", fontSize: 12, padding: [0, 0, 2, 0] },
+              percent: { width: 60, color: `url(#UseDirections_${_color})`, fontSize: 12, align: "right" },
             },
           },
         };
@@ -99,10 +99,10 @@ const options = computed(() => {
     },
     series: [
       {
-        name:'数量',
+        name: "数量",
         type: "pie",
         radius: [48, 50],
-        center: [82, '50%'],
+        center: [82, "50%"],
         avoidLabelOverlap: false,
         padAngle: 3,
         label: { show: false },
@@ -111,10 +111,10 @@ const options = computed(() => {
         emphasis: { disabled: true },
       },
       {
-        name:'数量',
+        name: "数量",
         type: "pie",
         radius: [40, 50],
-        center: [82, '50%'],
+        center: [82, "50%"],
         avoidLabelOverlap: false,
         padAngle: 3,
         label: { show: false },
@@ -129,17 +129,17 @@ const options = computed(() => {
 </script>
 
 <template>
-  <div class="mt-2 chart-box h-150px">
+  <div class="chart-box mt-2 h-150px">
     <svg width="0" height="0">
-        <defs>
-          <linearGradient
-            v-for="item in color" :id="`UseDirections_${item}`" :key="item"
-            x1="0%" y1="100%" x2="0%" y2="0%">
-            <stop offset="0%" stop-color="#FFFFFF" />
-            <stop offset="100%" :stop-color="item" />
-          </linearGradient>
-        </defs>
-      </svg>
+      <defs>
+        <linearGradient
+          v-for="item in color" :id="`UseDirections_${item}`" :key="item"
+          x1="0%" y1="100%" x2="0%" y2="0%">
+          <stop offset="0%" stop-color="#FFFFFF" />
+          <stop offset="100%" :stop-color="item" />
+        </linearGradient>
+      </defs>
+    </svg>
     <EmptyWrapper :is-empty="!data?.length">
       <RenderEchart :option="options" />
     </EmptyWrapper>

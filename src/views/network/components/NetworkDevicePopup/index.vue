@@ -1,8 +1,8 @@
 <script setup lang="tsx">
 import type { IDescriptionsProps } from "@/components/Descriptions/index.vue";
-import to from "await-to-js";
 import Decimal from "decimal.js";
-import { fetchBuildingAssetsDetail } from "@/api/network/campus.ts";
+// 导入本地JSON数据
+import wlApRoutingFilteredData from "@/assets/json/wl_ap_routing_filtered.json";
 import { cn } from "@/utils";
 
 defineOptions({ name: "NetworkDevicePopup", inheritAttrs: false });
@@ -11,6 +11,53 @@ const { id } = defineProps<{
   id: string;
 }>();
 
+// 从本地JSON数据获取设备详情
+function getDeviceDetailFromJson(deviceId: string): any {
+  // 在wl_ap_routing_filtered.json中查找设备
+  const device = wlApRoutingFilteredData.find((item: any) =>
+    item.name === deviceId || item.mac === deviceId,
+  );
+
+  if (!device) {
+    // 返回默认数据
+    return {
+      mac: deviceId,
+      status: "UNKNOWN",
+      ap_health: "LOW",
+      client_sum: "0",
+      last_connected_time: Date.now().toString(),
+    };
+  }
+
+  // 计算工作时长（基于last_connected_time）
+  const lastConnectedTime = Number.parseInt(device.last_connected_time || "0");
+  const currentTime = Date.now();
+  const workingHours = lastConnectedTime > 0
+    ? Math.floor((currentTime - lastConnectedTime) / (1000 * 60 * 60))
+    : 0;
+
+  // 构建与API返回相同格式的数据
+  return {
+    mac: device.mac || deviceId,
+    status: device.status || "UNKNOWN",
+    ap_health: device.ap_health || "LOW",
+    zd: Number.parseInt(device.client_sum || "0"), // 连接终端数
+    yh: Math.floor(Number.parseInt(device.client_sum || "0") * 0.8), // 用户数（模拟）
+    time: workingHours, // 工作时长（小时）
+    vendor: device.vendor || "",
+    model: device.model || "",
+    last_connected_time: device.last_connected_time || "",
+    campus_name: device.campus_name || "",
+    building_name: device.building_name || "",
+    floor_name: device.floor_name || "",
+    ac: device.ac || "",
+    is_enabled: device.is_enabled || "true",
+    reboot_sum: device.reboot_sum || "0",
+    bootstrap_sum: device.bootstrap_sum || "0",
+    client_sum: device.client_sum || "0",
+  };
+}
+
 const visible = defineModel<boolean>("visible", { default: false });
 
 const {
@@ -18,8 +65,8 @@ const {
   execute,
 } = useAsyncState(
   async () => {
-    const [,res] = await to(fetchBuildingAssetsDetail(id));
-    return res?.resultData || {};
+    // 从本地JSON数据获取设备详情，替代API调用
+    return getDeviceDetailFromJson(id);
   },
   {},
   { immediate: false, resetOnExecute: false },

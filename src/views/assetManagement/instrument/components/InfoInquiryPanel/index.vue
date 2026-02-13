@@ -8,7 +8,6 @@ import { fetchCampusAssetsType, fetchCampusAssetsTypeDetail } from "@/api/assetM
 import { getAllBuild, getAllCollege } from "@/api/commons";
 import { useStatusFlag } from "@/composables/assetManagement/instrument.ts";
 import { CampusId, campusIdFormat } from "@/enums";
-import { cn } from "@/utils";
 import facultiesLargeInstrumentsPoiLayer
   from "@/utils/WdpMap/assetManagement/instrument/FacultiesLargeInstrumentsPoiLayer.ts";
 import campusPoiLayer from "@/utils/WdpMap/CampusPoiLayer.ts";

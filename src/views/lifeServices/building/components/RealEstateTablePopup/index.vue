@@ -5,6 +5,8 @@ import to from "await-to-js";
 import { getBuildRoomTable } from "@/api/lifeServices";
 import { CampusId } from "@/enums";
 import { cn } from "@/utils";
+import { getBuildingUuidByNumericId } from "@/utils/buildingMapping";
+import buildingFloorTableHelper from "@/utils/buildingFloorTableHelper";
 import dormitoryAreaOneBuildLayer from "@/utils/WdpMap/lifeServices/DormitoryAreaOneBuildLayer.ts";
 
 defineOptions({ name: "RealEstateTablePopup" });
@@ -30,18 +32,110 @@ const floorId = ref<number | undefined>();
 const roomId = ref("");
 const roomList = ref<{ id: string; name: string }[]>([]);
 
+// 从本地楼层表生成数据
+function generateFloorTableFromLocal(buildingUuid: string) {
+  console.log("🏢 [楼盘表] 使用本地楼层表数据:", { buildingUuid });
+  
+  const building = buildingFloorTableHelper.getBuildingFloorTable(buildingUuid);
+  if (!building) {
+    console.warn("⚠️ [楼盘表] 本地楼层表无数据:", { buildingUuid });
+    return [];
+  }
+
+  console.log("✅ [楼盘表] 本地楼层表数据获取成功:", {
+    楼栋名称: building.buildingName,
+    总楼层数: building.totalFloors,
+    总房间数: buildingFloorTableHelper.getTotalRoomCount(buildingUuid),
+  });
+
+  // 转换为组件需要的格式
+  return building.floors
+    .map(floor => {
+      const floorNum = floor.floorNum;
+      const roomCount = floor.roomCount;
+      
+      // 生成房间号：如 101, 102, ..., 201, 202, ...
+      // 如果房间数超过9个，使用两位数：101, 102, ..., 110, 111
+      const children = floor.rooms.map((room, index) => {
+        const roomIndex = index + 1;
+        let roomName: string;
+        
+        if (roomCount <= 9) {
+          // 房间数少于等于9个：101-109
+          roomName = `${floorNum}0${roomIndex}`;
+        } else if (roomCount <= 99) {
+          // 房间数10-99个：101-199
+          roomName = `${floorNum}${roomIndex.toString().padStart(2, "0")}`;
+        } else {
+          // 房间数超过99个：1001-1999
+          roomName = `${floorNum}${roomIndex.toString().padStart(3, "0")}`;
+        }
+        
+        return {
+          id: room.id,
+          name: roomName,
+        };
+      });
+
+      return {
+        lc: floorNum,
+        children,
+      };
+    })
+    .sort((a, b) => Number(b.lc) - Number(a.lc)); // 从高到低排序
+}
+
 const { execute, state } = useAsyncState(async () => {
-  const [err, res] = await to(getBuildRoomTable(buildId.value, type.value));
-  if (err) return [];
-  return (res?.resultData || []).sort((a, b) => Number(b.lc) - Number(a.lc));
+  console.log("🏢 [楼盘表] 🚫 API调用已注释，直接使用本地楼层表数据");
+
+  const buildingUuid = getBuildingUuidByNumericId(buildId.value);
+  if (!buildingUuid) {
+    console.warn("⚠️ [楼盘表] UUID映射失败");
+    return [];
+  }
+
+  // 🚫 注释掉API调用，直接使用本地数据
+  const localData = generateFloorTableFromLocal(buildingUuid);
+  console.log("✅ [楼盘表] 本地数据加载完成，楼层数:", localData.length);
+  return localData;
+
+  /* // 原API调用逻辑已注释
+  console.log("🏢 [楼盘表] 调用API获取楼盘表数据...");
+  const [err, res] = await to(getBuildRoomTable(buildingUuid, type.value));
+  
+  if (err) {
+    console.warn("⚠️ [楼盘表] API获取失败，使用本地楼层表数据:", err);
+    return generateFloorTableFromLocal(buildingUuid);
+  }
+
+  const resultData = res?.resultData;
+  if (!resultData || resultData.length === 0) {
+    console.warn("⚠️ [楼盘表] API返回数据为空，使用本地楼层表数据");
+    return generateFloorTableFromLocal(buildingUuid);
+  }
+
+  console.log("✅ [楼盘表] API数据获取成功:", {
+    楼层数: resultData.length,
+  });
+
+  return resultData.sort((a, b) => Number(b.lc) - Number(a.lc));
+  */
 }, [], {
-  immediate: false,
+  immediate: true,
   resetOnExecute: false,
   onSuccess() {
+    console.log("🏢 [楼盘表] 数据加载成功，楼层数:", state.value.length);
     const firstFloor = state.value[0];
-    if (!firstFloor) return;
+    if (!firstFloor) {
+      console.warn("⚠️ [楼盘表] 无楼层数据");
+      return;
+    }
     floorId.value = firstFloor.lc;
     roomList.value = firstFloor.children.map((item: any) => ({ id: item.id, name: item.name }));
+    console.log("🏢 [楼盘表] 默认选中楼层:", {
+      楼层: floorId.value,
+      房间数: roomList.value.length,
+    });
   },
 });
 
@@ -60,12 +154,20 @@ const floorList = computed(() => {
 
 // 楼层点击
 function handleFloorClick(_floorId: number, _roomList: any[]) {
+  console.log("🏢 [楼盘表] 切换楼层:", {
+    楼层: _floorId,
+    房间数: _roomList.length,
+  });
   floorId.value = _floorId;
   roomList.value = _roomList;
   dormitoryAreaOneBuildLayer.splitBuild(buildId.value, _floorId.toString());
 }
 
 async function handleRoomClick(item: any) {
+  console.log("🏢 [楼盘表] 点击房间:", {
+    房间名称: item.name,
+    房间ID: item.id,
+  });
   visible.value = false;
   router.push({
     path: "/lifeServices/cubicles",
@@ -78,6 +180,8 @@ async function handleRoomClick(item: any) {
   });
 }
 
+// 🚫 注释掉自动加载逻辑，数据已在 useAsyncState 中初始化
+/*
 watch(
   () => buildId.value,
   () => {
@@ -86,6 +190,7 @@ watch(
   },
   { immediate: true },
 );
+*/
 
 const floorContainer = useTemplateRef<HTMLElement>("floorContainer");
 function scrollFloor(type: "left" | "right") {
@@ -105,8 +210,7 @@ function scrollFloor(type: "left" | "right") {
       <div>
         <ASelect
           v-model:value="type" placeholder="请选择" :options="typeOptions" class="!w-full"
-          allow-clear
-          @change="() => execute()" />
+          allow-clear />
       </div>
       <div>
         <div class="floor-box my-2 flex">

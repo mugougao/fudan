@@ -60,10 +60,18 @@ onMounted(() => {
   wdpMap.onCreated(async () => {
     await dormitoryBuildPoiLayer.render(dormitoryAreaId.value);
     cloudMapIsRender.value = true;
-    dormitoryBuildPoiLayer.onClick(async ({ id }) => {
+    dormitoryBuildPoiLayer.onClick(async ({ id, name, data }) => {
+      console.log("🏢 [POI点击] 步骤1 - 用户点击楼栋POI:", {
+        数字ID: id,
+        楼栋名称: name,
+        完整数据: data,
+        当前路由: route.path,
+      });
+
       dormitoryBuildPoiLayer.flyTo(id, { distanceFactor: 200 });
       dormitoryBuildPoiLayer.hideOthers(id);
-      router.push({
+
+      const targetRoute = {
         path: "/lifeServices/building",
         query: {
           ...route.query,
@@ -71,7 +79,14 @@ onMounted(() => {
           dormitoryAreaId: dormitoryAreaId.value,
           buildId: id,
         },
+      };
+
+      console.log("🏢 [POI点击] 步骤2 - 准备路由跳转:", {
+        目标路径: targetRoute.path,
+        路由参数: targetRoute.query,
       });
+
+      router.push(targetRoute);
     });
   });
 });
@@ -99,6 +114,23 @@ const {
   // 能耗情况
   energyInfo,
 } = useCampusParkData();
+
+// 监控数据变化
+watch([state, totalSupervisor, approvalData, energyInfo], () => {
+  console.log("🎨 [校区园区] 面板数据更新:", {
+    园区概况: state.value,
+    督导员数量: totalSupervisor.value,
+    人员信息: {
+      总人数: total.value,
+      学历分布: educationData.value,
+      性别分布: sexData.value,
+      院系分布: departmentData.value,
+      入住时间: timeData.value,
+    },
+    审批数据: approvalData.value,
+    能耗情况: energyInfo.value,
+  });
+}, { immediate: true });
 
 // ===============================面板数据==========end=========================
 

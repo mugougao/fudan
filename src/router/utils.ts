@@ -109,7 +109,7 @@ export function filterRoutes(routes: RouteRecordRaw[], permissions: string[]) {
 
 export function addAsyncRoutes(routes: RouteRecordRaw[], permissions: string[]) {
   if (!routes || !routes.length) return;
-  
+
   // 不再进行权限过滤
   // routes = filterRoutes(routes, permissions);
   routes = setupLayouts(routes);
@@ -120,7 +120,7 @@ export function addAsyncRoutes(routes: RouteRecordRaw[], permissions: string[]) 
       router.addRoute(route);
     });
   }
-  
+
   // 添加通配符404路由，确保它在所有异步路由之后添加
   if (!router.hasRoute("notFound")) {
     const notFoundRoute: RouteRecordRaw = {

@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import type { EChartsOption } from "echarts";
 import type { Ref } from "vue";
+import type { IGetClassroomBusynessTop5Result } from "@/api/smartTeaching";
 import { useRouteQuery } from "@vueuse/router";
-import to from "await-to-js";
-import { getClassroomBusynessTop5, type IGetClassroomBusynessTop5Result } from "@/api/smartTeaching";
 import { useEChartRender } from "@/hooks";
 
 defineOptions({ name: "TeachingBuildingPopup" });
@@ -15,9 +14,45 @@ const buildId = useRouteQuery<string>("buildId", "") as unknown as Ref<string>;
 
 const { execute, state } = useAsyncState<IGetClassroomBusynessTop5Result>(async () => {
   if (!buildId.value) return [];
-  const [err, res] = await to(getClassroomBusynessTop5(buildId.value));
-  if (err) return [];
-  return res?.resultData || [];
+
+  // 硬编码教室繁忙度排行数据
+  const classroomBusynessData: Record<string, IGetClassroomBusynessTop5Result> = {
+    141: [ // H6教学楼繁忙度排行
+      { num: 95, js: "501" },
+      { num: 90, js: "201" },
+      { num: 88, js: "301" },
+      { num: 85, js: "101" },
+      { num: 82, js: "401" },
+    ],
+    140: [ // H5教学楼繁忙度排行
+      { num: 92, js: "301" },
+      { num: 88, js: "201" },
+      { num: 85, js: "101" },
+      { num: 80, js: "401" },
+      { num: 75, js: "501" },
+    ],
+    144: [ // JB教学楼繁忙度排行
+      { num: 90, js: "101" },
+      { num: 85, js: "201" },
+      { num: 82, js: "301" },
+      { num: 78, js: "401" },
+      { num: 72, js: "501" },
+    ],
+  };
+
+  // 返回对应楼栋的数据，如果没有则返回默认数据
+  return classroomBusynessData[buildId.value] || [
+    { num: 85, js: "101" },
+    { num: 80, js: "201" },
+    { num: 75, js: "301" },
+    { num: 70, js: "401" },
+    { num: 65, js: "501" },
+  ];
+
+  // 注释掉原来的API调用
+  // const [err, res] = await to(getClassroomBusynessTop5(buildId.value));
+  // if (err) return [];
+  // return res?.resultData || [];
 }, [], { immediate: false, resetOnExecute: false });
 
 watch(() => [visible.value, buildId.value], () => {

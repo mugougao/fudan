@@ -24,7 +24,7 @@ const percents = computed(() => {
 <template>
   <div :class="cn('asset-large-instruments flex flex-col overflow-hidden', $attrs.class ?? '')">
     <UiSubTitle title-path="financial.index.largeInstruments" class="shrink-0" />
-    <div class="chart-box flex items-center flex-auto">
+    <div class="chart-box flex flex-auto items-center">
       <div class="ml-[22px] size-[110px] flex flex-col items-center justify-center text-[12px] children:leading-none">
         <span class="mb-1 text-[22px] font-number">{{ numberToThousands(total) }} </span>
         <span class="text-white/60">(万元)</span>

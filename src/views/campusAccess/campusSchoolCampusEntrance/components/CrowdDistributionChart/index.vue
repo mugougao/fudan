@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import type { EChartsOption } from "echarts";
 import { useRouteQuery } from "@vueuse/router";
+import { merge } from "lodash";
 // import to from "await-to-js";
 // import { fetchCampusFlowDistribution } from "@/api/campusAccess/campusSchool";
-import { CampusId, CampusName } from "@/enums";
-import { useDataSlice, useEChartRender } from "@/hooks";
+import { CampusId } from "@/enums";
 import crowdDistributionHeatMapLayer from "@/utils/WdpMap/campusAccess/campusSchool/CrowdDistributionHeatMapLayer.ts";
-import { merge } from "lodash";
 
 defineOptions({ name: "CrowdDistributionChart" });
 
@@ -15,7 +14,7 @@ const campusId = useRouteQuery("campusId", CampusId.Overview) as unknown as Ref<
 
 // 模拟数据：校区人流量分布数据
 const mockCampusFlowDistributionData = {
-  "3": [ // 邯郸校区
+  3: [ // 邯郸校区
     { name: "6", value: 45 },
     { name: "7", value: 68 },
     { name: "8", value: 125 },
@@ -33,9 +32,9 @@ const mockCampusFlowDistributionData = {
     { name: "20", value: 125 },
     { name: "21", value: 92 },
     { name: "22", value: 68 },
-    { name: "23", value: 45 }
+    { name: "23", value: 45 },
   ],
-  "4": [ // 江湾校区
+  4: [ // 江湾校区
     { name: "6", value: 35 },
     { name: "7", value: 52 },
     { name: "8", value: 95 },
@@ -53,9 +52,9 @@ const mockCampusFlowDistributionData = {
     { name: "20", value: 95 },
     { name: "21", value: 72 },
     { name: "22", value: 52 },
-    { name: "23", value: 35 }
+    { name: "23", value: 35 },
   ],
-  "5": [ // 枫林校区
+  1: [ // 枫林校区
     { name: "6", value: 28 },
     { name: "7", value: 42 },
     { name: "8", value: 78 },
@@ -73,9 +72,9 @@ const mockCampusFlowDistributionData = {
     { name: "20", value: 78 },
     { name: "21", value: 58 },
     { name: "22", value: 42 },
-    { name: "23", value: 28 }
+    { name: "23", value: 28 },
   ],
-  "6": [ // 张江校区
+  2: [ // 张江校区
     { name: "6", value: 22 },
     { name: "7", value: 35 },
     { name: "8", value: 65 },
@@ -93,14 +92,14 @@ const mockCampusFlowDistributionData = {
     { name: "20", value: 65 },
     { name: "21", value: 48 },
     { name: "22", value: 35 },
-    { name: "23", value: 22 }
-  ]
+    { name: "23", value: 22 },
+  ],
 };
 
 const { state: crowdDistributionState, execute: crowdDistributionExecute } = useAsyncState(async () => {
   if (campusId.value === CampusId.Overview) return [];
   // 获取校区数据，默认为邯郸校区
-  const data = mockCampusFlowDistributionData[campusId.value as keyof typeof mockCampusFlowDistributionData] || mockCampusFlowDistributionData["3"];
+  const data = mockCampusFlowDistributionData[campusId.value as unknown as keyof typeof mockCampusFlowDistributionData] || mockCampusFlowDistributionData["3"];
   const hours = new Date().getHours();
   return data.filter(({ name }) => Number(name) < hours + 1);
 }, [], { immediate: false, resetOnExecute: false });
@@ -114,19 +113,17 @@ watch(openHeatMap, (val) => {
     : crowdDistributionHeatMapLayer.removeAll();
 });
 
-
-function mergeOption(option: EChartsOption){
+function mergeOption(option: EChartsOption) {
   return merge(
     option,
     {
-      xAxis: { axisLabel: { formatter: (value)=> `${Number(value)}时` } },
+      xAxis: { axisLabel: { formatter: value => `${Number(value)}时` } },
       series: [
         { name: "人流分布" },
       ],
     },
-  )
+  );
 }
-
 </script>
 
 <template>
@@ -138,10 +135,9 @@ function mergeOption(option: EChartsOption){
         </UiSwitch>
       </template>
     </UiSubTitle>
-    <div class="flex-auto overflow-hidden mt-3">
-      <UiChartLine :data="crowdDistributionState" unit="人" :merge-option="mergeOption"/>
+    <div class="mt-3 flex-auto overflow-hidden">
+      <UiChartLine :data="crowdDistributionState" unit="人" :merge-option="mergeOption" />
     </div>
-     
   </div>
 </template>
 

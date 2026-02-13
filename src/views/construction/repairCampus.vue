@@ -16,11 +16,12 @@ useWatchCampusIdPushRoute({
   campusRouteName: "construction.repairCampus",
 });
 
-const { repairCount, repairingCount, statusCount, repairList } = usePanelCampusData();
+const { repairCount, repairingCount, statusCount, repairList, scaleRepairList } = usePanelCampusData();
 
 const showBuildPopup = ref(false);
 const buildPopupid = ref<string>("");
 const buildPopupTitle = ref("");
+const buildPopupDefaultType = ref<"1" | "2">("1"); // 1: 日常修缮, 2: 规模修缮
 
 onMounted(() => {
   wdpMap.addLayer(buildingPoiLayer);
@@ -37,8 +38,10 @@ onBeforeUnmount(() => {
   wdpMap.removeLayer(buildingPoiLayer);
 });
 
-function handleRowClick(id: string) {
+function handleRowClick(id: string, source: "daily" | "scale" = "daily") {
   buildingPoiLayer.render(id);
+  // 根据来源设置默认面板类型
+  buildPopupDefaultType.value = source === "scale" ? "2" : "1";
 }
 </script>
 
@@ -51,7 +54,7 @@ function handleRowClick(id: string) {
       <UiBoxPanel title-path="construction.repair.dailyRepair" class="row-span-19" content-class-name="grid grid-rows-24 grid-cols-1">
         <RepairDailyCount class="row-span-3" :data="[repairCount, repairingCount]" />
         <RepairPieChartVariant class="row-span-7" :data="statusCount" />
-        <RepairCampusList class="row-span-11" :data="repairList" @row-click="handleRowClick" />
+        <RepairCampusList class="row-span-11" :data="repairList" @row-click="(id) => handleRowClick(id, 'daily')" />
         <RepairCampusWarningInfo class="row-span-3" />
       </UiBoxPanel>
     </template>
@@ -60,13 +63,13 @@ function handleRowClick(id: string) {
       <UiBoxPanel title-path="construction.repair.scaleRepair" class="row-span-18" content-class-name="grid grid-rows-24 grid-cols-1">
         <RepairDailyCount class="row-span-3" :data="[repairCount, repairingCount]" />
         <RepairPieChartVariant class="row-span-8" :data="statusCount" />
-        <RepairCampusListVariant class="row-span-10" :data="[]" />
+        <RepairCampusListVariant class="row-span-10" :data="scaleRepairList" @row-click="(id) => handleRowClick(id, 'scale')" />
         <RepairCampusWarningInfo class="row-span-3" />
       </UiBoxPanel>
     </template>
   </UiViewPanel>
 
-  <RepairBuildPopup :id="buildPopupid" v-model:visible="showBuildPopup" :title="buildPopupTitle" />
+  <RepairBuildPopup :id="buildPopupid" v-model:visible="showBuildPopup" :title="buildPopupTitle" :default-type="buildPopupDefaultType" />
 </template>
 
 <style scoped lang="scss">

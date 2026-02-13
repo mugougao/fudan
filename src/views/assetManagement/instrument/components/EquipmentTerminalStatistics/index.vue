@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import { useStatusFlag } from "@/composables/assetManagement/instrument.ts";
 import { useI18nStore } from "@/stores/i18n.ts";
 import { cn } from "@/utils";
-import campusWithCollegePoiLayer from "@/utils/WdpMap/assetManagement/instrument/CampusWithCollegePoiLayer.ts";
-import campusPoiLayer from "@/utils/WdpMap/CampusPoiLayer.ts";
 
 defineOptions({ name: "EquipmentTerminalStatistics" });
 

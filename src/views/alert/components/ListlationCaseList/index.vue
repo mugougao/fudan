@@ -23,7 +23,7 @@ function ListlationCaseList(
   }
 
   return (
-    <div class="listlation-case-list-item dot-border flex items-center p-3">
+    <div class="dot-border listlation-case-list-item flex items-center p-3">
       <span class="icon mr-2">
         <i class="i-svg-icon-raw-line-chart"></i>
       </span>

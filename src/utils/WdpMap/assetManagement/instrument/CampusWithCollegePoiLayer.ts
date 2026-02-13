@@ -1,5 +1,4 @@
-import to from "await-to-js";
-import { fetchCampusWithCollegePoi } from "@/api/assetManagement/instrument.ts";
+import layerPoint from "@/assets/json/layer-dianwei.json";
 import PoiLayer from "../../code/PoiLayer";
 
 class CampusWithCollegePoiLayer extends PoiLayer<any> {
@@ -13,13 +12,32 @@ class CampusWithCollegePoiLayer extends PoiLayer<any> {
   }
 
   async fetchData(campusName: string, collegeName: string = "") {
-    const [, res] = await to(fetchCampusWithCollegePoi(campusName, collegeName));
+    // 校区名称到sid的映射
+    const campusToSid: Record<string, string> = {
+      邯郸: "3",
+      江湾: "4",
+      枫林: "1",
+      张江: "2",
+    };
+
+    const targetSid = campusToSid[campusName];
+    if (!targetSid) {
+      this.setData([]);
+      return;
+    }
+
+    // 从layer-dianwei.json中过滤对应校区的POI数据
+    const filteredFeatures = layerPoint.features.filter((feature) => {
+      const sid = feature.properties.sid?.toString();
+      return sid === targetSid;
+    });
+
     this.setData(
-      (res?.resultData?.features || []).map((item) => {
-        const { geometry: { coordinates }, properties } = item;
-        const { no: id, mc: name } = properties;
+      filteredFeatures.map((feature) => {
+        const { geometry: { coordinates }, properties } = feature;
+        const { id, name } = properties;
         return {
-          id: id || name,
+          id: id?.toString() || name,
           name,
           location: [...coordinates, 0] as [number, number, number],
           data: properties,

@@ -124,10 +124,10 @@ const mockOverviewState = ref({
   totalNumber: 12.5, // 万个
   totalAmount: 3.2, // 亿元
   typeList: {
-    "设备": [8.0, 2.0], // [数量（万个）, 金额（亿元）]
-    "家具": [3.0, 0.5],
-    "软件": [1.5, 0.7]
-  } as Record<"设备" | "家具" | "软件", [number, number]>
+    设备: [8.0, 2.0], // [数量（万个）, 金额（亿元）]
+    家具: [3.0, 0.5],
+    软件: [1.5, 0.7],
+  } as Record<"设备" | "家具" | "软件", [number, number]>,
 });
 
 // 模拟数据：资产数量分布（按校区）
@@ -135,7 +135,7 @@ const mockNumberAssetsState = ref([
   { name: "邯郸", value: 5.0, value2: 1.2 }, // 数量（万个）, 金额（亿元）
   { name: "江湾", value: 3.0, value2: 0.8 },
   { name: "枫林", value: 2.5, value2: 0.7 },
-  { name: "张江", value: 2.0, value2: 0.5 }
+  { name: "张江", value: 2.0, value2: 0.5 },
 ]);
 
 // 模拟数据：资产到期分布
@@ -143,7 +143,7 @@ const mockExpireAssetsState = ref([
   { name: "2025年", value1: 100, value2: 500 }, // 数量（个）, 金额（万元）
   { name: "2026年", value1: 150, value2: 750 },
   { name: "2027年", value1: 200, value2: 1000 },
-  { name: "2028年", value1: 80, value2: 400 }
+  { name: "2028年", value1: 80, value2: 400 },
 ]);
 
 // 模拟数据：大型仪器分布
@@ -152,17 +152,17 @@ const mockLargeInstrumentState = ref([
   { name: "显微镜", value: 40 },
   { name: "离心机", value: 35 },
   { name: "色谱仪", value: 20 },
-  { name: "质谱仪", value: 15 }
+  { name: "质谱仪", value: 15 },
 ]);
 
 // 资产到期分布类型选择（0:设备, 1:家具）
 const expireAssetsType = ref<0 | 1>(0);
 
 // 模拟函数：设置资产到期类型
-const mockSetExpireAssetsType = (type: 0 | 1) => {
+function mockSetExpireAssetsType(type: 0 | 1) {
   expireAssetsType.value = type;
-  console.log('切换资产到期类型:', type);
-};
+  console.log("切换资产到期类型:", type);
+}
 
 // 资产类型选择（设备、家具、软件）
 const selectedAssetType = ref<"设备" | "家具" | "软件">("设备");
@@ -170,98 +170,98 @@ const selectedAssetType = ref<"设备" | "家具" | "软件">("设备");
 // 根据资产类型切换的模拟数据
 const mockDataByType = {
   // 设备类型数据
-  "设备": {
+  设备: {
     overview: {
       totalNumber: 8.0, // 万个
       totalAmount: 2.0, // 亿元
       typeList: {
-        "设备": [8.0, 2.0], // [数量（万个）, 金额（亿元）]
-        "家具": [1.5, 0.3],
-        "软件": [0.8, 0.4]
-      } as Record<"设备" | "家具" | "软件", [number, number]>
+        设备: [8.0, 2.0], // [数量（万个）, 金额（亿元）]
+        家具: [1.5, 0.3],
+        软件: [0.8, 0.4],
+      } as Record<"设备" | "家具" | "软件", [number, number]>,
     },
     numberAssets: [
       { name: "邯郸", value: 3.5, value2: 0.9 }, // 数量（万个）, 金额（亿元）
       { name: "江湾", value: 2.0, value2: 0.5 },
       { name: "枫林", value: 1.5, value2: 0.4 },
-      { name: "张江", value: 1.0, value2: 0.2 }
+      { name: "张江", value: 1.0, value2: 0.2 },
     ],
     expireAssets: [
       { name: "2025年", value1: 60, value2: 300 }, // 数量（个）, 金额（万元）
       { name: "2026年", value1: 80, value2: 400 },
       { name: "2027年", value1: 100, value2: 500 },
-      { name: "2028年", value1: 40, value2: 200 }
+      { name: "2028年", value1: 40, value2: 200 },
     ],
     largeInstruments: [
       { name: "光谱仪", value: 25 },
       { name: "显微镜", value: 40 },
       { name: "离心机", value: 35 },
       { name: "色谱仪", value: 20 },
-      { name: "质谱仪", value: 15 }
-    ]
+      { name: "质谱仪", value: 15 },
+    ],
   },
   // 家具类型数据
-  "家具": {
+  家具: {
     overview: {
       totalNumber: 3.0, // 万个
       totalAmount: 0.5, // 亿元
       typeList: {
-        "设备": [1.5, 0.4],
-        "家具": [3.0, 0.5], // [数量（万个）, 金额（亿元）]
-        "软件": [0.5, 0.1]
-      } as Record<"设备" | "家具" | "软件", [number, number]>
+        设备: [1.5, 0.4],
+        家具: [3.0, 0.5], // [数量（万个）, 金额（亿元）]
+        软件: [0.5, 0.1],
+      } as Record<"设备" | "家具" | "软件", [number, number]>,
     },
     numberAssets: [
       { name: "邯郸", value: 1.2, value2: 0.2 },
       { name: "江湾", value: 0.8, value2: 0.15 },
       { name: "枫林", value: 0.6, value2: 0.1 },
-      { name: "张江", value: 0.4, value2: 0.05 }
+      { name: "张江", value: 0.4, value2: 0.05 },
     ],
     expireAssets: [
       { name: "2025年", value1: 30, value2: 150 },
       { name: "2026年", value1: 40, value2: 200 },
       { name: "2027年", value1: 50, value2: 250 },
-      { name: "2028年", value1: 20, value2: 100 }
+      { name: "2028年", value1: 20, value2: 100 },
     ],
     largeInstruments: [
       { name: "办公椅", value: 120 },
       { name: "办公桌", value: 80 },
       { name: "文件柜", value: 60 },
       { name: "会议桌", value: 40 },
-      { name: "书架", value: 50 }
-    ]
+      { name: "书架", value: 50 },
+    ],
   },
   // 软件类型数据
-  "软件": {
+  软件: {
     overview: {
       totalNumber: 1.5, // 万个
       totalAmount: 0.7, // 亿元
       typeList: {
-        "设备": [0.8, 0.3],
-        "家具": [0.5, 0.1],
-        "软件": [1.5, 0.7] // [数量（万个）, 金额（亿元）]
-      } as Record<"设备" | "家具" | "软件", [number, number]>
+        设备: [0.8, 0.3],
+        家具: [0.5, 0.1],
+        软件: [1.5, 0.7], // [数量（万个）, 金额（亿元）]
+      } as Record<"设备" | "家具" | "软件", [number, number]>,
     },
     numberAssets: [
       { name: "邯郸", value: 0.6, value2: 0.3 },
       { name: "江湾", value: 0.4, value2: 0.2 },
       { name: "枫林", value: 0.3, value2: 0.15 },
-      { name: "张江", value: 0.2, value2: 0.05 }
+      { name: "张江", value: 0.2, value2: 0.05 },
     ],
     expireAssets: [
       { name: "2025年", value1: 10, value2: 50 },
       { name: "2026年", value1: 15, value2: 75 },
       { name: "2027年", value1: 20, value2: 100 },
-      { name: "2028年", value1: 8, value2: 40 }
+      { name: "2028年", value1: 8, value2: 40 },
     ],
     largeInstruments: [
       { name: "操作系统", value: 45 },
       { name: "数据库软件", value: 35 },
       { name: "办公软件", value: 80 },
       { name: "专业软件", value: 25 },
-      { name: "开发工具", value: 30 }
-    ]
-  }
+      { name: "开发工具", value: 30 },
+    ],
+  },
 };
 
 // 使用模拟数据
@@ -310,18 +310,18 @@ function handleOnSearch(value: string) {
     <template #left>
       <!-- 资产类型选择器 -->
       <div v-if="campusId === CampusId.Overview" class="asset-type-selector mb-4 flex items-center justify-center space-x-4">
-        <div 
-          v-for="type in ['设备', '家具', '软件']" 
+        <div
+          v-for="type in ['设备', '家具', '软件']"
           :key="type"
-          class="px-4 py-2 rounded-lg cursor-pointer transition-all"
-          :class="selectedAssetType === type 
-            ? 'bg-[#CC1A1A] text-white' 
+          class="cursor-pointer rounded-lg px-4 py-2 transition-all"
+          :class="selectedAssetType === type
+            ? 'bg-[#CC1A1A] text-white'
             : 'bg-gray-800 text-gray-300 hover:bg-gray-700'"
           @click="selectedAssetType = type as any">
           {{ type }}
         </div>
       </div>
-      
+
       <!-- 概况面板 -->
       <OverviewPanel
         v-if="campusId === CampusId.Overview"

@@ -33,14 +33,38 @@ const personInfoRef = useTemplateRef<InstanceType<typeof PersonInfo>>("personInf
 const energyConsumptionInfoRef = useTemplateRef<InstanceType<typeof EnergyConsumptionInfo>>("energyConsumptionInfoRef");
 
 onMounted(() => {
+  console.log("🏢 [楼宇详情页] 步骤3 - 页面初始化:", {
+    校区ID: campusId.value,
+    宿舍区ID: dormitoryAreaId.value,
+    楼栋ID: buildId.value,
+    完整路由参数: route.query,
+    地图状态: wdpMap.status,
+    当前图层列表: wdpMap.layerList.map(l => ({ id: l.layerId, mounted: l.mounted })),
+  });
+
+  console.log("🏢 [楼宇详情页] 添加图层前...");
   wdpMap.addLayer(dormitoryAreaOneBuildLayer, dormitoryRoomStatusRangeLayer);
+  console.log("🏢 [楼宇详情页] 添加图层后:", {
+    当前图层列表: wdpMap.layerList.map(l => ({ id: l.layerId, mounted: l.mounted })),
+  });
+
+  console.log("🏢 [楼宇详情页] 注册onCreated回调...");
   wdpMap.onCreated(async () => {
+    console.log("✅ [楼宇详情页] onCreated回调被触发!");
+    console.log("🏢 [楼宇详情页] 步骤4 - 开始渲染楼栋:", {
+      楼栋ID: buildId.value,
+    });
+
     // 渲染楼栋 poi 标签
     await dormitoryAreaOneBuildLayer.render(buildId.value);
+
+    console.log("🏢 [楼宇详情页] 步骤5 - 楼栋渲染完成");
+
     wdpMap.on("elementClick", (...args) => {
-      console.log("🚀 ~ args:", args);
+      console.log("🚀 [地图元素点击] 房间点击事件:", args);
     });
   });
+  console.log("🏢 [楼宇详情页] onCreated回调注册完成");
 });
 
 onBeforeRouteLeave((to, form, next) => {
@@ -67,6 +91,16 @@ const realEstateTableVisible = ref(false);
 
 // 面板数据
 const { dormitoryInfo, personnelInfo, focusStudentInfo, energyConsumptionInfo: energyConsumptionInfoData } = useBuildingData();
+
+// 监控楼宇详情页数据变化
+watch([dormitoryInfo, personnelInfo, focusStudentInfo, energyConsumptionInfoData], () => {
+  console.log("🏢 [楼宇详情页] 面板数据更新:", {
+    宿舍信息: dormitoryInfo.value,
+    人员信息: personnelInfo.value,
+    重点关注学生: focusStudentInfo.value,
+    能耗信息: energyConsumptionInfoData.value,
+  });
+}, { immediate: true, deep: true });
 
 onBeforeRouteLeave(() => {
   realEstateTableVisible.value = false;

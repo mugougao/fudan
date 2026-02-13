@@ -97,7 +97,7 @@ async function handleCheck(checked: any, info: any) {
   // 提取 checkedKeys 数组
   const checkedKeys = Array.isArray(checked) ? checked : (checked?.checked || []);
   const isChecked = info?.checked !== false;
-  
+
   if (!isChecked) allChecked.value = false;
   try {
     const types = xor(checkedKeys, prevCheckedKeys.value);

@@ -1,5 +1,4 @@
-import to from "await-to-js";
-import { fetchBuildingPoint } from "@/api/construction/repair.ts";
+import layerPoint from "@/assets/json/layer-dianwei.json";
 import PoiLayer from "../code/PoiLayer";
 
 class BuildingPoiLayer extends PoiLayer {
@@ -14,14 +13,30 @@ class BuildingPoiLayer extends PoiLayer {
   }
 
   async fetchData(id: string) {
-    const [,res] = await to(fetchBuildingPoint(id));
-    const { geometry, properties = {} } = res?.resultData?.features?.[0] || {};
-    const [lng, lat] = geometry?.coordinates || [];
-    const { id: _id, name } = properties as any;
+    // 从layer-dianwei.json中查找对应id的楼宇数据
+    const feature = layerPoint.features.find((feature) => {
+      const properties = feature.properties;
+      // 匹配id字段（可能是数字或字符串）
+      const idNum = Number.parseInt(id, 10);
+      const featureId = properties.id;
+      const featureId1 = properties.id_1;
+      // 比较逻辑：featureId可能是数字或字符串，id可能是字符串
+      return featureId === idNum || featureId?.toString() === id || featureId1 === id;
+    });
+
+    if (!feature) {
+      this.setData([]);
+      return;
+    }
+
+    const { geometry, properties } = feature;
+    const [lng, lat] = geometry.coordinates;
+    const { id: _id, name } = properties as { id?: number | string; name: string };
+
     this.setData([{
-      id: _id,
+      id: _id?.toString() || id,
       name,
-      location: [lng, lat, 0],
+      location: [lng, lat, 0] as [number, number, number],
       data: properties,
     }]);
   }

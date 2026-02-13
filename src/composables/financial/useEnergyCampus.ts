@@ -1,4 +1,3 @@
-import { to } from "await-to-js";
 // import { fetchCampusChargingPile, fetchCampusEnergyConsumption, fetchCampusEnergyMonitor } from "@/api/financial/energy.ts";
 import { useCampusStore } from "@/stores/campus.ts";
 
@@ -14,17 +13,17 @@ export default function useEnergyCampus() {
     async () => {
       // 根据校区ID返回不同的能源消耗数据
       const campusEnergyMap = {
-        "3": { // 邯郸校区
+        3: { // 邯郸校区
           yearelectamount: 420, // 年用电量（万千瓦时）
           yearwateramount: 280, // 年用水量（万吨）
-          monthElect: 35,       // 月用电量（万千瓦时）
-          monthWater: 23,       // 月用水量（万吨）
+          monthElect: 35, // 月用电量（万千瓦时）
+          monthWater: 23, // 月用水量（万吨）
           totalElectAmount: 320, // 总电费（万元）
           totalWaterAmount: 160, // 总水费（万元）
-          yearElectGrowth: 7.8,  // 年用电增长率（%）
-          yearWaterGrowth: 5.5   // 年用水增长率（%）
+          yearElectGrowth: 7.8, // 年用电增长率（%）
+          yearWaterGrowth: 5.5, // 年用水增长率（%）
         },
-        "4": { // 江湾校区
+        4: { // 江湾校区
           yearelectamount: 350,
           yearwateramount: 230,
           monthElect: 29,
@@ -32,9 +31,9 @@ export default function useEnergyCampus() {
           totalElectAmount: 265,
           totalWaterAmount: 135,
           yearElectGrowth: 8.2,
-          yearWaterGrowth: 6.0
+          yearWaterGrowth: 6.0,
         },
-        "5": { // 枫林校区
+        1: { // 枫林校区
           yearelectamount: 280,
           yearwateramount: 190,
           monthElect: 23,
@@ -42,9 +41,9 @@ export default function useEnergyCampus() {
           totalElectAmount: 210,
           totalWaterAmount: 110,
           yearElectGrowth: 6.5,
-          yearWaterGrowth: 4.8
+          yearWaterGrowth: 4.8,
         },
-        "6": { // 张江校区
+        2: { // 张江校区
           yearelectamount: 220,
           yearwateramount: 150,
           monthElect: 18,
@@ -52,12 +51,12 @@ export default function useEnergyCampus() {
           totalElectAmount: 165,
           totalWaterAmount: 85,
           yearElectGrowth: 5.8,
-          yearWaterGrowth: 4.2
-        }
+          yearWaterGrowth: 4.2,
+        },
       };
-      
+
       // 获取校区数据，默认为邯郸校区
-      return campusEnergyMap[campusId.value as keyof typeof campusEnergyMap] || campusEnergyMap["3"];
+      return campusEnergyMap[campusId.value as unknown as keyof typeof campusEnergyMap] || campusEnergyMap["3"];
     },
     {
       yearelectamount: 0,
@@ -67,7 +66,7 @@ export default function useEnergyCampus() {
       totalElectAmount: 0,
       totalWaterAmount: 0,
       yearElectGrowth: 0,
-      yearWaterGrowth: 0
+      yearWaterGrowth: 0,
     },
     { immediate: true, resetOnExecute: false },
   );
@@ -79,90 +78,90 @@ export default function useEnergyCampus() {
     async () => {
       // 根据校区ID返回不同的充电桩数据
       const campusChargingMap = {
-        "3": { // 邯郸校区
+        3: { // 邯郸校区
           electricBicycle: {
-            total: 15,     // 电动自行车充电桩总数
-            using: 11,     // 使用中
-            idle: 4,       // 空闲
-            usageRate: 73  // 使用率（%）
+            total: 15, // 电动自行车充电桩总数
+            using: 11, // 使用中
+            idle: 4, // 空闲
+            usageRate: 73, // 使用率（%）
           },
           newEnergyVehicles: {
-            total: 10,     // 新能源汽车充电桩总数
-            using: 7,      // 使用中
-            idle: 3,       // 空闲
-            usageRate: 70  // 使用率（%）
+            total: 10, // 新能源汽车充电桩总数
+            using: 7, // 使用中
+            idle: 3, // 空闲
+            usageRate: 70, // 使用率（%）
           },
-          totalChargingAmount: 950,  // 总充电量（万千瓦时）
-          totalChargingFee: 475      // 总充电费用（万元）
+          totalChargingAmount: 950, // 总充电量（万千瓦时）
+          totalChargingFee: 475, // 总充电费用（万元）
         },
-        "4": { // 江湾校区
+        4: { // 江湾校区
           electricBicycle: {
             total: 12,
             using: 9,
             idle: 3,
-            usageRate: 75
+            usageRate: 75,
           },
           newEnergyVehicles: {
             total: 8,
             using: 6,
             idle: 2,
-            usageRate: 75
+            usageRate: 75,
           },
           totalChargingAmount: 750,
-          totalChargingFee: 375
+          totalChargingFee: 375,
         },
-        "5": { // 枫林校区
+        1: { // 枫林校区
           electricBicycle: {
             total: 10,
             using: 7,
             idle: 3,
-            usageRate: 70
+            usageRate: 70,
           },
           newEnergyVehicles: {
             total: 6,
             using: 4,
             idle: 2,
-            usageRate: 67
+            usageRate: 67,
           },
           totalChargingAmount: 650,
-          totalChargingFee: 325
+          totalChargingFee: 325,
         },
-        "6": { // 张江校区
+        2: { // 张江校区
           electricBicycle: {
             total: 8,
             using: 5,
             idle: 3,
-            usageRate: 63
+            usageRate: 63,
           },
           newEnergyVehicles: {
             total: 4,
             using: 3,
             idle: 1,
-            usageRate: 75
+            usageRate: 75,
           },
           totalChargingAmount: 500,
-          totalChargingFee: 250
-        }
+          totalChargingFee: 250,
+        },
       };
-      
+
       // 获取校区数据，默认为邯郸校区
-      return campusChargingMap[campusId.value as keyof typeof campusChargingMap] || campusChargingMap["3"];
+      return campusChargingMap[campusId.value as unknown as keyof typeof campusChargingMap] || campusChargingMap["3"];
     },
     {
       electricBicycle: {
         total: 0,
         using: 0,
         idle: 0,
-        usageRate: 0
+        usageRate: 0,
       },
       newEnergyVehicles: {
         total: 0,
         using: 0,
         idle: 0,
-        usageRate: 0
+        usageRate: 0,
       },
       totalChargingAmount: 0,
-      totalChargingFee: 0
+      totalChargingFee: 0,
     },
     { immediate: true, resetOnExecute: false },
   );
@@ -186,9 +185,9 @@ export default function useEnergyCampus() {
         { name: "16:00", water: 65, elect: 168 },
         { name: "18:00", water: 60, elect: 152 },
         { name: "20:00", water: 52, elect: 128 },
-        { name: "22:00", water: 48, elect: 95 }
+        { name: "22:00", water: 48, elect: 95 },
       ];
-      
+
       const monthData = [
         { name: "1月", water: 1250, elect: 1850 },
         { name: "2月", water: 1180, elect: 1780 },
@@ -201,9 +200,9 @@ export default function useEnergyCampus() {
         { name: "9月", water: 1320, elect: 1920 },
         { name: "10月", water: 1280, elect: 1880 },
         { name: "11月", water: 1250, elect: 1850 },
-        { name: "12月", water: 1200, elect: 1800 }
+        { name: "12月", water: 1200, elect: 1800 },
       ];
-      
+
       // 根据时间类型返回相应的数据
       return energyMonitorTiemType.value === "day" ? dayData : monthData;
     },

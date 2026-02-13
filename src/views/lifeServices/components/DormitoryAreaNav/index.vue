@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import type { Ref } from "vue";
 import { useRouteQuery } from "@vueuse/router";
-import to from "await-to-js";
-import { getDormitoryArea } from "@/api/lifeServices";
+import tbAreaData from "@/assets/json/tb_area.json";
+// import to from "await-to-js";
+// import { getDormitoryArea } from "@/api/lifeServices";
 import { cn } from "@/utils";
 
 defineOptions({ name: "DormitoryAreaNav" });
@@ -14,8 +15,14 @@ const campusId = useRouteQuery("campusId") as unknown as Ref<string>;
 // 宿舍区 ID
 const dormitoryAreaId = useRouteQuery("dormitoryAreaId", "") as unknown as Ref<string>;
 const { state: dormitoryAreaList, execute } = useAsyncState(async () => {
-  const [err, res] = await to(getDormitoryArea(campusId.value));
-  if (err) return [];
+  // 从本地JSON文件获取数据，根据校区ID过滤
+  const filteredFeatures = tbAreaData.features.filter((item: any) =>
+    item.properties.sid === campusId.value,
+  );
+
+  // 模拟API响应结构
+  const res = { resultData: { features: filteredFeatures } };
+
   return (res?.resultData?.features || []).map((item: any) => ({ label: item.properties.mc, value: item.properties.id }));
 }, [], { immediate: false, resetOnExecute: false });
 

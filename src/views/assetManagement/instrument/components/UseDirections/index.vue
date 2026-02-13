@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import type { EChartsOption } from "echarts";
-import { round } from "lodash";
-import { useEChartRender } from "@/hooks";
-import { largestRemainderMethod, numberToThousands } from "@/utils";
+import { numberToThousands } from "@/utils";
 
 defineOptions({ name: "UseDirections" });
 

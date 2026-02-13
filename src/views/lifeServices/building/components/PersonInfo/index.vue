@@ -26,10 +26,16 @@ const occupancyDistributionOpen = ref(false);
 watch(
   occupancyDistributionOpen,
   (val) => {
+    console.log("🔘 [入住率按钮] 状态变化:", {
+      新状态: val ? "打开" : "关闭",
+      楼栋ID: buildId.value,
+    });
     if (val) {
+      console.log("🎨 [入住率按钮] 调用 render...");
       dormitoryRoomStatusRangeLayer.render(buildId.value);
     }
     else {
+      console.log("🧹 [入住率按钮] 调用 remove...");
       dormitoryRoomStatusRangeLayer.remove();
     }
     emits("occupancyDistributionChange", val);

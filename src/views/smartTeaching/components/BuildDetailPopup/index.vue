@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { useRouteQuery } from "@vueuse/router";
-import to from "await-to-js";
 import { get, merge } from "lodash";
 import { type Ref, watch } from "vue";
-import { getBuildingDetail } from "@/api/smartTeaching";
 
 defineOptions({ name: "BuildDetailPopup" });
 
@@ -20,9 +18,93 @@ const buildId = useRouteQuery<string>("buildId", "") as unknown as Ref<string>;
 // 数据
 const { state, execute } = useAsyncState<Record<string, any>>(async () => {
   if (!buildId.value) return {};
-  const [err, res] = await to(getBuildingDetail(buildId.value));
-  if (err) return {};
-  return res?.resultData || {};
+
+  // 硬编码楼栋详情数据
+  const buildingDetailData: Record<string, any> = {
+    141: { // H6教学楼
+      jsmc: "H6教学楼",
+      jszs: 45,
+      sybl: 78.5,
+      dtsyl: [
+        { name: "8:00", value: 25 },
+        { name: "9:00", value: 45 },
+        { name: "10:00", value: 65 },
+        { name: "11:00", value: 78 },
+        { name: "12:00", value: 40 },
+        { name: "13:00", value: 55 },
+        { name: "14:00", value: 72 },
+        { name: "15:00", value: 80 },
+        { name: "16:00", value: 65 },
+        { name: "17:00", value: 45 },
+        { name: "18:00", value: 30 },
+        { name: "19:00", value: 25 },
+      ],
+    },
+    140: { // H5教学楼
+      jsmc: "H5教学楼",
+      jszs: 38,
+      sybl: 72.3,
+      dtsyl: [
+        { name: "8:00", value: 20 },
+        { name: "9:00", value: 40 },
+        { name: "10:00", value: 60 },
+        { name: "11:00", value: 72 },
+        { name: "12:00", value: 35 },
+        { name: "13:00", value: 50 },
+        { name: "14:00", value: 68 },
+        { name: "15:00", value: 75 },
+        { name: "16:00", value: 60 },
+        { name: "17:00", value: 40 },
+        { name: "18:00", value: 25 },
+        { name: "19:00", value: 20 },
+      ],
+    },
+    144: { // JB教学楼
+      jsmc: "JB教学楼",
+      jszs: 32,
+      sybl: 65.8,
+      dtsyl: [
+        { name: "8:00", value: 15 },
+        { name: "9:00", value: 35 },
+        { name: "10:00", value: 55 },
+        { name: "11:00", value: 65 },
+        { name: "12:00", value: 30 },
+        { name: "13:00", value: 45 },
+        { name: "14:00", value: 60 },
+        { name: "15:00", value: 68 },
+        { name: "16:00", value: 55 },
+        { name: "17:00", value: 35 },
+        { name: "18:00", value: 20 },
+        { name: "19:00", value: 15 },
+      ],
+    },
+  };
+
+  // 返回对应楼栋的数据，如果没有则返回默认数据
+  return buildingDetailData[buildId.value] || {
+    jsmc: "教学楼",
+    jszs: 40,
+    sybl: 70.0,
+    dtsyl: [
+      { name: "8:00", value: 20 },
+      { name: "9:00", value: 40 },
+      { name: "10:00", value: 60 },
+      { name: "11:00", value: 70 },
+      { name: "12:00", value: 35 },
+      { name: "13:00", value: 50 },
+      { name: "14:00", value: 65 },
+      { name: "15:00", value: 72 },
+      { name: "16:00", value: 58 },
+      { name: "17:00", value: 38 },
+      { name: "18:00", value: 25 },
+      { name: "19:00", value: 20 },
+    ],
+  };
+
+  // 注释掉原来的API调用
+  // const [err, res] = await to(getBuildingDetail(buildId.value));
+  // if (err) return {};
+  // return res?.resultData || {};
 }, {}, { immediate: false, resetOnExecute: false });
 
 // 弹窗打开时请求数据

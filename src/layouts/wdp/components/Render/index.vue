@@ -10,12 +10,12 @@ let loading: ICreateLoading;
 
 onMounted(async () => {
   await nextTick();
-  
+
   // 如果是campusStyle页面，不自动渲染，等待弹窗配置
   if (route.name === "campusStyle") {
     return;
   }
-  
+
   loading = createLoading({ tip: "地图场景加载中，请等待...", size: "large" });
   wdpMap.render("player");
   (window as any).__wdpMap__ = wdpMap;

@@ -14,13 +14,12 @@ export const CampusName = {
   [CampusId.ZhangJiang]: "张江",
 } as Record<CampusId, string>;
 
-
 export const cumpusOptions = [
   { label: CampusName[CampusId.HanDan], value: CampusId.HanDan },
   { label: CampusName[CampusId.JiangWan], value: CampusId.JiangWan },
   { label: CampusName[CampusId.FengLin], value: CampusId.FengLin },
-  { label: CampusName[CampusId.ZhangJiang], value: CampusId.ZhangJiang }
-]
+  { label: CampusName[CampusId.ZhangJiang], value: CampusId.ZhangJiang },
+];
 
 export function campusIdFormat(campusId: CampusId, suffix: string = "校区") {
   if (campusId === CampusId.Overview) return "";

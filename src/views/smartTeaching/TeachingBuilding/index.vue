@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { useRouteQuery } from "@vueuse/router";
-import to from "await-to-js";
 import get from "lodash/get";
 import { type Ref, watch } from "vue";
-import { getBuildingClassroomTable, getBuildingCourseStatistics } from "@/api/smartTeaching";
 import { cn } from "@/utils";
 import CourseTypeDistribution from "./components/CourseTypeDistribution/index.vue";
 
@@ -23,18 +21,199 @@ const roomId = useRouteQuery<string>("roomId", "") as unknown as Ref<string>;
 const realEstateTableVisible = defineModel("realEstateTableVisible", { default: false });
 
 const { state, execute } = useAsyncState(async () => {
-  if (!buildId.value) return;
-  const [err, res] = await to(getBuildingCourseStatistics(buildId.value));
-  if (err) return {};
-  return res?.resultData || {};
+  if (!buildId.value) return {};
+
+  // 硬编码楼栋课程统计数据
+  const buildingCourseStats: Record<string, any> = {
+    141: { // H6教学楼
+      kcfb: [
+        { name: "理论课", value: 65 },
+        { name: "实验课", value: 25 },
+        { name: "讨论课", value: 10 },
+      ],
+      ksfb: [
+        { name: "1-2节", value: 30 },
+        { name: "3-4节", value: 40 },
+        { name: "5-6节", value: 20 },
+        { name: "7-8节", value: 10 },
+      ],
+      kczs: 120,
+      jszs: 45,
+      sybl: 78.5,
+    },
+    140: { // H5教学楼
+      kcfb: [
+        { name: "理论课", value: 70 },
+        { name: "实验课", value: 20 },
+        { name: "讨论课", value: 10 },
+      ],
+      ksfb: [
+        { name: "1-2节", value: 35 },
+        { name: "3-4节", value: 35 },
+        { name: "5-6节", value: 20 },
+        { name: "7-8节", value: 10 },
+      ],
+      kczs: 95,
+      jszs: 38,
+      sybl: 72.3,
+    },
+    144: { // JB教学楼
+      kcfb: [
+        { name: "理论课", value: 60 },
+        { name: "实验课", value: 30 },
+        { name: "讨论课", value: 10 },
+      ],
+      ksfb: [
+        { name: "1-2节", value: 25 },
+        { name: "3-4节", value: 35 },
+        { name: "5-6节", value: 25 },
+        { name: "7-8节", value: 15 },
+      ],
+      kczs: 80,
+      jszs: 32,
+      sybl: 65.8,
+    },
+  };
+
+  // 返回对应楼栋的数据，如果没有则返回默认数据
+  return buildingCourseStats[buildId.value] || {
+    kcfb: [
+      { name: "理论课", value: 60 },
+      { name: "实验课", value: 30 },
+      { name: "讨论课", value: 10 },
+    ],
+    ksfb: [
+      { name: "1-2节", value: 30 },
+      { name: "3-4节", value: 35 },
+      { name: "5-6节", value: 25 },
+      { name: "7-8节", value: 10 },
+    ],
+    kczs: 100,
+    jszs: 40,
+    sybl: 70.0,
+  };
+
+  // 注释掉原来的API调用
+  // const [err, res] = await to(getBuildingCourseStatistics(buildId.value));
+  // if (err) return {};
+  // return res?.resultData || {};
 }, {}, { immediate: false, resetOnExecute: false });
 
 const { state: classList, execute: executeClassList } = useAsyncState<{ lc: number;children: { name: string; id: string; type: string }[] }[]>(
   async () => {
     if (!buildId.value) return [];
-    const [err, res] = await to(getBuildingClassroomTable(buildId.value));
-    if (err) return [];
-    return (res?.resultData || []).sort((a, b) => a.lc - b.lc);
+
+    // 硬编码楼栋教室数据
+    const buildingClassroomData: Record<string, { lc: number; children: { name: string; id: string; type: string }[] }[]> = {
+      141: [ // H6教学楼，6层
+        { lc: 1, children: [
+          { name: "101", id: "101_1", type: "1" },
+          { name: "102", id: "102_1", type: "1" },
+          { name: "103", id: "103_1", type: "0" },
+          { name: "104", id: "104_1", type: "1" },
+          { name: "105", id: "105_1", type: "1" },
+          { name: "106", id: "106_1", type: "0" },
+        ] },
+        { lc: 2, children: [
+          { name: "201", id: "201_2", type: "1" },
+          { name: "202", id: "202_2", type: "1" },
+          { name: "203", id: "203_2", type: "1" },
+          { name: "204", id: "204_2", type: "0" },
+          { name: "205", id: "205_2", type: "1" },
+          { name: "206", id: "206_2", type: "1" },
+        ] },
+        { lc: 3, children: [
+          { name: "301", id: "301_3", type: "1" },
+          { name: "302", id: "302_3", type: "1" },
+          { name: "303", id: "303_3", type: "1" },
+          { name: "304", id: "304_3", type: "1" },
+          { name: "305", id: "305_3", type: "0" },
+          { name: "306", id: "306_3", type: "1" },
+        ] },
+        { lc: 4, children: [
+          { name: "401", id: "401_4", type: "1" },
+          { name: "402", id: "402_4", type: "1" },
+          { name: "403", id: "403_4", type: "1" },
+          { name: "404", id: "404_4", type: "0" },
+          { name: "405", id: "405_4", type: "1" },
+          { name: "406", id: "406_4", type: "1" },
+        ] },
+        { lc: 5, children: [
+          { name: "501", id: "501_5", type: "1" },
+          { name: "502", id: "502_5", type: "1" },
+          { name: "503", id: "503_5", type: "1" },
+          { name: "504", id: "504_5", type: "1" },
+          { name: "505", id: "505_5", type: "1" },
+          { name: "506", id: "506_5", type: "0" },
+        ] },
+        { lc: 6, children: [
+          { name: "601", id: "601_6", type: "1" },
+          { name: "602", id: "602_6", type: "1" },
+          { name: "603", id: "603_6", type: "1" },
+          { name: "604", id: "604_6", type: "1" },
+          { name: "605", id: "605_6", type: "1" },
+          { name: "606", id: "606_6", type: "1" },
+        ] },
+      ],
+      140: [ // H5教学楼，5层
+        { lc: 1, children: [
+          { name: "101", id: "101_1_h5", type: "1" },
+          { name: "102", id: "102_1_h5", type: "1" },
+          { name: "103", id: "103_1_h5", type: "0" },
+          { name: "104", id: "104_1_h5", type: "1" },
+          { name: "105", id: "105_1_h5", type: "1" },
+        ] },
+        { lc: 2, children: [
+          { name: "201", id: "201_2_h5", type: "1" },
+          { name: "202", id: "202_2_h5", type: "1" },
+          { name: "203", id: "203_2_h5", type: "1" },
+          { name: "204", id: "204_2_h5", type: "0" },
+          { name: "205", id: "205_2_h5", type: "1" },
+        ] },
+        { lc: 3, children: [
+          { name: "301", id: "301_3_h5", type: "1" },
+          { name: "302", id: "302_3_h5", type: "1" },
+          { name: "303", id: "303_3_h5", type: "1" },
+          { name: "304", id: "304_3_h5", type: "1" },
+          { name: "305", id: "305_3_h5", type: "0" },
+        ] },
+        { lc: 4, children: [
+          { name: "401", id: "401_4_h5", type: "1" },
+          { name: "402", id: "402_4_h5", type: "1" },
+          { name: "403", id: "403_4_h5", type: "1" },
+          { name: "404", id: "404_4_h5", type: "0" },
+          { name: "405", id: "405_4_h5", type: "1" },
+        ] },
+        { lc: 5, children: [
+          { name: "501", id: "501_5_h5", type: "1" },
+          { name: "502", id: "502_5_h5", type: "1" },
+          { name: "503", id: "503_5_h5", type: "1" },
+          { name: "504", id: "504_5_h5", type: "1" },
+          { name: "505", id: "505_5_h5", type: "1" },
+        ] },
+      ],
+    };
+
+    // 返回对应楼栋的数据，如果没有则返回默认数据
+    const data = buildingClassroomData[buildId.value] || [
+      { lc: 1, children: [
+        { name: "101", id: "101_1_default", type: "1" },
+        { name: "102", id: "102_1_default", type: "1" },
+        { name: "103", id: "103_1_default", type: "0" },
+      ] },
+      { lc: 2, children: [
+        { name: "201", id: "201_2_default", type: "1" },
+        { name: "202", id: "202_2_default", type: "1" },
+        { name: "203", id: "203_2_default", type: "1" },
+      ] },
+    ];
+
+    return data.sort((a, b) => a.lc - b.lc);
+
+    // 注释掉原来的API调用
+    // const [err, res] = await to(getBuildingClassroomTable(buildId.value));
+    // if (err) return [];
+    // return (res?.resultData || []).sort((a, b) => a.lc - b.lc);
   },
   [],
   { immediate: false, resetOnExecute: false },
@@ -67,7 +246,9 @@ function handleFloorClick(_floorId: number) {
 function handleFloorRoomClick(_floorId: number, _roomId: string) {
   floorId.value = _floorId.toString();
   roomId.value = _roomId;
-  emit("roomClick", _floorId, _roomId);
+  // 从复合ID中提取纯房间号（例如从"101_1"中提取"101"）
+  const pureRoomId = _roomId.split("_")[0];
+  emit("roomClick", _floorId, pureRoomId);
 }
 
 defineExpose({

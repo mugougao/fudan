@@ -36,7 +36,7 @@ const columns = [
     <div class="flex items-center justify-evenly gap-2 py-3 children:flex-1">
       <div
         v-for="({ label, field, unit }) in columns" :key="field"
-        class="campus-assets dot-border p-1">
+        class="dot-border campus-assets p-1">
         <div class="flex flex-col items-center border border-[#FFF3F3]/10">
           <span class="text-[22px] font-number">{{ get(data, field) }}</span>
           <span class="text-[12px] text-white/60">{{ unit }}</span>

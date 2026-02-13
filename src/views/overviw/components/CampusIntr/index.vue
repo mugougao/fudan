@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import info from "@/assets/json/CampusOverviwInfo.json";
-import CountItem from "@/components/CountItem/index.vue";
 import { campusIdFormat } from "@/enums";
 import { useCampusStore } from "@/stores/campus.ts";
 import { cn } from "@/utils";

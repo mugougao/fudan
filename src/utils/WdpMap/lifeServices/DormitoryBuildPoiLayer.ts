@@ -1,5 +1,4 @@
-import to from "await-to-js";
-import { getDormitoryAreaBuilding } from "@/api/lifeServices";
+import layerDianweiData from "@/assets/json/layer-dianwei.json";
 import PoiLayer from "../code/PoiLayer";
 
 class DormitoryBuildPoiLayer extends PoiLayer {
@@ -24,17 +23,24 @@ class DormitoryBuildPoiLayer extends PoiLayer {
   }
 
   async fetchData(dormitoryAreaId: string) {
-    const [, res] = await to(getDormitoryAreaBuilding(dormitoryAreaId));
+    // 从本地JSON文件获取数据，根据lx属性筛选宿舍楼，根据id_1属性筛选属于当前分区的点位
+    const filteredFeatures = layerDianweiData.features.filter((item: any) =>
+      item.properties.lx === "宿舍楼" && item.properties.id_1 === dormitoryAreaId,
+    );
+
+    // 模拟API响应结构
+    const res = { resultData: { features: filteredFeatures } };
+
     this.setData(
-      (res?.resultData?.features || []).map((item) => {
+      (res?.resultData?.features || []).map((item: any) => {
         const { properties, geometry } = item;
-        const { id, mc } = properties;
+        const { id, name } = properties;
         const { coordinates } = geometry;
         return {
-          id,
-          name: mc,
+          id: String(id),
+          name,
           location: [...coordinates, 0] as [number, number, number],
-          style: this.specialBuildingIds.includes(id) ? "dormitoryActive" : "dormitory",
+          style: this.specialBuildingIds.includes(String(id)) ? "dormitoryActive" : "dormitory",
           data: properties,
         };
       }),
