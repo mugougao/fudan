@@ -66,7 +66,7 @@ export default abstract class RangeLayer<T = any> extends BaseLayer<IPathDataIte
       {
         calculateCoordZ: {
           coordZRef: calculateCoordZ?.coordZRef ?? "surface",
-          coordZOffset: calculateCoordZ?.coordZOffset ?? 0,
+          coordZOffset: calculateCoordZ?.coordZOffset ?? 100,
         },
       },
     ).then(() => {

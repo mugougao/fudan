@@ -6,8 +6,8 @@ const pathStyle = {
     passColor: "FF1F1FCC",
   },
   bus: {
-    type: "arrow",
-    width: 50,
+    type: "flash",
+    width: 150,
     color: "c0392b",
     passColor: "ff0000",
   },

@@ -65,7 +65,19 @@ const renderConfig = reactive({
 
 // 自动加载已保存的场景配置
 async function loadSavedScene() {
+  // 检查场景是否已经实例化，避免重复启动
+  if (wdpMap.app && wdpMap.status === "ready") {
+    console.log("✅ [校园风采] 场景已实例化，跳过启动逻辑");
+    sceneLoaded.value = true;
+    // 设置场景创建监听器（用于后续交互）
+    setupSceneCreatedListener();
+    // 直接触发 onCreated 回调（场景已准备好）
+    wdpMap.emit("created", { app: wdpMap.app });
+    return;
+  }
+
   if (renderConfig.sceneUrl && renderConfig.sceneOrder) {
+    console.log("🚀 [校园风采] 开始加载三维场景...");
     // 设置场景创建监听器
     setupSceneCreatedListener();
     // 开始加载三维场景
@@ -85,12 +97,13 @@ async function loadSavedScene() {
     }
     catch (error) {
       loading?.close();
-      console.error("三维场景加载失败:", error);
+      console.error("❌ [校园风采] 三维场景加载失败:", error);
       // 如果加载失败，显示配置弹窗让用户重新配置
       showRenderConfigPopup.value = true;
     }
   }
   else {
+    console.log("⚠️ [校园风采] 未找到场景配置，显示配置弹窗");
     // 如果没有保存的配置，显示配置弹窗
     showRenderConfigPopup.value = true;
   }
